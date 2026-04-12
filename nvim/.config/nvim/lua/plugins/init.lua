@@ -47,7 +47,15 @@ return {
       { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer" },
     },
     config = function()
-      require("neo-tree").setup({})
+      require("neo-tree").setup({
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
+        },
+      })
       if vim.fn.argc() == 0 then
         vim.cmd("Neotree show")
       end
