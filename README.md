@@ -6,6 +6,8 @@ Personal configuration managed with [stow](https://www.gnu.org/software/stow/).
 
 ```
 dotfiles/
+├── bashrc/
+│   └── .bashrc
 ├── ghostty/
 │   └── .config/
 │       └── ghostty/
@@ -90,11 +92,26 @@ Mason auto-installs:
 - Neo-tree opens automatically on startup
 - Hidden files visible in file explorer
 
+## Prerequisites
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo dnf install stow` |
+| [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo dnf install neovim` |
+| [ghostty](https://ghostty.org/) | Terminal emulator | [ghostty.org](https://ghostty.org/) |
+| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo dnf install fzf` |
+| [bat](https://github.com/sharkdp/bat) | fzf file preview | `sudo dnf install bat` |
+| [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo dnf install tree` |
+| [mise](https://mise.jdx.dev/) | Runtime version manager | [mise.jdx.dev](https://mise.jdx.dev/) |
+| [starship](https://starship.rs/) | Shell prompt | `curl -sS https://starship.rs/install.sh \| sh` |
+| [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | [nerdfonts.com](https://www.nerdfonts.com/) |
+
 ## Installation
 
 ```bash
 git clone https://github.com/<you>/dotfiles ~/dotfiles
 cd ~/dotfiles
+stow --target=$HOME bashrc
 stow ghostty
 stow nvim
 stow starship
