@@ -24,6 +24,7 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 8
+opt.fillchars = { eob = " " }
 
 -- Clipboard
 opt.clipboard = "unnamedplus"
