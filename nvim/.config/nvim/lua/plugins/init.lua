@@ -316,6 +316,63 @@ return {
     end,
   },
 
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "jay-babu/mason-nvim-dap.nvim",
+    },
+    keys = {
+      { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle breakpoint" },
+      { "<leader>dc", "<cmd>DapContinue<cr>",         desc = "Continue" },
+      { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step into" },
+      { "<leader>do", "<cmd>DapStepOver<cr>",         desc = "Step over" },
+      { "<leader>dO", "<cmd>DapStepOut<cr>",          desc = "Step out" },
+      { "<leader>dt", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+      { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+
+      require("mason-nvim-dap").setup({
+        ensure_installed = { "codelldb" },
+        automatic_installation = true,
+      })
+
+      dapui.setup()
+
+      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+      dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
+
+      local codelldb_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb"
+
+      dap.adapters.codelldb = {
+        type    = "server",
+        port    = "${port}",
+        executable = { command = codelldb_path, args = { "--port", "${port}" } },
+      }
+
+      dap.configurations.rust = {
+        {
+          name    = "Launch",
+          type    = "codelldb",
+          request = "launch",
+          program = function()
+            local cwd = vim.fn.getcwd()
+            -- walk up to find Cargo.toml if we're in a subdirectory
+            local root = vim.fs.root(0, "Cargo.toml") or cwd
+            return vim.fn.input("Binary: ", root .. "/target/debug/", "file")
+          end,
+          cwd            = function() return vim.fs.root(0, "Cargo.toml") or vim.fn.getcwd() end,
+          stopOnEntry    = false,
+        },
+      }
+    end,
+  },
+
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
   { "numToStr/Comment.nvim",   event = "BufEnter",    config = true },
   { "lewis6991/gitsigns.nvim", config = true },
