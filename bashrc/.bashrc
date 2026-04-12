@@ -50,8 +50,9 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
+export FZF_ALT_C_COMMAND='fd -t d . ~'
+
 export FZF_ALT_C_OPTS="
-  --walker-skip .git,node_modules,target
   --preview 'tree -C {}'"
 
 # ALIAS

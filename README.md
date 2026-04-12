@@ -87,6 +87,12 @@ Mason auto-installs:
 | `<leader>as` | Send selection to Claude |
 | `<leader>aa` | Accept Claude diff |
 | `<leader>ad` | Deny Claude diff |
+| `gd` | Go to definition |
+| `gr` | Go to references |
+| `gD` | Go to declaration |
+| `gi` | Go to implementation |
+| `K` | Hover documentation |
+| `Esc` (terminal mode) | Exit terminal mode |
 
 ## Neovim Features
 
@@ -107,6 +113,7 @@ Mason auto-installs:
 | [ghostty](https://ghostty.org/) | Terminal emulator | [ghostty.org](https://ghostty.org/) |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo dnf install fzf` |
 | [bat](https://github.com/sharkdp/bat) | fzf file preview | `sudo dnf install bat` |
+| [fd](https://github.com/sharkdp/fd) | fzf repo search (Alt+C) | `sudo dnf install fd-find` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo dnf install tree` |
 | [mise](https://mise.jdx.dev/) | Runtime version manager | [mise.jdx.dev](https://mise.jdx.dev/) |
 | [starship](https://starship.rs/) | Shell prompt | `curl -sS https://starship.rs/install.sh \| sh` |
