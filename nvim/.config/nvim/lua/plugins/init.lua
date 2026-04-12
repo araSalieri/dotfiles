@@ -373,6 +373,23 @@ return {
     end,
   },
 
+  {
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    keys = {
+      { "<leader>ac", "<cmd>ClaudeCode<cr>",      desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>",  mode = "v", desc = "Send to Claude" },
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
+    },
+    opts = {
+      split_side             = "right",
+      split_width_percentage = 0.35,
+      auto_close             = true,
+    },
+  },
+
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
   { "numToStr/Comment.nvim",   event = "BufEnter",    config = true },
   { "lewis6991/gitsigns.nvim", config = true },

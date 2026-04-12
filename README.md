@@ -46,6 +46,7 @@ dotfiles/
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Git decorations |
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | Keybinding hints |
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |
+| [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 
 ## LSP / Treesitter
 
@@ -81,6 +82,11 @@ Mason auto-installs:
 | `<leader>dt` | Terminate debugger |
 | `<leader>du` | Toggle DAP UI |
 | `Ctrl+hjkl` | Navigate windows |
+| `<leader>ac` | Toggle Claude terminal |
+| `<leader>af` | Focus Claude |
+| `<leader>as` | Send selection to Claude |
+| `<leader>aa` | Accept Claude diff |
+| `<leader>ad` | Deny Claude diff |
 
 ## Neovim Features
 
@@ -105,6 +111,7 @@ Mason auto-installs:
 | [mise](https://mise.jdx.dev/) | Runtime version manager | [mise.jdx.dev](https://mise.jdx.dev/) |
 | [starship](https://starship.rs/) | Shell prompt | `curl -sS https://starship.rs/install.sh \| sh` |
 | [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | [nerdfonts.com](https://www.nerdfonts.com/) |
+| [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 
 ## Installation
 

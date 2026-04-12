@@ -33,3 +33,9 @@ map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
+
+-- Navigate windows from terminal mode
+map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
+map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Move to right window" })
+map("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Move to bottom window" })
+map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Move to top window" })
