@@ -1,25 +1,34 @@
 # dotfiles
 
-Personal Neovim configuration managed with [stow](https://www.gnu.org/software/stow/).
+Personal configuration managed with [stow](https://www.gnu.org/software/stow/).
 
 ## Structure
 
 ```
 dotfiles/
-└── nvim/
-    └── .config/
-        └── nvim/
-            ├── init.lua
-            └── lua/
-                ├── config/
-                │   ├── autocmds.lua
-                │   ├── keymaps.lua
-                │   └── options.lua
-                └── plugins/
-                    └── init.lua
+├── ghostty/
+│   └── .config/
+│       └── ghostty/
+│           ├── config.ghostty
+│           └── themes/
+│               └── tokyonight-night
+├── nvim/
+│   └── .config/
+│       └── nvim/
+│           ├── init.lua
+│           └── lua/
+│               ├── config/
+│               │   ├── autocmds.lua
+│               │   ├── keymaps.lua
+│               │   └── options.lua
+│               └── plugins/
+│                   └── init.lua
+├── starship/
+│   └── .config/
+│       └── starship.toml
 ```
 
-## Plugins
+## Neovim Plugins
 
 | Plugin | Purpose |
 |--------|---------|
@@ -47,7 +56,7 @@ Mason auto-installs the following language servers:
 
 Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`
 
-## Features
+## Neovim Features
 
 - Format on save (via LSP)
 - Highlight on yank
@@ -58,7 +67,9 @@ Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`
 ## Installation
 
 ```bash
-git clone https://github.com/<you>/dotfiles ~/.dotfiles
-cd ~/.dotfiles
+git clone https://github.com/<you>/dotfiles ~/dotfiles
+cd ~/dotfiles
+stow ghostty
 stow nvim
+stow starship
 ```

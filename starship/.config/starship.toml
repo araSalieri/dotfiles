@@ -1,0 +1,47 @@
+[fill]
+symbol = "·"
+style = "surface2"
+
+[directory]
+style = "fg:surface0 bg:lavender"
+format = "[ $path ]($style)"
+truncation_length = 3
+
+[directory.substitutions]
+# "~" = "  "
+# "applications" = "  "
+# "desktop" = "  "
+# "developer" = "  "
+# "documents" = " 󰈙 "
+# "downloads" = "  "
+# "games" = "  "
+# "gitHub" = "  "
+# "library" = "  "
+# "movies" = "  "
+# "music" = "  "
+# "pictures" = "  "
+# "projects" = "  "
+# "public" = "  "
+# "screenshots" = " 󱣴 "
+# "videos" = "  "
+# "thunderbird" = "   "
+# "source" = " 󰈹 "
+# "comm" = "  "
+
+
+[git_branch]
+style = "bg:surface0"
+
+[git_status]
+style = "bg:surface0"
+
+[hg_branch]
+disabled = false
+style = "bg:surface0"
+
+[cmd_duration]
+disabled = false
+min_time = 0
+show_milliseconds = true
+style = "fg:text bg:surface0"
+format = '[$duration]($style)'

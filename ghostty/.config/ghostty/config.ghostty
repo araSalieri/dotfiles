@@ -1,0 +1,37 @@
+# Appreance
+term = xterm-256color
+theme = tokyonight-night
+
+font-size = 9.0
+font-family = "FiraCode Nerd Font Med"
+font-thicken = true
+
+background-opacity = 1.0
+window-width = 640
+window-height = 400
+window-theme = ghostty
+window-padding-x = 8
+window-padding-y = 8
+window-save-state = always
+
+window-decoration = false
+gtk-titlebar = true
+gtk-titlebar-style = tabs
+
+mouse-hide-while-typing = true
+
+# Directory State
+window-inherit-working-directory = true
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+
+# Keybindings
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right
+
+keybind = ctrl+shift+h=resize_split:left,10
+keybind = ctrl+shift+j=resize_split:down,10
+keybind = ctrl+shift+k=resize_split:up,10
+keybind = ctrl+shift+l=resize_split:right,10
