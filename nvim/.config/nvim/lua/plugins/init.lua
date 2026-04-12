@@ -24,8 +24,8 @@ return {
           hl.EndOfBuffer = { bg = "#000000" }
           hl.Pmenu = { bg = "#0d0d0d" }
           hl.PmenuSel = { bg = "#1a1a1a" }
-          hl.TelescopeNormal = { bg = "#000000" }
-          hl.TelescopeBorder = { bg = "#000000", fg = "#333333" }
+          hl.FzfLuaNormal = { bg = "#000000" }
+          hl.FzfLuaBorder = { bg = "#000000", fg = "#333333" }
           hl.NeoTreeNormal = { bg = "#000000" }
           hl.NeoTreeNormalNC = { bg = "#000000" }
         end,
@@ -37,6 +37,7 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
+    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -45,16 +46,27 @@ return {
     keys = {
       { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer" },
     },
+    config = function()
+      require("neo-tree").setup({})
+      if vim.fn.argc() == 0 then
+        vim.cmd("Neotree show")
+      end
+    end,
   },
 
   {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.6",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-      { "<leader>fg", "<cmd>Telescope live_grep<cr>",  desc = "Live grep" },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Buffers" },
+      { "<leader>ff", "<cmd>FzfLua files<cr>",      desc = "Find files" },
+      { "<leader>fg", "<cmd>FzfLua live_grep<cr>",  desc = "Live grep" },
+      { "<leader>fb", "<cmd>FzfLua buffers<cr>",    desc = "Buffers" },
+    },
+    opts = {
+      winopts = {
+        border  = "single",
+        preview = { border = "single" },
+      },
     },
   },
 
