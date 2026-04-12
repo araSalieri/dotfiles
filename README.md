@@ -42,7 +42,6 @@ dotfiles/
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | Autocompletion |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Statusline |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto bracket pairs |
-| [Comment.nvim](https://github.com/numToStr/Comment.nvim) | Easy commenting |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Git decorations |
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | Keybinding hints |
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |

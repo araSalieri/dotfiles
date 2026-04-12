@@ -398,7 +398,6 @@ return {
   },
 
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
-  { "numToStr/Comment.nvim",   event = "BufEnter",    config = true },
   { "lewis6991/gitsigns.nvim", config = true },
   { "folke/which-key.nvim",    event = "VeryLazy",    config = true },
 }
