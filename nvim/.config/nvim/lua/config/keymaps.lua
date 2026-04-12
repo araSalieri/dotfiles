@@ -34,6 +34,9 @@ map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
+-- Exit terminal mode
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- Navigate windows from terminal mode
 map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
 map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Move to right window" })
