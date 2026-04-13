@@ -67,10 +67,10 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>ff", "<cmd>FzfLua files<cr>",      desc = "Find files" },
-      { "<leader>fg", "<cmd>FzfLua live_grep<cr>",  desc = "Live grep" },
-      { "<leader>fb", "<cmd>FzfLua buffers<cr>",    desc = "Buffers" },
-      { "<leader>ft", "<cmd>FzfLua tabs<cr>",           desc = "Tabs" },
+      { "<leader>ff", "<cmd>FzfLua files<cr>",        desc = "Find files" },
+      { "<leader>fg", "<cmd>FzfLua live_grep<cr>",    desc = "Live grep" },
+      { "<leader>fb", "<cmd>FzfLua buffers<cr>",      desc = "Buffers" },
+      { "<leader>ft", "<cmd>FzfLua tabs<cr>",         desc = "Tabs" },
       { "<leader>gc", "<cmd>FzfLua git_branches<cr>", desc = "Git branches" },
     },
     opts = {
@@ -229,13 +229,26 @@ return {
         function() return '' end,
         color = function()
           local mode_color = {
-            n  = colors.red,    i  = colors.green,  v = colors.blue,
-            [''] = colors.blue, V  = colors.blue,   c = colors.magenta,
-            no = colors.red,   s  = colors.orange,  S = colors.orange,
-            [''] = colors.orange, ic = colors.yellow, R = colors.violet,
-            Rv = colors.violet, cv = colors.red,   ce = colors.red,
-            r  = colors.cyan,  rm = colors.cyan, ['r?'] = colors.cyan,
-            ['!'] = colors.red, t  = colors.red,
+            n = colors.red,
+            i = colors.green,
+            v = colors.blue,
+            [''] = colors.blue,
+            V = colors.blue,
+            c = colors.magenta,
+            no = colors.red,
+            s = colors.orange,
+            S = colors.orange,
+            [''] = colors.orange,
+            ic = colors.yellow,
+            R = colors.violet,
+            Rv = colors.violet,
+            cv = colors.red,
+            ce = colors.red,
+            r = colors.cyan,
+            rm = colors.cyan,
+            ['r?'] = colors.cyan,
+            ['!'] = colors.red,
+            t = colors.red,
           }
           return { fg = mode_color[vim.fn.mode()] }
         end,
@@ -334,12 +347,12 @@ return {
       "jay-babu/mason-nvim-dap.nvim",
     },
     keys = {
-      { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle breakpoint" },
-      { "<leader>dc", "<cmd>DapContinue<cr>",         desc = "Continue" },
-      { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step into" },
-      { "<leader>do", "<cmd>DapStepOver<cr>",         desc = "Step over" },
-      { "<leader>dO", "<cmd>DapStepOut<cr>",          desc = "Step out" },
-      { "<leader>dt", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+      { "<leader>db", "<cmd>DapToggleBreakpoint<cr>",           desc = "Toggle breakpoint" },
+      { "<leader>dc", "<cmd>DapContinue<cr>",                   desc = "Continue" },
+      { "<leader>di", "<cmd>DapStepInto<cr>",                   desc = "Step into" },
+      { "<leader>do", "<cmd>DapStepOver<cr>",                   desc = "Step over" },
+      { "<leader>dO", "<cmd>DapStepOut<cr>",                    desc = "Step out" },
+      { "<leader>dt", "<cmd>DapTerminate<cr>",                  desc = "Terminate" },
       { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
     },
     config = function()
@@ -347,37 +360,49 @@ return {
       local dapui = require("dapui")
 
       require("mason-nvim-dap").setup({
-        ensure_installed = { "codelldb" },
+        ensure_installed = { "codelldb", "delve" },
         automatic_installation = true,
       })
 
-      dapui.setup()
+      dapui.setup({
+        layouts = {
+          {
+            elements = {
+              { id = "scopes",      size = 0.25 },
+              { id = "breakpoints", size = 0.15 },
+              { id = "stacks",      size = 0.15 },
+              { id = "watches",     size = 0.15 },
+              { id = "console",     size = 0.15 },
+              { id = "repl",        size = 0.15 },
+            },
+            size = 40,
+            position = "left",
+          },
+        },
+      })
 
-      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
-      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
-      dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
+      local codelldb_path     = vim.fn.stdpath("data") ..
+          "/mason/packages/codelldb/extension/adapter/codelldb"
 
-      local codelldb_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb"
-
-      dap.adapters.codelldb = {
-        type    = "server",
-        port    = "${port}",
+      dap.adapters.codelldb   = {
+        type       = "server",
+        port       = "${port}",
         executable = { command = codelldb_path, args = { "--port", "${port}" } },
       }
 
       dap.configurations.rust = {
         {
-          name    = "Launch",
-          type    = "codelldb",
-          request = "launch",
-          program = function()
+          name        = "Launch",
+          type        = "codelldb",
+          request     = "launch",
+          program     = function()
             local cwd = vim.fn.getcwd()
             -- walk up to find Cargo.toml if we're in a subdirectory
             local root = vim.fs.root(0, "Cargo.toml") or cwd
             return vim.fn.input("Binary: ", root .. "/target/debug/", "file")
           end,
-          cwd            = function() return vim.fs.root(0, "Cargo.toml") or vim.fn.getcwd() end,
-          stopOnEntry    = false,
+          cwd         = function() return vim.fs.root(0, "Cargo.toml") or vim.fn.getcwd() end,
+          stopOnEntry = false,
         },
       }
     end,
@@ -387,9 +412,9 @@ return {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
     keys = {
-      { "<leader>ac", "<cmd>ClaudeCode<cr>",      desc = "Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr>",  mode = "v", desc = "Send to Claude" },
+      { "<leader>ac", "<cmd>ClaudeCode<cr>",           desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>",      desc = "Focus Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>",       mode = "v",            desc = "Send to Claude" },
       { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
       { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
     },
@@ -400,6 +425,42 @@ return {
     },
   },
 
+  {
+    "leoluz/nvim-dap-go",
+    lazy = false,
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dap-go").setup()
+
+      local dap = require("dap")
+
+      local function load_env(path)
+        local env = {}
+        local f = io.open(path, "r")
+        if not f then return env end
+        for line in f:lines() do
+          local k, v = line:match("^([%w_]+)=(.*)")
+          if k then env[k] = v end
+        end
+        f:close()
+        return env
+      end
+
+      dap.listeners.before.launch["load_env"] = function(_, config)
+        if not config then return end
+        local env_path = vim.fn.getcwd() .. "/.env"
+        config.env = vim.tbl_extend("force", config.env or {}, load_env(env_path))
+      end
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dap-python").setup()
+    end
+  },
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
   { "lewis6991/gitsigns.nvim", config = true },
   { "folke/which-key.nvim",    event = "VeryLazy",    config = true },

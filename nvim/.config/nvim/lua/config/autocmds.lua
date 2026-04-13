@@ -1,6 +1,24 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+-- Load .env from cwd into Neovim's environment so debug processes inherit it
+local function load_dotenv()
+  local path = vim.fn.getcwd() .. "/.env"
+  local f = io.open(path, "r")
+  if not f then return end
+  for line in f:lines() do
+    local key, val = line:match("^([A-Za-z_][A-Za-z0-9_]*)=(.*)$")
+    if key then vim.fn.setenv(key, val) end
+  end
+  f:close()
+end
+
+augroup("LoadDotEnv", { clear = true })
+autocmd({ "VimEnter", "DirChanged" }, {
+  group = "LoadDotEnv",
+  callback = load_dotenv,
+})
+
 -- Highlight on yank
 augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
@@ -35,6 +53,7 @@ autocmd("VimResized", {
     vim.cmd("tabdo wincmd =")
   end,
 })
+
 
 -- Return to last cursor position when opening a file
 augroup("LastCursorPosition", { clear = true })
