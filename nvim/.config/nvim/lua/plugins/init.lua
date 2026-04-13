@@ -461,6 +461,34 @@ return {
       require("dap-python").setup()
     end
   },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "Swatinem/neotest-rust",
+      "nvim-neotest/neotest-go",
+      "nvim-neotest/neotest-python",
+    },
+    keys = {
+      { "<leader>tr", function() require("neotest").run.run() end,                       desc = "Run nearest test" },
+      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,     desc = "Run file tests" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end,                desc = "Toggle test summary" },
+      { "<leader>to", function() require("neotest").output_panel.toggle() end,           desc = "Toggle test output" },
+      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end,   desc = "Debug nearest test" },
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rust")({ args = { "--no-capture" } }),
+          require("neotest-go"),
+          require("neotest-python"),
+        },
+      })
+    end,
+  },
+
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
   { "lewis6991/gitsigns.nvim", config = true },
   { "folke/which-key.nvim",    event = "VeryLazy",    config = true },
