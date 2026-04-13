@@ -49,6 +49,15 @@ return {
     },
     config = function()
       require("neo-tree").setup({
+        window = {
+          width = 30,
+        },
+        default_component_configs = {
+          file_size = { enabled = false },
+          type = { enabled = false },
+          last_modified = { enabled = false },
+          created = { enabled = false },
+        },
         filesystem = {
           filtered_items = {
             visible = true,
