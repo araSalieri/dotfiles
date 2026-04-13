@@ -107,7 +107,7 @@ Mason auto-installs:
 | LSP | `gr` | Go to references |
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
-| LSP | `K` | Hover documentation |
+| LSP | `K` / `gh` | Hover documentation |
 | Terminal | `<leader>tt` | Open terminal split |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |

@@ -103,6 +103,11 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "gopls" },
         automatic_installation = true,
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end,
+        },
       })
 
       vim.diagnostic.config({
@@ -110,6 +115,20 @@ return {
         signs = true,
         underline = true,
         update_in_insert = false,
+      })
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+          local map = function(key, fn, desc)
+            vim.keymap.set("n", key, fn, { buffer = event.buf, desc = desc })
+          end
+          map("gd", vim.lsp.buf.definition,     "Go to definition")
+          map("gD", vim.lsp.buf.declaration,    "Go to declaration")
+          map("gr", vim.lsp.buf.references,     "Go to references")
+          map("gi", vim.lsp.buf.implementation, "Go to implementation")
+          map("K",  vim.lsp.buf.hover,          "Hover documentation")
+          map("gh", vim.lsp.buf.hover,          "Hover documentation")
+        end,
       })
     end,
   },
