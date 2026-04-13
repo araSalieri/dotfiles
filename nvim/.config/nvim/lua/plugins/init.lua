@@ -45,6 +45,7 @@ return {
     },
     keys = {
       { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer" },
+      { "<leader>E", "<cmd>Neotree focus<cr>",  desc = "Focus File Explorer" },
     },
     config = function()
       require("neo-tree").setup({
@@ -69,6 +70,8 @@ return {
       { "<leader>ff", "<cmd>FzfLua files<cr>",      desc = "Find files" },
       { "<leader>fg", "<cmd>FzfLua live_grep<cr>",  desc = "Live grep" },
       { "<leader>fb", "<cmd>FzfLua buffers<cr>",    desc = "Buffers" },
+      { "<leader>ft", "<cmd>FzfLua tabs<cr>",           desc = "Tabs" },
+      { "<leader>gc", "<cmd>FzfLua git_branches<cr>", desc = "Git branches" },
     },
     opts = {
       winopts = {
