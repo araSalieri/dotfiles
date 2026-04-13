@@ -67,31 +67,50 @@ Mason auto-installs:
 
 ## Neovim Keymaps
 
-| Key | Action |
-|-----|--------|
-| `<leader>e` | Toggle file explorer |
-| `<leader>ff` | Find files |
-| `<leader>fg` | Live grep |
-| `<leader>fb` | Buffers |
-| `<leader>db` | Toggle breakpoint |
-| `<leader>dc` | Continue / start debugger |
-| `<leader>di` | Step into |
-| `<leader>do` | Step over |
-| `<leader>dO` | Step out |
-| `<leader>dt` | Terminate debugger |
-| `<leader>du` | Toggle DAP UI |
-| `Ctrl+hjkl` | Navigate windows |
-| `<leader>ac` | Toggle Claude terminal |
-| `<leader>af` | Focus Claude |
-| `<leader>as` | Send selection to Claude |
-| `<leader>aa` | Accept Claude diff |
-| `<leader>ad` | Deny Claude diff |
-| `gd` | Go to definition |
-| `gr` | Go to references |
-| `gD` | Go to declaration |
-| `gi` | Go to implementation |
-| `K` | Hover documentation |
-| `Esc` (terminal mode) | Exit terminal mode |
+| Group | Key | Action |
+|-------|-----|--------|
+| File | `<leader>w` | Save file |
+| File | `<leader>q` | Quit |
+| File | `<leader>Q` | Quit all |
+| Explorer | `<leader>e` | Toggle file explorer |
+| Fuzzy Finder | `<leader>ff` | Find files |
+| Fuzzy Finder | `<leader>fg` | Live grep |
+| Fuzzy Finder | `<leader>fb` | Buffers |
+| Buffer | `Shift+l` | Next buffer |
+| Buffer | `Shift+h` | Prev buffer |
+| Buffer | `<leader>bd` | Delete buffer |
+| Window | `Ctrl+hjkl` | Navigate windows |
+| Window | `<leader>sv` | Split vertical |
+| Window | `<leader>sh` | Split horizontal |
+| Editing | `<` (visual) | Indent left (keep selection) |
+| Editing | `>` (visual) | Indent right (keep selection) |
+| Editing | `J` (visual) | Move line down |
+| Editing | `K` (visual) | Move line up |
+| Testing | `<leader>tr` | Run nearest test |
+| Testing | `<leader>tf` | Run file tests |
+| Testing | `<leader>ts` | Toggle test summary |
+| Testing | `<leader>to` | Toggle test output |
+| Testing | `<leader>td` | Debug nearest test |
+| Debugger | `<leader>db` | Toggle breakpoint |
+| Debugger | `<leader>dc` | Continue / start debugger |
+| Debugger | `<leader>di` | Step into |
+| Debugger | `<leader>do` | Step over |
+| Debugger | `<leader>dO` | Step out |
+| Debugger | `<leader>dt` | Terminate debugger |
+| Debugger | `<leader>du` | Toggle DAP UI |
+| Claude | `<leader>ac` | Toggle Claude terminal |
+| Claude | `<leader>af` | Focus Claude |
+| Claude | `<leader>as` | Send selection to Claude |
+| Claude | `<leader>aa` | Accept Claude diff |
+| Claude | `<leader>ad` | Deny Claude diff |
+| LSP | `gd` | Go to definition |
+| LSP | `gr` | Go to references |
+| LSP | `gD` | Go to declaration |
+| LSP | `gi` | Go to implementation |
+| LSP | `K` | Hover documentation |
+| Terminal | `<leader>tt` | Open terminal split |
+| Terminal | `Esc` (terminal mode) | Exit terminal mode |
+| Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
 
 ## Neovim Features
 
