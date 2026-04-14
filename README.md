@@ -45,6 +45,12 @@ dotfiles/
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Git decorations |
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | Keybinding hints |
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |
+| [nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go DAP adapter |
+| [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
+| [neotest](https://github.com/nvim-neotest/neotest) | Test runner (Rust, Go, Python) |
+| [floaterm](https://github.com/nvzone/floaterm) | Floating terminal |
+| [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
+| [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 
 ## LSP / Treesitter
@@ -103,12 +109,18 @@ Mason auto-installs:
 | Claude | `<leader>as` | Send selection to Claude |
 | Claude | `<leader>aa` | Accept Claude diff |
 | Claude | `<leader>ad` | Deny Claude diff |
+| Surround | `ys{motion}{char}` | Add surround (e.g. `ysiw"`) |
+| Surround | `ds{char}` | Delete surround (e.g. `ds"`) |
+| Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
+| Surround | `S{char}` (visual) | Surround selection |
 | LSP | `gd` | Go to definition |
 | LSP | `gr` | Go to references |
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
-| Terminal | `<leader>tt` | Open terminal split |
+| Git | `<leader>gg` | Open Lazygit |
+| Git | `<leader>gc` | Git branches |
+| Terminal | `<leader>tt` | Toggle terminal |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
 
@@ -136,6 +148,7 @@ Mason auto-installs:
 | [mise](https://mise.jdx.dev/) | Runtime version manager | [mise.jdx.dev](https://mise.jdx.dev/) |
 | [starship](https://starship.rs/) | Shell prompt | `curl -sS https://starship.rs/install.sh \| sh` |
 | [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | [nerdfonts.com](https://www.nerdfonts.com/) |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo dnf install lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 
 ## Installation
