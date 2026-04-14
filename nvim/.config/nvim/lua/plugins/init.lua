@@ -517,6 +517,19 @@ return {
     end,
   },
 
+  {
+    "nvzone/floaterm",
+    dependencies = { "nvzone/volt" },
+    keys = {
+      { "<leader>tt", "<cmd>FloatermToggle<cr>", desc = "Toggle terminal" },
+    },
+    opts = {
+      terminals = {
+        { name = "Terminal", cmd = "exec bash --login" },
+      },
+    },
+  },
+
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
   { "lewis6991/gitsigns.nvim", config = true },
   { "folke/which-key.nvim",    event = "VeryLazy",    config = true },
