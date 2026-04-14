@@ -131,12 +131,12 @@ return {
           local map = function(key, fn, desc)
             vim.keymap.set("n", key, fn, { buffer = event.buf, desc = desc })
           end
-          map("gd", vim.lsp.buf.definition,     "Go to definition")
-          map("gD", vim.lsp.buf.declaration,    "Go to declaration")
-          map("gr", vim.lsp.buf.references,     "Go to references")
+          map("gd", vim.lsp.buf.definition, "Go to definition")
+          map("gD", vim.lsp.buf.declaration, "Go to declaration")
+          map("gr", vim.lsp.buf.references, "Go to references")
           map("gi", vim.lsp.buf.implementation, "Go to implementation")
-          map("K",  vim.lsp.buf.hover,          "Hover documentation")
-          map("gh", vim.lsp.buf.hover,          "Hover documentation")
+          map("K", vim.lsp.buf.hover, "Hover documentation")
+          map("gh", vim.lsp.buf.hover, "Hover documentation")
         end,
       })
     end,
@@ -495,16 +495,16 @@ return {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "Swatinem/neotest-rust",
+      "rouge8/neotest-rust",
       "nvim-neotest/neotest-go",
       "nvim-neotest/neotest-python",
     },
     keys = {
-      { "<leader>tr", function() require("neotest").run.run() end,                       desc = "Run nearest test" },
-      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,     desc = "Run file tests" },
-      { "<leader>ts", function() require("neotest").summary.toggle() end,                desc = "Toggle test summary" },
-      { "<leader>to", function() require("neotest").output_panel.toggle() end,           desc = "Toggle test output" },
-      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end,   desc = "Debug nearest test" },
+      { "<leader>tr", function() require("neotest").run.run() end,                     desc = "Run nearest test" },
+      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   desc = "Run file tests" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
+      { "<leader>to", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
+      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
     },
     config = function()
       require("neotest").setup({
