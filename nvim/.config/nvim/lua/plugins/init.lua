@@ -28,6 +28,8 @@ return {
           hl.FzfLuaBorder = { bg = "#000000", fg = "#333333" }
           hl.NeoTreeNormal = { bg = "#000000" }
           hl.NeoTreeNormalNC = { bg = "#000000" }
+          hl.SnacksLazygitNormal = { bg = "#000000" }
+          hl.SnacksLazygitBorder = { bg = "#000000", fg = "#333333" }
         end,
       })
       vim.cmd("colorscheme tokyonight-night")
@@ -438,6 +440,32 @@ return {
   },
 
   {
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 900,
+    opts = {
+      lazygit = {
+        enabled = true,
+        win = { border = "single" },
+        theme = {
+          activeBorderColor     = { fg = "MatchParen",      bold = true },
+          inactiveBorderColor   = { fg = "FloatBorder" },
+          searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+          optionsTextColor      = { fg = "Function" },
+          selectedLineBgColor   = { bg = "Visual" },
+          defaultFgColor        = { fg = "Normal" },
+          unstagedChangesColor  = { fg = "DiagnosticError" },
+          cherryPickedCommitFgColor = { fg = "Function" },
+          cherryPickedCommitBgColor = { fg = "Identifier" },
+        },
+      },
+    },
+    keys = {
+      { "<leader>gg", function() require("snacks").lazygit() end, desc = "Lazygit" },
+    },
+  },
+
+  {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
     keys = {
@@ -532,6 +560,7 @@ return {
   },
 
   { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
+  { "kylechui/nvim-surround",  event = "VeryLazy",    config = true },
   { "lewis6991/gitsigns.nvim", config = true },
   { "folke/which-key.nvim",    event = "VeryLazy",    config = true },
 }
