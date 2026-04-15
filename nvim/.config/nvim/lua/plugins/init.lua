@@ -391,7 +391,7 @@ return {
       local dapui = require("dapui")
 
       require("mason-nvim-dap").setup({
-        ensure_installed = { "codelldb", "delve" },
+        ensure_installed = { "codelldb", "delve", "debugpy" },
         automatic_installation = true,
       })
 
@@ -515,7 +515,10 @@ return {
     ft = "python",
     dependencies = { "mfussenegger/nvim-dap" },
     config = function()
-      require("dap-python").setup()
+      local mason_debugpy = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(mason_debugpy)
+      local dap = require("dap")
+      dap.adapters.debugpy = dap.adapters.python
     end
   },
   {
