@@ -512,7 +512,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap-python",
-    ft = "python",
+    lazy = false,
     dependencies = { "mfussenegger/nvim-dap" },
     config = function()
       local mason_debugpy = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
