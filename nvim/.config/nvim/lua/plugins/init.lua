@@ -516,6 +516,25 @@ return {
         git_files = "<leader>cgf",
         directory_files = "<leader>cd",
       },
+      directory_search = {
+        directories = {
+          configs = {
+            path = vim.fn.expand("~/.config"),
+            extensions = { "lua", "vim", "json", "yaml" },
+            description = "Config Files"
+          },
+          projects = {
+            path = vim.fn.expand("~/projects"),
+            extensions = { "md", "txt", "rst" },
+            description = "Projects "
+          },
+          obsidians = {
+            path = vim.fn.expand("~/documents/obsidian"),
+            extensions = { "md" },
+            description = "Obsidian"
+          }
+        }
+      },
     },
     cmd = { "ClaudeFzf", "ClaudeFzfFiles", "ClaudeFzfGrep", "ClaudeFzfBuffers", "ClaudeFzfGitFiles", "ClaudeFzfDirectory" },
     keys = {
