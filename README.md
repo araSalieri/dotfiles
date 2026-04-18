@@ -51,6 +51,8 @@ dotfiles/
 | [floaterm](https://github.com/nvzone/floaterm) | Floating terminal |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
+| [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Rendered markdown in buffer |
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 
 ## LSP / Treesitter
@@ -70,6 +72,8 @@ Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`
 Mason auto-installs:
 
 - `codelldb` — Rust debugger
+- `delve` — Go debugger
+- `debugpy` — Python debugger
 
 ## Neovim Keymaps
 
@@ -79,9 +83,11 @@ Mason auto-installs:
 | File | `<leader>q` | Quit |
 | File | `<leader>Q` | Quit all |
 | Explorer | `<leader>e` | Toggle file explorer |
+| Explorer | `<leader>E` | Focus file explorer |
 | Fuzzy Finder | `<leader>ff` | Find files |
 | Fuzzy Finder | `<leader>fg` | Live grep |
 | Fuzzy Finder | `<leader>fb` | Buffers |
+| Fuzzy Finder | `<leader>ft` | Tabs |
 | Buffer | `Shift+l` | Next buffer |
 | Buffer | `Shift+h` | Prev buffer |
 | Buffer | `<leader>bd` | Delete buffer |
@@ -113,6 +119,7 @@ Mason auto-installs:
 | Surround | `ds{char}` | Delete surround (e.g. `ds"`) |
 | Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
 | Surround | `S{char}` (visual) | Surround selection |
+| LSP | `<leader>rn` | Rename symbol |
 | LSP | `gd` | Go to definition |
 | LSP | `gr` | Go to references |
 | LSP | `gD` | Go to declaration |
