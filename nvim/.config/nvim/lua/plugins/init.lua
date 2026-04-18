@@ -140,6 +140,7 @@ return {
           map("gi", vim.lsp.buf.implementation, "Go to implementation")
           map("K", vim.lsp.buf.hover, "Hover documentation")
           map("gh", vim.lsp.buf.hover, "Hover documentation")
+          map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
         end,
       })
     end,
@@ -440,6 +441,20 @@ return {
   },
 
   {
+    "ravsii/nvim-dap-envfile",
+    version = "*",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("nvim-dap-envfile").setup({})
+      local orig_notify = vim.notify
+      vim.notify = function(msg, level, opts)
+        if type(msg) == "string" and msg:find("Unexpected format", 1, true) then return end
+        orig_notify(msg, level, opts)
+      end
+    end,
+  },
+
+  {
     "folke/snacks.nvim",
     lazy = false,
     priority = 900,
@@ -488,26 +503,6 @@ return {
     dependencies = { "mfussenegger/nvim-dap" },
     config = function()
       require("dap-go").setup()
-
-      local dap = require("dap")
-
-      local function load_env(path)
-        local env = {}
-        local f = io.open(path, "r")
-        if not f then return env end
-        for line in f:lines() do
-          local k, v = line:match("^([%w_]+)=(.*)")
-          if k then env[k] = v end
-        end
-        f:close()
-        return env
-      end
-
-      dap.listeners.before.launch["load_env"] = function(_, config)
-        if not config then return end
-        local env_path = vim.fn.getcwd() .. "/.env"
-        config.env = vim.tbl_extend("force", config.env or {}, load_env(env_path))
-      end
     end,
   },
   {

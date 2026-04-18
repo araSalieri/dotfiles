@@ -62,8 +62,6 @@ alias vi="nvim"
 # EXPORT
 export PATH=~/.npm-global/bin:$PATH
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # EVAL
 eval "$(fzf --bash)"
 eval "$(mise activate bash)"
