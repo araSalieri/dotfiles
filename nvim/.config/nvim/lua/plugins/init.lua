@@ -111,7 +111,9 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ensure_installed = { "goimports" },
+      })
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "gopls" },
         automatic_installation = true,
@@ -463,15 +465,15 @@ return {
         enabled = true,
         win = { border = "single" },
         theme = {
-          activeBorderColor     = { fg = "MatchParen",      bold = true },
-          inactiveBorderColor   = { fg = "FloatBorder" },
+          activeBorderColor          = { fg = "MatchParen", bold = true },
+          inactiveBorderColor        = { fg = "FloatBorder" },
           searchingActiveBorderColor = { fg = "MatchParen", bold = true },
-          optionsTextColor      = { fg = "Function" },
-          selectedLineBgColor   = { bg = "Visual" },
-          defaultFgColor        = { fg = "Normal" },
-          unstagedChangesColor  = { fg = "DiagnosticError" },
-          cherryPickedCommitFgColor = { fg = "Function" },
-          cherryPickedCommitBgColor = { fg = "Identifier" },
+          optionsTextColor           = { fg = "Function" },
+          selectedLineBgColor        = { bg = "Visual" },
+          defaultFgColor             = { fg = "Normal" },
+          unstagedChangesColor       = { fg = "DiagnosticError" },
+          cherryPickedCommitFgColor  = { fg = "Function" },
+          cherryPickedCommitBgColor  = { fg = "Identifier" },
         },
       },
     },
@@ -554,6 +556,15 @@ return {
       terminals = {
         { name = "Terminal", cmd = "exec bash --login" },
       },
+    },
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    ft = { "markdown", "Avante" },
+    opts = {
+      file_types = { "markdown", "Avante" },
     },
   },
 
