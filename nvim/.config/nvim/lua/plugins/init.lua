@@ -608,7 +608,7 @@ return {
     "nvzone/floaterm",
     dependencies = { "nvzone/volt" },
     keys = {
-      { "<leader>tt", "<cmd>FloatermToggle<cr>", desc = "Toggle terminal" },
+      { "<leader>tt", function() pcall(vim.cmd, "FloatermToggle") end, desc = "Toggle terminal" },
     },
     opts = {
       terminals = {
