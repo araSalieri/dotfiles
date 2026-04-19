@@ -509,6 +509,18 @@ return {
       "coder/claudecode.nvim"
     },
     opts = {
+      logging = {
+        level = "WARN",
+        console_logging = true,
+        file_logging = false,
+      },
+      notifications = {
+        enabled = true,
+        show_progress = false,
+        show_success = false,
+        show_errors = true,
+        use_snacks = true,
+      },
       auto_context = true,
       batch_size = 10,
       keymaps = {
