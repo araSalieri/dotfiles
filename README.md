@@ -54,6 +54,8 @@ dotfiles/
 | [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
 | [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Rendered markdown in buffer |
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
+| [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
+| [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
 
 ## LSP / Treesitter
 
@@ -112,9 +114,16 @@ Mason auto-installs:
 | Debugger | `<leader>du` | Toggle DAP UI |
 | Claude | `<leader>ac` | Toggle Claude terminal |
 | Claude | `<leader>af` | Focus Claude |
+| Claude | `<leader>ar` | Resume Claude session |
+| Claude | `<leader>aC` | Continue Claude session |
+| Claude | `<leader>am` | Select Claude model |
+| Claude | `<leader>ab` | Add current buffer to Claude |
 | Claude | `<leader>as` | Send selection to Claude |
-| Claude | `<leader>aa` | Accept Claude diff |
-| Claude | `<leader>ad` | Deny Claude diff |
+| Claude (fzf) | `<leader>cf` | Add files to Claude via fzf |
+| Claude (fzf) | `<leader>cg` | Search and add files to Claude |
+| Claude (fzf) | `<leader>cb` | Add buffers to Claude via fzf |
+| Claude (fzf) | `<leader>cd` | Add directory files to Claude |
+| Claude (fzf) | `<leader>ch` | Add Claude history via fzf |
 | Surround | `ys{motion}{char}` | Add surround (e.g. `ysiw"`) |
 | Surround | `ds{char}` | Delete surround (e.g. `ds"`) |
 | Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
@@ -127,6 +136,8 @@ Mason auto-installs:
 | LSP | `K` / `gh` | Hover documentation |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
+| Refresh | `<leader>rr` | Refresh file explorer |
+| Refresh | `<leader>rb` | Refresh current buffer |
 | Terminal | `<leader>tt` | Toggle terminal |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
