@@ -53,7 +53,7 @@ return {
       require("neo-tree").setup({
         window = {
           position = "left",
-          width = 30,
+          width = 0.095,
         },
         default_component_configs = {
           file_size = { enabled = false },

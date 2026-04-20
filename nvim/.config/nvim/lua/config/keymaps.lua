@@ -5,7 +5,9 @@ vim.g.maplocalleader = " "
 
 -- Save & quit
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
+-- map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
+map("n", "<leader>q", "<cmd>bp|bd #<CR>", { desc = "Close Buffer; Retain Split" })
+
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all" })
 
 -- Window navigation
@@ -32,7 +34,8 @@ map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move line down" })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 
 -- Refresh neo-tree and current buffer
-map("n", "<leader>rr", function() require("neo-tree.sources.manager").refresh("filesystem") end, { desc = "Refresh file explorer" })
+map("n", "<leader>rr", function() require("neo-tree.sources.manager").refresh("filesystem") end,
+  { desc = "Refresh file explorer" })
 map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 
 -- Clear search highlight
