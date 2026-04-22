@@ -144,6 +144,7 @@ return {
           map("K", vim.lsp.buf.hover, "Hover documentation")
           map("gh", vim.lsp.buf.hover, "Hover documentation")
           map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+          map("<leader>ca", vim.lsp.buf.code_action, "Code actions")
         end,
       })
     end,
