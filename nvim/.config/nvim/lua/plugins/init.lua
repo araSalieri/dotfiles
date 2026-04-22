@@ -611,6 +611,7 @@ return {
       { "<leader>ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
       { "<leader>to", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
       { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
+      { "<leader>tS", function() require("neotest").run.stop() end,                   desc = "Stop test" },
     },
     config = function()
       require("neotest").setup({
