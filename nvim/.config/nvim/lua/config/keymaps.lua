@@ -6,10 +6,7 @@ vim.g.maplocalleader = " "
 -- Save & quit
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
 map("n", "<leader>q", function()
-  local cur = vim.api.nvim_get_current_buf()
-  local listed = vim.fn.getbufinfo({ buflisted = 1 })
-  if #listed > 1 then vim.cmd("bp") else vim.cmd("enew") end
-  vim.api.nvim_buf_delete(cur, { force = false })
+  require("mini.bufremove").delete(0, false)
 end, { desc = "Close Buffer; Retain Split" })
 
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all" })

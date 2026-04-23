@@ -99,7 +99,7 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      ensure_installed = { "lua", "python", "typescript", "javascript", "rust", "go" },
+      ensure_installed = { "lua", "python", "typescript", "javascript", "rust", "go", "sql" },
       highlight = { enable = true },
       indent = { enable = true },
     },
@@ -646,8 +646,23 @@ return {
     },
   },
 
-  { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
-  { "kylechui/nvim-surround",  event = "VeryLazy",    config = true },
-  { "lewis6991/gitsigns.nvim", config = true },
-  { "folke/which-key.nvim",    event = "VeryLazy",    config = true },
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      { "<leader>fm", function() require("conform").format({ async = true }) end, desc = "Format buffer" },
+    },
+    opts = {
+      formatters_by_ft = {
+        sql = { "sql_formatter" },
+      },
+    },
+  },
+
+  { "windwp/nvim-autopairs",          event = "InsertEnter", config = true },
+  { "kylechui/nvim-surround",         event = "VeryLazy",    config = true },
+  { "lewis6991/gitsigns.nvim",        config = true },
+  { "folke/which-key.nvim",           event = "VeryLazy",    config = true },
+  { "echasnovski/mini.bufremove",     config = true },
 }

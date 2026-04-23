@@ -56,6 +56,7 @@ dotfiles/
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (SQL) |
 
 ## LSP / Treesitter
 
@@ -67,7 +68,7 @@ Mason auto-installs the following language servers:
 - `rust_analyzer` — Rust
 - `gopls` — Go
 
-Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`
+Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`, `sql`
 
 ## LSP / Debug servers
 
@@ -128,6 +129,7 @@ Mason auto-installs:
 | Surround | `ds{char}` | Delete surround (e.g. `ds"`) |
 | Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
 | Surround | `S{char}` (visual) | Surround selection |
+| Format | `<leader>fm` | Format buffer |
 | LSP | `<leader>rn` | Rename symbol |
 | LSP | `gd` | Go to definition |
 | LSP | `gr` | Go to references |
@@ -168,6 +170,7 @@ Mason auto-installs:
 | [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | [nerdfonts.com](https://www.nerdfonts.com/) |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo dnf install lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
+| [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) | SQL formatter (for conform.nvim) | `npm install -g sql-formatter` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 
 ## Installation
