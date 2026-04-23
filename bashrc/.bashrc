@@ -63,6 +63,6 @@ alias vi="nvim"
 export PATH=~/.npm-global/bin:$PATH
 
 # EVAL
-eval "$(fzf --bash)"
 eval "$(mise activate bash)"
 eval "$(starship init bash)"
+eval "$(fzf --bash)"
