@@ -91,6 +91,7 @@ return {
       { "<leader>fg", "<cmd>FzfLua live_grep<cr>",    desc = "Live grep" },
       { "<leader>fb", "<cmd>FzfLua buffers<cr>",      desc = "Buffers" },
       { "<leader>ft", "<cmd>FzfLua tabs<cr>",         desc = "Tabs" },
+      { "<leader>fk", "<cmd>FzfLua keymaps<cr>",       desc = "Keymaps" },
       { "<leader>gc", "<cmd>FzfLua git_branches<cr>", desc = "Git branches" },
     },
     opts = {
@@ -504,13 +505,17 @@ return {
       { "<leader>ar", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },
       { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
       { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",       desc = "Add current buffer" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr>",        mode = "v",                  desc = "Send to Claude" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",       desc = "Add current buffer to Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>",        mode = "v",                           desc = "Send to Claude" },
     },
     opts = {
       split_side             = "right",
       split_width_percentage = 0.35,
       auto_close             = true,
+    },
+    diff_opts = {
+      layout = "vertical",
+      keep_terminal_focus = true,
     },
   },
 
@@ -618,7 +623,7 @@ return {
       { "<leader>ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
       { "<leader>to", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
       { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
-      { "<leader>tS", function() require("neotest").run.stop() end,                   desc = "Stop test" },
+      { "<leader>tS", function() require("neotest").run.stop() end,                    desc = "Stop test" },
     },
     config = function()
       require("neotest").setup({
@@ -678,9 +683,9 @@ return {
     },
   },
 
-  { "windwp/nvim-autopairs",          event = "InsertEnter", config = true },
-  { "kylechui/nvim-surround",         event = "VeryLazy",    config = true },
-  { "lewis6991/gitsigns.nvim",        config = true },
-  { "folke/which-key.nvim",           event = "VeryLazy",    config = true },
-  { "echasnovski/mini.bufremove",     config = true },
+  { "windwp/nvim-autopairs",      event = "InsertEnter", config = true },
+  { "kylechui/nvim-surround",     event = "VeryLazy",    config = true },
+  { "lewis6991/gitsigns.nvim",    config = true },
+  { "folke/which-key.nvim",       event = "VeryLazy",    config = true },
+  { "echasnovski/mini.bufremove", config = true },
 }
