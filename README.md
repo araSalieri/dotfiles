@@ -57,6 +57,8 @@ dotfiles/
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (SQL) |
+| [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
+| [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
 
 ## LSP / Treesitter
 
@@ -83,7 +85,7 @@ Mason auto-installs:
 | Group | Key | Action |
 |-------|-----|--------|
 | File | `<leader>w` | Save file |
-| File | `<leader>q` | Quit |
+| File | `<leader>q` | Close buffer / retain split |
 | File | `<leader>Q` | Quit all |
 | Explorer | `<leader>e` | Toggle file explorer |
 | Explorer | `<leader>E` | Focus file explorer |
@@ -91,6 +93,7 @@ Mason auto-installs:
 | Fuzzy Finder | `<leader>fg` | Live grep |
 | Fuzzy Finder | `<leader>fb` | Buffers |
 | Fuzzy Finder | `<leader>ft` | Tabs |
+| Fuzzy Finder | `<leader>fk` | Keymaps |
 | Buffer | `Shift+l` | Next buffer |
 | Buffer | `Shift+h` | Prev buffer |
 | Buffer | `<leader>bd` | Delete buffer |
@@ -106,6 +109,7 @@ Mason auto-installs:
 | Testing | `<leader>ts` | Toggle test summary |
 | Testing | `<leader>to` | Toggle test output |
 | Testing | `<leader>td` | Debug nearest test |
+| Testing | `<leader>tS` | Stop test |
 | Debugger | `<leader>db` | Toggle breakpoint |
 | Debugger | `<leader>dc` | Continue / start debugger |
 | Debugger | `<leader>di` | Step into |
@@ -130,6 +134,7 @@ Mason auto-installs:
 | Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
 | Surround | `S{char}` (visual) | Surround selection |
 | Format | `<leader>fm` | Format buffer |
+| LSP | `<leader>ca` | Code actions |
 | LSP | `<leader>rn` | Rename symbol |
 | LSP | `gd` | Go to definition |
 | LSP | `gr` | Go to references |
@@ -138,6 +143,7 @@ Mason auto-installs:
 | LSP | `K` / `gh` | Hover documentation |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
+| Session | `<leader>ss` | Search sessions |
 | Refresh | `<leader>rr` | Refresh file explorer |
 | Refresh | `<leader>rb` | Refresh current buffer |
 | Terminal | `<leader>tt` | Toggle terminal |
