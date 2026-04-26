@@ -30,11 +30,12 @@ dotfiles/
 │       └── starship.toml
 └── claude/
     └── .claude/
-        └── commands/
-            ├── commit.md      # /commit — conventional commit
-            ├── pr.md          # /pr [base] — push + open GitHub PR
-            ├── review.md      # /review [sha] — diff review
-            └── standup.md     # /standup — daily summary
+        ├── settings.json
+        ├── commands/
+        │   └── commit.md      # /commit — conventional commit
+        └── skills/
+            └── grill-me/
+                └── SKILL.md   # /grill-me — stress-test a plan or design
 ```
 
 ## Neovim Plugins
