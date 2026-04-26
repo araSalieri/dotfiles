@@ -70,9 +70,16 @@ return {
           use_libuv_file_watcher = true,
         },
       })
-      if vim.fn.argc() == 0 then
-        vim.cmd("Neotree show")
-      end
+      vim.api.nvim_create_autocmd("VimEnter", {
+        once = true,
+        callback = function()
+          if vim.fn.argc() == 0 then
+            vim.schedule(function()
+              vim.cmd("Neotree show")
+            end)
+          end
+        end,
+      })
     end,
   },
 
@@ -657,6 +664,17 @@ return {
       formatters_by_ft = {
         sql = { "sql_formatter" },
       },
+    },
+  },
+
+  {
+    "rmagatti/auto-session",
+    lazy = false,
+    opts = {
+      suppressed_dirs = { "~/", "~/Downloads", "/" },
+    },
+    keys = {
+      { "<leader>ss", "<cmd>AutoSession search<cr>", desc = "Search sessions" },
     },
   },
 
