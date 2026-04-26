@@ -55,6 +55,15 @@ autocmd("VimResized", {
 })
 
 
+-- Disable auto-comment on new line
+augroup("NoAutoComment", { clear = true })
+autocmd("BufEnter", {
+  group = "NoAutoComment",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
+  end,
+})
+
 -- Return to last cursor position when opening a file
 augroup("LastCursorPosition", { clear = true })
 autocmd("BufReadPost", {
