@@ -28,6 +28,13 @@ dotfiles/
 ├── starship/
 │   └── .config/
 │       └── starship.toml
+└── claude/
+    └── .claude/
+        └── commands/
+            ├── commit.md      # /commit — conventional commit
+            ├── pr.md          # /pr [base] — push + open GitHub PR
+            ├── review.md      # /review [sha] — diff review
+            └── standup.md     # /standup — daily summary
 ```
 
 ## Neovim Plugins
@@ -188,4 +195,5 @@ stow --target=$HOME bashrc
 stow ghostty
 stow nvim
 stow starship
+stow claude
 ```
