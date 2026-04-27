@@ -64,7 +64,7 @@ dotfiles/
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
-| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (SQL) |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
 
@@ -75,6 +75,7 @@ Mason auto-installs the following language servers:
 - `lua_ls` — Lua
 - `pyright` — Python
 - `ts_ls` — TypeScript / JavaScript
+- `eslint` — JavaScript / TypeScript linting
 - `rust_analyzer` — Rust
 - `gopls` — Go
 
@@ -185,6 +186,8 @@ Mason auto-installs:
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo dnf install lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) | SQL formatter (for conform.nvim) | `npm install -g sql-formatter` |
+| [prettier](https://prettier.io/) | JS/TS/CSS/HTML formatter (for conform.nvim) | `npm install -g prettier` |
+| [eslint_d](https://github.com/mantoni/eslint_d.js) | Fast ESLint daemon (for conform.nvim) | `npm install -g eslint_d` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 
 ## Installation

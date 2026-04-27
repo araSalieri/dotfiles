@@ -121,10 +121,10 @@ return {
     },
     config = function()
       require("mason").setup({
-        ensure_installed = { "goimports" },
+        ensure_installed = { "goimports", "prettier", "eslint_d" },
       })
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "gopls" },
+        ensure_installed = { "lua_ls", "pyright", "ts_ls", "rust_analyzer", "gopls", "eslint" },
         automatic_installation = true,
         handlers = {
           function(server_name)
@@ -667,7 +667,14 @@ return {
     },
     opts = {
       formatters_by_ft = {
-        sql = { "sql_formatter" },
+        sql        = { "sql_formatter" },
+        javascript = { "eslint_d", "prettier" },
+        typescript = { "eslint_d", "prettier" },
+        javascriptreact = { "eslint_d", "prettier" },
+        typescriptreact = { "eslint_d", "prettier" },
+        json       = { "prettier" },
+        css        = { "prettier" },
+        html       = { "prettier" },
       },
     },
   },
