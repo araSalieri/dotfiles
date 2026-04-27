@@ -28,6 +28,7 @@ return {
           hl.FzfLuaBorder = { bg = "#000000", fg = "#333333" }
           hl.NeoTreeNormal = { bg = "#000000" }
           hl.NeoTreeNormalNC = { bg = "#000000" }
+          hl.NeoTreeCursorLine = { bg = "#1a1a2e" }
           hl.SnacksLazygitNormal = { bg = "#000000" }
           hl.SnacksLazygitBorder = { bg = "#000000", fg = "#333333" }
         end,
@@ -67,6 +68,7 @@ return {
             hide_dotfiles = false,
             hide_gitignored = false,
           },
+          follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
         },
       })
