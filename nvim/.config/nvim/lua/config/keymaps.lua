@@ -27,8 +27,10 @@ map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
 map("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split horizontal" })
 
 -- Buffer navigation
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map("n", "<S-h>", "<cmd>bprev<cr>", { desc = "Prev buffer" })
+map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<A-h>", "<cmd>bprev<cr>", { desc = "Prev buffer" })
+map('n', '<leader>bn', ':bnext<CR>', { desc = "Next buffer" })
+map('n', '<leader>bp', ':bprevious<CR>', { desc = "Prev buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
 
 -- Indenting in visual mode (keep selection)
