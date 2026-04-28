@@ -18,19 +18,19 @@ return {
           hl.StatusLineNC = { bg = "#000000" }
           hl.TabLine = { bg = "#000000" }
           hl.TabLineFill = { bg = "#000000" }
-          hl.WinSeparator = { fg = "#333333", bg = "#000000" }
+          hl.WinSeparator = { bg = "#000000", fg = "#1a1a2e" }
           hl.LineNr = { bg = "#000000" }
           hl.CursorLineNr = { bg = "#000000" }
           hl.EndOfBuffer = { bg = "#000000" }
           hl.Pmenu = { bg = "#0d0d0d" }
           hl.PmenuSel = { bg = "#1a1a1a" }
           hl.FzfLuaNormal = { bg = "#000000" }
-          hl.FzfLuaBorder = { bg = "#000000", fg = "#333333" }
+          hl.FzfLuaBorder = { bg = "#000000", fg = "#1a1a2e" }
           hl.NeoTreeNormal = { bg = "#000000" }
           hl.NeoTreeNormalNC = { bg = "#000000" }
           hl.NeoTreeCursorLine = { bg = "#1a1a2e" }
           hl.SnacksLazygitNormal = { bg = "#000000" }
-          hl.SnacksLazygitBorder = { bg = "#000000", fg = "#333333" }
+          hl.SnacksLazygitBorder = { bg = "#000000", fg = "#1a1a2e" }
         end,
       })
       vim.cmd("colorscheme tokyonight-night")
@@ -93,7 +93,7 @@ return {
       { "<leader>fg", "<cmd>FzfLua live_grep<cr>",    desc = "Live grep" },
       { "<leader>fb", "<cmd>FzfLua buffers<cr>",      desc = "Buffers" },
       { "<leader>ft", "<cmd>FzfLua tabs<cr>",         desc = "Tabs" },
-      { "<leader>fk", "<cmd>FzfLua keymaps<cr>",       desc = "Keymaps" },
+      { "<leader>fk", "<cmd>FzfLua keymaps<cr>",      desc = "Keymaps" },
       { "<leader>gc", "<cmd>FzfLua git_branches<cr>", desc = "Git branches" },
     },
     opts = {
@@ -669,14 +669,14 @@ return {
     },
     opts = {
       formatters_by_ft = {
-        sql        = { "sql_formatter" },
-        javascript = { "eslint_d", "prettier" },
-        typescript = { "eslint_d", "prettier" },
+        sql             = { "sql_formatter" },
+        javascript      = { "eslint_d", "prettier" },
+        typescript      = { "eslint_d", "prettier" },
         javascriptreact = { "eslint_d", "prettier" },
         typescriptreact = { "eslint_d", "prettier" },
-        json       = { "prettier" },
-        css        = { "prettier" },
-        html       = { "prettier" },
+        json            = { "prettier" },
+        css             = { "prettier" },
+        html            = { "prettier" },
       },
     },
   },
