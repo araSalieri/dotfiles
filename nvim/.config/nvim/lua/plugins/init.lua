@@ -697,7 +697,7 @@ return {
     event = "VeryLazy",
     keys = {
       { "s",     function() require("flash").jump() end,              mode = { "n", "x", "o" }, desc = "Flash" },
-      { "S",     function() require("flash").treesitter() end,        mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
+      { "S",     function() require("flash").treesitter() end,        mode = { "n", "o" },      desc = "Flash Treesitter" },
       { "r",     function() require("flash").remote() end,            mode = "o",               desc = "Remote Flash" },
       { "R",     function() require("flash").treesitter_search() end, mode = { "o", "x" },      desc = "Treesitter Search" },
       { "<c-s>", function() require("flash").toggle() end,            mode = "c",               desc = "Toggle Flash Search" },
@@ -708,12 +708,7 @@ return {
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup()
-      vim.keymap.del("x", "S")
-      vim.keymap.set("x", "ys", "<Plug>(nvim-surround-visual)", { desc = "Surround visual" })
-      vim.keymap.set("x", "yS", "<Plug>(nvim-surround-visual-line)", { desc = "Surround visual line" })
-    end,
+    config = true,
   },
   { "lewis6991/gitsigns.nvim",    config = true },
   { "folke/which-key.nvim",       event = "VeryLazy",    config = true },

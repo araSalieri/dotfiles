@@ -57,6 +57,7 @@ dotfiles/
 | [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
 | [neotest](https://github.com/nvim-neotest/neotest) | Test runner (Rust, Go, Python) |
 | [floaterm](https://github.com/nvzone/floaterm) | Floating terminal |
+| [flash.nvim](https://github.com/folke/flash.nvim) | Jump navigation with labels |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
 | [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
@@ -138,6 +139,11 @@ Mason auto-installs:
 | Claude (fzf) | `<leader>cb` | Add buffers to Claude via fzf |
 | Claude (fzf) | `<leader>cd` | Add directory files to Claude |
 | Claude (fzf) | `<leader>ch` | Add Claude history via fzf |
+| Flash | `s` | Jump with labels |
+| Flash | `S` (normal/op-pending) | Treesitter jump |
+| Flash | `r` (operator-pending) | Remote flash |
+| Flash | `R` (operator-pending/visual) | Treesitter search |
+| Flash | `<C-s>` (command) | Toggle flash search |
 | Surround | `ys{motion}{char}` | Add surround (e.g. `ysiw"`) |
 | Surround | `ds{char}` | Delete surround (e.g. `ds"`) |
 | Surround | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
