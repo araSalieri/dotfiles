@@ -20,6 +20,10 @@ gtk-titlebar-style = tabs
 
 mouse-hide-while-typing = true
 
+# Shell integration for automatic tab titles
+shell-integration = detect
+shell-integration-features = cursor,sudo
+
 # Directory State
 window-inherit-working-directory = true
 tab-inherit-working-directory = true

@@ -66,3 +66,12 @@ export PATH=~/.npm-global/bin:$PATH
 eval "$(mise activate bash)"
 eval "$(starship init bash)"
 eval "$(fzf --bash)"
+
+# Tab title: "command ~/cwd" while running, "~/cwd" at prompt
+_tab_title_prompt() { printf "\033]2;%s\007" "${PWD/#$HOME/~}"; }
+_tab_title_preexec() {
+    local cmd="${BASH_COMMAND%% *}"
+    printf "\033]2;%s %s\007" "$cmd" "${PWD/#$HOME/~}"
+}
+trap '_tab_title_preexec' DEBUG
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }_tab_title_prompt"
