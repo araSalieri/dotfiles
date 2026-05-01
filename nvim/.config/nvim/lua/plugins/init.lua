@@ -51,6 +51,14 @@ return {
       { "<leader>E", "<cmd>Neotree focus<cr>",  desc = "Focus File Explorer" },
     },
     config = function()
+      local orig_autocmd = vim.api.nvim_create_autocmd
+      vim.api.nvim_create_autocmd = function(evs, opts)
+        local ok, err = pcall(orig_autocmd, evs, opts)
+        if not ok then
+          if type(err) == "string" and err:match("Invalid 'event'") then return end
+          error(err, 2)
+        end
+      end
       require("neo-tree").setup({
         window = {
           position = "left",
@@ -72,6 +80,7 @@ return {
           use_libuv_file_watcher = true,
         },
       })
+      vim.api.nvim_create_autocmd = orig_autocmd
       vim.api.nvim_create_autocmd("VimEnter", {
         once = true,
         callback = function()

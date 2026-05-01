@@ -7,14 +7,6 @@ vim.g.maplocalleader = " "
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all" })
-map("n", "<leader>bd", function()
-  local buf = vim.api.nvim_get_current_buf()
-  if #vim.fn.win_findbuf(buf) > 1 then
-    vim.cmd("close")
-  else
-    require("mini.bufremove").delete(0, false)
-  end
-end, { desc = "Close Buffer; Retain Split" })
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
@@ -27,11 +19,16 @@ map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
 map("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split horizontal" })
 
 -- Buffer navigation
-map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map("n", "<A-h>", "<cmd>bprev<cr>", { desc = "Prev buffer" })
 map('n', '<leader>bn', ':bnext<CR>', { desc = "Next buffer" })
 map('n', '<leader>bp', ':bprevious<CR>', { desc = "Prev buffer" })
-map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
+map("n", "<leader>bd", function()
+  local buf = vim.api.nvim_get_current_buf()
+  if #vim.fn.win_findbuf(buf) > 1 then
+    vim.cmd("close")
+  else
+    require("mini.bufremove").delete(0, false)
+  end
+end, { desc = "Delete Buffer" })
 
 -- Indenting in visual mode (keep selection)
 map("v", "<", "<gv")
