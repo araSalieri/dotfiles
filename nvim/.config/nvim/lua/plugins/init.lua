@@ -80,8 +80,7 @@ return {
           use_libuv_file_watcher = true,
         },
       })
-      vim.api.nvim_create_autocmd = orig_autocmd
-      vim.api.nvim_create_autocmd("VimEnter", {
+      orig_autocmd("VimEnter", {
         once = true,
         callback = function()
           if vim.fn.argc() == 0 then
