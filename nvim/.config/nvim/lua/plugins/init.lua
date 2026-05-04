@@ -566,7 +566,7 @@ return {
           },
           projects = {
             path = vim.fn.expand("~/projects"),
-            extensions = { "md", "txt", "rst" },
+            extensions = { "md", "txt", "rst", "py", "js", "jsx", "ts", "tsx", "go", "rs" },
             description = "Projects "
           },
           obsidians = {
