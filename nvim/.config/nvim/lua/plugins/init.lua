@@ -677,6 +677,7 @@ return {
     },
     opts = {
       formatters_by_ft = {
+        python          = { "ruff_format" },
         sql             = { "sql_formatter" },
         javascript      = { "eslint_d", "prettier" },
         typescript      = { "eslint_d", "prettier" },
