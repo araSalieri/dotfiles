@@ -65,7 +65,7 @@ dotfiles/
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
-| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (SQL, JS/TS via eslint_d + prettier) |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
 
@@ -95,18 +95,20 @@ Mason auto-installs:
 | Group | Key | Action |
 |-------|-----|--------|
 | File | `<leader>w` | Save file |
-| File | `<leader>q` | Close buffer / retain split |
-| File | `<leader>Q` | Quit all |
+| File | `<leader>q` | Quit window |
+| File | `<leader>Q` | Quit all (force) |
 | Explorer | `<leader>e` | Toggle file explorer |
 | Explorer | `<leader>E` | Focus file explorer |
+| Explorer | `<C-x>` (in tree) | Open file in horizontal split |
+| Explorer | `<C-v>` (in tree) | Open file in vertical split |
 | Fuzzy Finder | `<leader>ff` | Find files |
 | Fuzzy Finder | `<leader>fg` | Live grep |
 | Fuzzy Finder | `<leader>fb` | Buffers |
 | Fuzzy Finder | `<leader>ft` | Tabs |
 | Fuzzy Finder | `<leader>fk` | Keymaps |
-| Buffer | `Shift+l` | Next buffer |
-| Buffer | `Shift+h` | Prev buffer |
-| Buffer | `<leader>bd` | Delete buffer |
+| Buffer | `<leader>bn` | Next buffer |
+| Buffer | `<leader>bp` | Prev buffer |
+| Buffer | `<leader>bd` | Delete buffer (retain split) |
 | Window | `Ctrl+hjkl` | Navigate windows |
 | Window | `<leader>sv` | Split vertical |
 | Window | `<leader>sh` | Split horizontal |
@@ -133,7 +135,7 @@ Mason auto-installs:
 | Claude | `<leader>aC` | Continue Claude session |
 | Claude | `<leader>am` | Select Claude model |
 | Claude | `<leader>ab` | Add current buffer to Claude |
-| Claude | `<leader>as` | Send selection to Claude |
+| Claude | `<leader>as` | Send selection to Claude (visual) / Add file from tree (in neo-tree) |
 | Claude (fzf) | `<leader>cf` | Add files to Claude via fzf |
 | Claude (fzf) | `<leader>cg` | Search and add files to Claude |
 | Claude (fzf) | `<leader>cb` | Add buffers to Claude via fzf |
@@ -194,6 +196,7 @@ Mason auto-installs:
 | [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) | SQL formatter (for conform.nvim) | `npm install -g sql-formatter` |
 | [prettier](https://prettier.io/) | JS/TS/CSS/HTML formatter (for conform.nvim) | `npm install -g prettier` |
 | [eslint_d](https://github.com/mantoni/eslint_d.js) | Fast ESLint daemon (for conform.nvim) | `npm install -g eslint_d` |
+| [ruff](https://github.com/astral-sh/ruff) | Python formatter/linter (for conform.nvim) | `pip install ruff` or `uv tool install ruff` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 
 ## Installation

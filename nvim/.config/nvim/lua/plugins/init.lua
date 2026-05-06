@@ -63,6 +63,12 @@ return {
         window = {
           position = "left",
           width = 0.095,
+          mappings = {
+            ["s"] = "none",
+            ["S"] = "none",
+            ["<C-x>"] = "open_split",
+            ["<C-v>"] = "open_vsplit",
+          },
         },
         default_component_configs = {
           file_size = { enabled = false },
