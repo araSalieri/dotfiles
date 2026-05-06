@@ -24,7 +24,24 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 8
-opt.fillchars = { eob = " " }
+opt.laststatus = 3
+opt.fillchars = {
+  eob = " ",
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vert = "│",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz =
+  "┼"
+}
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#1a1a2e", bg = "NONE" })
+  end,
+})
 
 -- Clipboard
 opt.clipboard = "unnamedplus"
