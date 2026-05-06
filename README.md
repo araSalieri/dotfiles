@@ -32,7 +32,7 @@ dotfiles/
     └── .claude/
         ├── settings.json
         ├── commands/
-        │   └── commit.md      # /commit — conventional commit
+        │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
         └── skills/
             └── grill-me/
                 └── SKILL.md   # /grill-me — stress-test a plan or design
@@ -55,7 +55,7 @@ dotfiles/
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |
 | [nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go DAP adapter |
 | [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
-| [neotest](https://github.com/nvim-neotest/neotest) | Test runner (Rust, Go, Python) |
+| [neotest](https://github.com/nvim-neotest/neotest) + [neotest-rust](https://github.com/rouge8/neotest-rust), [neotest-golang](https://github.com/fredrikaverpil/neotest-golang), [neotest-python](https://github.com/nvim-neotest/neotest-python) | Test runner (Rust, Go, Python). Output panel opens as 20% vsplit |
 | [floaterm](https://github.com/nvzone/floaterm) | Floating terminal |
 | [flash.nvim](https://github.com/folke/flash.nvim) | Jump navigation with labels |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
@@ -74,7 +74,7 @@ dotfiles/
 Mason auto-installs the following language servers:
 
 - `lua_ls` — Lua
-- `pyright` — Python
+- `pyright` — Python (auto-detects `.venv`/`venv` and sets `pythonPath`)
 - `ts_ls` — TypeScript / JavaScript
 - `eslint` — JavaScript / TypeScript linting
 - `rust_analyzer` — Rust
@@ -176,6 +176,8 @@ Mason auto-installs:
 - Auto resize splits on window resize
 - Neo-tree opens automatically on startup
 - Hidden files visible in file explorer
+- Pyright auto-detects project venv (`.venv` or `venv`) and sets `pythonPath`
+- Neotest output panel opens as 20% vertical split on the right
 
 ## Prerequisites
 
