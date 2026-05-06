@@ -531,13 +531,15 @@ return {
       },
     },
     opts = {
-      split_side             = "right",
-      split_width_percentage = 0.35,
-      auto_close             = true,
-    },
-    diff_opts = {
-      layout = "vertical",
-      keep_terminal_focus = true,
+      terminal = {
+        split_side             = "right",
+        split_width_percentage = 0.2,
+        auto_close             = true,
+      },
+      diff_opts = {
+        layout = "vertical",
+        keep_terminal_focus = true,
+      },
     },
   },
 
