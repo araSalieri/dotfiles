@@ -653,7 +653,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "rouge8/neotest-rust",
-      "nvim-neotest/neotest-go",
+      "fredrikaverpil/neotest-golang",
       "nvim-neotest/neotest-python",
     },
     keys = {
@@ -668,7 +668,7 @@ return {
       require("neotest").setup({
         adapters = {
           require("neotest-rust")({ args = { "--no-capture" } }),
-          require("neotest-go"),
+          require("neotest-golang")({}),
           require("neotest-python"),
         },
       })
