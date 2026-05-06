@@ -146,6 +146,21 @@ return {
           function(server_name)
             require("lspconfig")[server_name].setup({})
           end,
+          ["pyright"] = function()
+            require("lspconfig").pyright.setup({
+              before_init = function(_, config)
+                local venv = vim.fn.finddir(".venv", config.root_dir .. ";")
+                if venv == "" then
+                  venv = vim.fn.finddir("venv", config.root_dir .. ";")
+                end
+                if venv ~= "" then
+                  config.settings = config.settings or {}
+                  config.settings.python = config.settings.python or {}
+                  config.settings.python.pythonPath = venv .. "/bin/python"
+                end
+              end,
+            })
+          end,
         },
       })
 
