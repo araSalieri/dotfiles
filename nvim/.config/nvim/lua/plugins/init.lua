@@ -671,6 +671,12 @@ return {
           require("neotest-golang")({}),
           require("neotest-python"),
         },
+        output_panel = {
+          open = function()
+            vim.cmd("botright vsplit")
+            vim.cmd("vertical resize " .. math.floor(vim.o.columns * 0.2))
+          end,
+        },
       })
     end,
   },
