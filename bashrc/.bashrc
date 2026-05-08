@@ -75,3 +75,19 @@ _tab_title_preexec() {
 }
 trap '_tab_title_preexec' DEBUG
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }_tab_title_prompt"
+
+# anifetch greeter: once per ghostty window
+if [[ $- == *i* && "$TERM_PROGRAM" == "ghostty" ]]; then
+    _gpid=$(ps -o ppid= -p $$ | tr -d ' ')
+    while [[ -n "$_gpid" && "$_gpid" -ne 1 ]]; do
+        _comm=$(ps -o comm= -p "$_gpid" 2>/dev/null)
+        [[ "$_comm" == "ghostty" ]] && break
+        _gpid=$(ps -o ppid= -p "$_gpid" 2>/dev/null | tr -d ' ')
+    done
+    _flag="/tmp/anifetch-ghostty-${_gpid}"
+    if [[ ! -e "$_flag" ]]; then
+        : > "$_flag"
+        anifetch example.mp4 -W 60 -H 120 -ca "--symbols wide --fg-only"
+    fi
+    unset _gpid _comm _flag
+fi
