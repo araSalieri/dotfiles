@@ -7,8 +7,13 @@ local function load_dotenv()
   local f = io.open(path, "r")
   if not f then return end
   for line in f:lines() do
-    local key, val = line:match("^([A-Za-z_][A-Za-z0-9_]*)=(.*)$")
-    if key then vim.fn.setenv(key, val) end
+    if not (line:match("^%s*$") or line:match("^%s*#")) then
+      local key, val = line:match("^%s*([A-Za-z_][A-Za-z0-9_]*)%s*=%s*(.*)$")
+      if key then
+        val = val:match('^"(.*)"$') or val:match("^'(.*)'$") or val
+        vim.fn.setenv(key, val)
+      end
+    end
   end
   f:close()
 end

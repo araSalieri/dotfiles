@@ -689,10 +689,13 @@ return {
       { "<leader>tt", function() pcall(vim.cmd, "FloatermToggle") end, desc = "Toggle terminal" },
     },
     opts = {
+      border = false,
+      size = { h = 40, w = 70 },
+      mappings = { sidebar = nil, term = nil },
       terminals = {
-        { name = "Terminal", cmd = "exec bash --login" },
-      },
-    },
+        { name = "Terminal" },
+      }
+    }
   },
 
   {
