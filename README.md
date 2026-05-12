@@ -31,6 +31,7 @@ dotfiles/
 └── claude/
     └── .claude/
         ├── settings.json
+        ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
         ├── commands/
         │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
         └── skills/
@@ -178,6 +179,11 @@ Mason auto-installs:
 - Hidden files visible in file explorer
 - Pyright auto-detects project venv (`.venv` or `venv`) and sets `pythonPath`
 - Neotest output panel opens as 20% vertical split on the right
+
+## Claude Code
+
+- Custom status line (`claude/.claude/statusline-command.sh`): cwd, git branch, model, context %, plus 5h/7d `rate_limits.used_percentage` (Pro/Max only, segments skipped when field absent)
+- `/commit` slash command routes through caveman-commit skill for terse Conventional Commits
 
 ## Prerequisites
 
