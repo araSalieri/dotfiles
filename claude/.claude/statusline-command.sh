@@ -7,6 +7,8 @@ input=$(cat)
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 model=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+five_h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+week=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 
 # Shorten home directory to ~
 home="$HOME"
@@ -46,14 +48,14 @@ if [ -n "$used_pct" ]; then
     parts_out+="$(printf '\033[90m · ctx:%s%%\033[0m' "$used_int")"
 fi
 
-# Caveman savings suffix (strip [CAVEMAN] badge, keep ⛏ savings)
-caveman_script="$HOME/.claude/plugins/cache/caveman/caveman/ef6050c5e184/hooks/caveman-statusline.sh"
-if [ -f "$caveman_script" ]; then
-    caveman_out=$(bash "$caveman_script" 2>/dev/null)
-    # Drop [CAVEMAN] or [CAVEMAN:MODE] with surrounding ANSI codes
-    caveman_savings=$(printf '%s' "$caveman_out" \
-        | sed -E $'s/\033\\[[0-9;]*m\\[CAVEMAN(:[A-Z0-9-]+)?\\]\033\\[0m ?//')
-    [ -n "$caveman_savings" ] && parts_out+="$(printf '\033[90m · \033[0m')$caveman_savings"
+# Rate limits (Claude.ai Pro/Max — present after first API response)
+if [ -n "$five_h" ]; then
+    printf -v five_int '%.0f' "$five_h"
+    parts_out+="$(printf '\033[90m · 5h:%s%%\033[0m' "$five_int")"
+fi
+if [ -n "$week" ]; then
+    printf -v week_int '%.0f' "$week"
+    parts_out+="$(printf '\033[90m · 7d:%s%%\033[0m' "$week_int")"
 fi
 
 printf '%s' "$parts_out"
