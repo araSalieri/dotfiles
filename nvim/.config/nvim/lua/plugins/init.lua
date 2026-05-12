@@ -66,7 +66,7 @@ return {
           mappings = {
             ["s"] = "none",
             ["S"] = "none",
-            ["<space>"] = { "none", nowait = false },
+            ["<space>"] = "none",
             ["<C-x>"] = "open_split",
             ["<C-v>"] = "open_vsplit",
           },
