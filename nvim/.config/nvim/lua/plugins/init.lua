@@ -683,19 +683,30 @@ return {
   },
 
   {
-    "nvzone/floaterm",
-    dependencies = { "nvzone/volt" },
+    "akinsho/toggleterm.nvim",
+    version = "*",
     keys = {
-      { "<leader>tt", function() pcall(vim.cmd, "FloatermToggle") end, desc = "Toggle terminal" },
+      { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
     },
     opts = {
-      border = false,
-      size = { h = 40, w = 70 },
-      mappings = { sidebar = nil, term = nil },
-      terminals = {
-        { name = "Terminal" },
-      }
-    }
+      direction = "horizontal",
+      size = 25,
+      on_open = function(t)
+        local bufnr = t.bufnr
+        vim.cmd("close")
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+          local b = vim.api.nvim_win_get_buf(win)
+          if vim.bo[b].filetype ~= "neo-tree" then
+            vim.api.nvim_set_current_win(win)
+            break
+          end
+        end
+        vim.cmd("belowright 25split")
+        vim.api.nvim_win_set_buf(0, bufnr)
+        t.window = vim.api.nvim_get_current_win()
+        vim.cmd("startinsert")
+      end,
+    },
   },
 
   {
