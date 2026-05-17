@@ -6,31 +6,31 @@ return {
     config = function()
       require("tokyonight").setup({
         style = "night",
-        transparent = false,
-        styles = { sidebars = "dark", floats = "dark" },
+        transparent = true,
+        styles = { sidebars = "transparent", floats = "transparent" },
         on_highlights = function(hl, c)
-          hl.Normal = { bg = "#000000", fg = c.fg }
-          hl.NormalNC = { bg = "#000000" }
-          hl.NormalFloat = { bg = "#000000" }
-          hl.SignColumn = { bg = "#000000" }
-          hl.CursorLine = { bg = "#0d0d0d" }
-          hl.StatusLine = { bg = "#000000" }
-          hl.StatusLineNC = { bg = "#000000" }
-          hl.TabLine = { bg = "#000000" }
-          hl.TabLineFill = { bg = "#000000" }
-          hl.WinSeparator = { bg = "#000000", fg = "#1a1a2e" }
-          hl.LineNr = { bg = "#000000" }
-          hl.CursorLineNr = { bg = "#000000" }
-          hl.EndOfBuffer = { bg = "#000000" }
-          hl.Pmenu = { bg = "#0d0d0d" }
+          hl.Normal = { bg = "NONE", fg = c.fg }
+          hl.NormalNC = { bg = "NONE" }
+          hl.NormalFloat = { bg = "NONE" }
+          hl.SignColumn = { bg = "NONE" }
+          hl.CursorLine = { bg = "#1a1b26" }
+          hl.StatusLine = { bg = "NONE" }
+          hl.StatusLineNC = { bg = "NONE" }
+          hl.TabLine = { bg = "NONE" }
+          hl.TabLineFill = { bg = "NONE" }
+          hl.WinSeparator = { bg = "NONE", fg = "#1a1a2e" }
+          hl.LineNr = { bg = "NONE" }
+          hl.CursorLineNr = { bg = "NONE" }
+          hl.EndOfBuffer = { bg = "NONE" }
+          hl.Pmenu = { bg = "NONE" }
           hl.PmenuSel = { bg = "#1a1a1a" }
-          hl.FzfLuaNormal = { bg = "#000000" }
-          hl.FzfLuaBorder = { bg = "#000000", fg = "#1a1a2e" }
-          hl.NeoTreeNormal = { bg = "#000000" }
-          hl.NeoTreeNormalNC = { bg = "#000000" }
+          hl.FzfLuaNormal = { bg = "NONE" }
+          hl.FzfLuaBorder = { bg = "NONE", fg = "#1a1a2e" }
+          hl.NeoTreeNormal = { bg = "NONE" }
+          hl.NeoTreeNormalNC = { bg = "NONE" }
           hl.NeoTreeCursorLine = { bg = "#1a1a2e" }
-          hl.SnacksLazygitNormal = { bg = "#000000" }
-          hl.SnacksLazygitBorder = { bg = "#000000", fg = "#1a1a2e" }
+          hl.SnacksLazygitNormal = { bg = "NONE" }
+          hl.SnacksLazygitBorder = { bg = "NONE", fg = "#1a1a2e" }
         end,
       })
       vim.cmd("colorscheme tokyonight-night")
@@ -233,7 +233,7 @@ return {
 
       -- stylua: ignore
       local colors = {
-        bg       = '#000000',
+        bg       = 'NONE',
         fg       = '#bbc2cf',
         yellow   = '#ECBE7B',
         cyan     = '#008080',
