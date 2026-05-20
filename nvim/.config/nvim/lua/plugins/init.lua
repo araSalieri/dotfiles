@@ -685,19 +685,23 @@ return {
   },
 
   {
-    "nvzone/floaterm",
-    dependencies = { "nvzone/volt" },
+    "akinsho/toggleterm.nvim",
+    version = "*",
     keys = {
-      { "<leader>tt", function() pcall(vim.cmd, "FloatermToggle") end, desc = "Toggle terminal" },
+      { "<leader>tt", "<cmd>ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal" },
     },
     opts = {
-      border = false,
-      size = { h = 40, w = 70 },
-      mappings = { sidebar = nil, term = nil },
-      terminals = {
-        { name = "Terminal" },
-      }
-    }
+      direction = "vertical",
+      float_opts = { border = "curved" },
+      start_in_insert = true,
+      size = function(term)
+        if term.direction == "horizontal" then
+          return 15
+        elseif term.direction == "vertical" then
+          return math.floor(vim.o.columns * 0.2)
+        end
+      end,
+    },
   },
 
   {
