@@ -33,12 +33,17 @@ autocmd("TextYankPost", {
   end,
 })
 
--- Format on save via LSP
+-- Format on save via conform (LSP fallback)
 augroup("FormatOnSave", { clear = true })
 autocmd("BufWritePre", {
   group = "FormatOnSave",
-  callback = function()
-    vim.lsp.buf.format({ async = false })
+  callback = function(args)
+    local ok, conform = pcall(require, "conform")
+    if ok then
+      conform.format({ bufnr = args.buf, async = false, lsp_fallback = true })
+    else
+      vim.lsp.buf.format({ async = false })
+    end
   end,
 })
 

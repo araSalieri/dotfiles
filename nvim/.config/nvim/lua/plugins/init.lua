@@ -135,9 +135,11 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
-      require("mason").setup({
+      require("mason").setup()
+      require("mason-tool-installer").setup({
         ensure_installed = { "goimports", "prettier", "eslint_d" },
       })
       require("mason-lspconfig").setup({
