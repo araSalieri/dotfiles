@@ -189,22 +189,18 @@ Mason auto-installs:
 
 | Tool | Purpose | Install |
 |------|---------|---------|
-| [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo dnf install stow` |
-| [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo dnf install neovim` |
-| [ghostty](https://ghostty.org/) | Terminal emulator | [ghostty.org](https://ghostty.org/) |
-| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo dnf install fzf` |
-| [bat](https://github.com/sharkdp/bat) | fzf file preview | `sudo dnf install bat` |
-| [fd](https://github.com/sharkdp/fd) | fzf repo search (Alt+C) | `sudo dnf install fd-find` |
-| [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo dnf install tree` |
-| [mise](https://mise.jdx.dev/) | Runtime version manager | [mise.jdx.dev](https://mise.jdx.dev/) |
-| [starship](https://starship.rs/) | Shell prompt | `curl -sS https://starship.rs/install.sh \| sh` |
-| [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | [nerdfonts.com](https://www.nerdfonts.com/) |
-| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo dnf install lazygit` |
+| [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo pacman -S stow` |
+| [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo pacman -S neovim` |
+| [ghostty](https://ghostty.org/) | Terminal emulator | `sudo pacman -S ghostty` |
+| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
+| [bat](https://github.com/sharkdp/bat) | fzf file preview | `sudo pacman -S bat` |
+| [fd](https://github.com/sharkdp/fd) | fzf repo search (Alt+C) | `sudo pacman -S fd` |
+| [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
+| [mise](https://mise.jdx.dev/) | Runtime version manager | `sudo pacman -S mise` |
+| [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
+| [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-firacode-nerd` |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
-| [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) | SQL formatter (for conform.nvim) | `npm install -g sql-formatter` |
-| [prettier](https://prettier.io/) | JS/TS/CSS/HTML formatter (for conform.nvim) | `npm install -g prettier` |
-| [eslint_d](https://github.com/mantoni/eslint_d.js) | Fast ESLint daemon (for conform.nvim) | `npm install -g eslint_d` |
-| [ruff](https://github.com/astral-sh/ruff) | Python formatter/linter (for conform.nvim) | `pip install ruff` or `uv tool install ruff` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 
 ## Installation
