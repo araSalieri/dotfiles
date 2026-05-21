@@ -46,9 +46,6 @@ map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
--- Terminal
-map("n", "<leader>tt", "<cmd>split | terminal<cr>", { desc = "Open terminal split" })
-
 -- Exit terminal mode
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 

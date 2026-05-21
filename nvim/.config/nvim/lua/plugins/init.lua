@@ -660,12 +660,12 @@ return {
       "nvim-neotest/neotest-python",
     },
     keys = {
-      { "<leader>tr", function() require("neotest").run.run() end,                     desc = "Run nearest test" },
-      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   desc = "Run file tests" },
-      { "<leader>ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
-      { "<leader>to", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
-      { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
-      { "<leader>tS", function() require("neotest").run.stop() end,                    desc = "Stop test" },
+      { "<leader>Tr", function() require("neotest").run.run() end,                     desc = "Run nearest test" },
+      { "<leader>Tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   desc = "Run file tests" },
+      { "<leader>Ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
+      { "<leader>To", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
+      { "<leader>Td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
+      { "<leader>TS", function() require("neotest").run.stop() end,                    desc = "Stop test" },
     },
     config = function()
       require("neotest").setup({
@@ -688,7 +688,9 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     keys = {
-      { "<leader>tt", "<cmd>ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal" },
+      { "<leader>tt", "<cmd>ToggleTerm<cr>",  mode = { "n", "t" }, desc = "Toggle terminal" },
+      { "<leader>t2", "<cmd>2ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal 2" },
+      { "<leader>t3", "<cmd>3ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal 3" },
     },
     opts = {
       direction = "vertical",
