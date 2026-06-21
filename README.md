@@ -35,8 +35,10 @@ dotfiles/
         ├── commands/
         │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
         └── skills/
-            └── grill-me/
-                └── SKILL.md   # /grill-me — stress-test a plan or design
+            ├── grill-me/
+            │   └── SKILL.md   # /grill-me — stress-test a plan or design
+            ├── find-skills     -> ../../.agents/skills/find-skills      # symlink: discover available skills
+            └── frontend-design -> ../../.agents/skills/frontend-design  # symlink: frontend/UI design guidance
 ```
 
 ## Neovim Plugins
@@ -198,7 +200,7 @@ Mason auto-installs:
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
 | [mise](https://mise.jdx.dev/) | Runtime version manager | `sudo pacman -S mise` |
 | [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
-| [FiraCode Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-firacode-nerd` |
+| [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-jetbrains-mono-nerd` |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |

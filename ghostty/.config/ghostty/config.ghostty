@@ -3,10 +3,11 @@ term = xterm-256color
 theme = tokyonight-night
 
 font-size = 9.0
-font-family = "FiraCode Nerd Font Med"
-font-thicken = true
+font-family = "JetBrainsMono Nerd Font"
+font-style = "Medium"
+font-thicken = false
 
-background-opacity = 0.9
+background-opacity = 0.92
 background-blur = true
 window-width = 640
 window-height = 400
