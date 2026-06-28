@@ -43,6 +43,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
+-- Disable intro / startup message
+opt.shortmess:append("I")
+
 -- Clipboard
 opt.clipboard = "unnamedplus"
 

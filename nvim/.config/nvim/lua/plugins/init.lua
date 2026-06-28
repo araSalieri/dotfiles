@@ -87,16 +87,6 @@ return {
           use_libuv_file_watcher = true,
         },
       })
-      orig_autocmd("VimEnter", {
-        once = true,
-        callback = function()
-          if vim.fn.argc() == 0 then
-            vim.schedule(function()
-              vim.cmd("Neotree show")
-            end)
-          end
-        end,
-      })
     end,
   },
 
