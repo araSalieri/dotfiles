@@ -26,11 +26,13 @@ return {
           hl.PmenuSel = { bg = "#1a1a1a" }
           hl.FzfLuaNormal = { bg = "NONE" }
           hl.FzfLuaBorder = { bg = "NONE", fg = "#1a1a2e" }
+          hl.FloatBorder = { bg = "NONE", fg = "#9d7cd8" }
           hl.NeoTreeNormal = { bg = "NONE" }
           hl.NeoTreeNormalNC = { bg = "NONE" }
+          hl.NeoTreeFloatBorder = { bg = "NONE", fg = "#9d7cd8" }
           hl.NeoTreeCursorLine = { bg = "#1a1a2e" }
           hl.SnacksLazygitNormal = { bg = "NONE" }
-          hl.SnacksLazygitBorder = { bg = "NONE", fg = "#1a1a2e" }
+          hl.SnacksLazygitBorder = { bg = "NONE", fg = "#9d7cd8" }
         end,
       })
       vim.cmd("colorscheme tokyonight-night")
@@ -508,9 +510,9 @@ return {
         enabled = true,
         win = { border = "rounded" },
         theme = {
-          activeBorderColor          = { fg = "MatchParen", bold = true },
+          activeBorderColor          = { fg = "FloatBorder", bold = true },
           inactiveBorderColor        = { fg = "FloatBorder" },
-          searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+          searchingActiveBorderColor = { fg = "FloatBorder", bold = true },
           optionsTextColor           = { fg = "Function" },
           selectedLineBgColor        = { bg = "Visual" },
           defaultFgColor             = { fg = "Normal" },
