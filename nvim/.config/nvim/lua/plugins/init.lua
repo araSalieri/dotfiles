@@ -62,7 +62,7 @@ return {
       require("neo-tree").setup({
         window = {
           position = "left",
-          width = 0.095,
+          width = 0.1,
           mappings = {
             ["s"] = "none",
             ["S"] = "none",
@@ -540,6 +540,10 @@ return {
     },
     opts = {
       terminal = {
+        provider = "external",
+        provider_opts = {
+          external_terminal_cmd = "foot %s",
+        },
         split_side             = "right",
         split_width_percentage = 0.2,
         auto_close             = true,
