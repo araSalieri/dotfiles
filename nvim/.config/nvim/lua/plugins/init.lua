@@ -751,6 +751,8 @@ return {
     keys = {
       { "<leader>gd", "<cmd>Gitsigns diffthis HEAD~1<cr>", desc = "Diff vs prev commit" },
       { "<leader>gD", "<cmd>Gitsigns diffthis<cr>",        desc = "Diff vs index" },
+      { "<leader>gb", "<cmd>Gitsigns blame_line<cr>",      desc = "Blame line" },
+      { "<leader>gB", "<cmd>Gitsigns blame<cr>",           desc = "Blame buffer" },
     },
   },
   { "folke/which-key.nvim",       event = "VeryLazy",    config = true },
