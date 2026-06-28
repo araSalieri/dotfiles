@@ -61,8 +61,13 @@ return {
       end
       require("neo-tree").setup({
         window = {
-          position = "left",
-          width = 0.1,
+          position = "float",
+          popup = {
+            size = { height = "50%", width = "80%" },
+            position = "50%",
+            title = function() return "" end,
+            border = { style = "rounded" },
+          },
           mappings = {
             ["s"] = "none",
             ["S"] = "none",
@@ -501,7 +506,7 @@ return {
     opts = {
       lazygit = {
         enabled = true,
-        win = { border = "single" },
+        win = { border = "rounded" },
         theme = {
           activeBorderColor          = { fg = "MatchParen", bold = true },
           inactiveBorderColor        = { fg = "FloatBorder" },
@@ -540,8 +545,8 @@ return {
     },
     opts = {
       terminal = {
-        provider = "external",
-        provider_opts = {
+        provider               = "external",
+        provider_opts          = {
           external_terminal_cmd = "foot %s",
         },
         split_side             = "right",
