@@ -43,6 +43,13 @@ map("n", "<leader>rr", function() require("neo-tree.sources.manager").refresh("f
   { desc = "Refresh file explorer" })
 map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 
+-- Open external foot terminal at current file's directory
+map("n", "<leader>t", function()
+  local dir = vim.fn.expand("%:p:h")
+  if dir == "" then dir = vim.fn.getcwd() end
+  vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
+end, { desc = "Open foot terminal here" })
+
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
