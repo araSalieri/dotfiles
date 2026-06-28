@@ -675,42 +675,6 @@ return {
   },
 
   {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    keys = {
-      { "<leader>tt", "<cmd>ToggleTerm<cr>",  mode = { "n", "t" }, desc = "Toggle terminal" },
-      { "<leader>t2", "<cmd>2ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal 2" },
-      { "<leader>t3", "<cmd>3ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle terminal 3" },
-    },
-    opts = {
-      direction = "vertical",
-      float_opts = { border = "curved" },
-      start_in_insert = true,
-      size = function(term)
-        if term.direction == "horizontal" then
-          return 15
-        elseif term.direction == "vertical" then
-          return math.floor(vim.o.columns * 0.2)
-        end
-      end,
-    },
-    config = function(_, opts)
-      require("toggleterm").setup(opts)
-      vim.api.nvim_create_autocmd("TermOpen", {
-        pattern = "term://*toggleterm#*",
-        callback = function()
-          local o = { buffer = 0 }
-          vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], o)
-          vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], o)
-          vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], o)
-          vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], o)
-          vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], o)
-        end,
-      })
-    end,
-  },
-
-  {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ft = { "markdown", "Avante" },

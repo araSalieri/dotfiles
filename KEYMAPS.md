@@ -71,6 +71,5 @@
 | Session | `<leader>ss` | Search sessions |
 | Refresh | `<leader>rr` | Refresh file explorer |
 | Refresh | `<leader>rb` | Refresh current buffer |
-| Terminal | `<leader>tt` | Toggle terminal |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |

@@ -91,7 +91,6 @@ stow caelestia
 | [nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go DAP adapter |
 | [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
 | [neotest](https://github.com/nvim-neotest/neotest) + [neotest-rust](https://github.com/rouge8/neotest-rust), [neotest-golang](https://github.com/fredrikaverpil/neotest-golang), [neotest-python](https://github.com/nvim-neotest/neotest-python) | Test runner (Rust, Go, Python). Output panel opens as 20% vsplit |
-| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) | Toggleable terminal (vertical split) |
 | [flash.nvim](https://github.com/folke/flash.nvim) | Jump navigation with labels |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
