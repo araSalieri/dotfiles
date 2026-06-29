@@ -1,0 +1,170 @@
+{
+  "appearance": {
+    "font": {
+      "body": {
+        "family": "GoogleSansFlex",
+        "large": {
+          "italic": false,
+          "size": 12,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 400
+        },
+        "medium": {
+          "italic": false,
+          "size": 10,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 400
+        },
+        "small": {
+          "italic": false,
+          "size": 9,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 400
+        }
+      },
+      "headline": {
+        "family": "GoogleSansFlex",
+        "large": {
+          "italic": false,
+          "size": 22,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "medium": {
+          "italic": false,
+          "size": 19,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "small": {
+          "italic": false,
+          "size": 16,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        }
+      },
+      "icon": {
+        "extraLarge": {
+          "italic": false,
+          "size": 24,
+          "vaxes": {},
+          "weight": 400
+        },
+        "family": "Material Symbols Rounded",
+        "large": {
+          "italic": false,
+          "size": 18,
+          "vaxes": {},
+          "weight": 400
+        },
+        "medium": {
+          "italic": false,
+          "size": 14,
+          "vaxes": {},
+          "weight": 400
+        },
+        "small": {
+          "italic": false,
+          "size": 11,
+          "vaxes": {},
+          "weight": 400
+        }
+      },
+      "label": {
+        "family": "GoogleSansFlex",
+        "large": {
+          "italic": false,
+          "size": 10,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "medium": {
+          "italic": false,
+          "size": 9,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "small": {
+          "italic": false,
+          "size": 8,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 400
+        }
+      },
+      "mono": {
+        "family": "CaskaydiaCove NF",
+        "large": {
+          "italic": false,
+          "size": 12,
+          "vaxes": {},
+          "weight": 400
+        },
+        "medium": {
+          "italic": false,
+          "size": 10,
+          "vaxes": {},
+          "weight": 400
+        },
+        "small": {
+          "italic": false,
+          "size": 9,
+          "vaxes": {},
+          "weight": 400
+        }
+      },
+      "title": {
+        "family": "GoogleSansFlex",
+        "large": {
+          "italic": false,
+          "size": 15,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "medium": {
+          "italic": false,
+          "size": 12,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        },
+        "small": {
+          "italic": false,
+          "size": 10,
+          "vaxes": {
+            "ROND": 25
+          },
+          "weight": 500
+        }
+      }
+    },
+    "transparency": {
+      "base": 0.8,
+      "enabled": true,
+      "layers": 0.4
+    }
+  },
+  "services": {
+    "useFahrenheit": false
+  }
+}
