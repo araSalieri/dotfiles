@@ -5,6 +5,7 @@ if status is-interactive
     set -g fish_greeting ''
 
     # FZF
+    set -x FZF_CTRL_T_COMMAND 'fd -H . ~ -E node_modules -E target -E .git -E .venv -E dist'
     set -x FZF_CTRL_T_OPTS "
   --walker-skip .git,node_modules,target
   --preview 'bat -n --color=always {}'
@@ -15,7 +16,7 @@ if status is-interactive
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-    set -x FZF_ALT_C_COMMAND 'fd -t d . ~'
+    set -x FZF_ALT_C_COMMAND 'fd -H -t d . ~ -E node_modules -E target -E .git -E .venv -E dist'
 
     set -x FZF_ALT_C_OPTS "
   --preview 'tree -C {}'"
