@@ -549,7 +549,7 @@ return {
       terminal = {
         provider               = "external",
         provider_opts          = {
-          external_terminal_cmd = "foot %s",
+          external_terminal_cmd = "foot fish -ic %s",
         },
         split_side             = "right",
         split_width_percentage = 0.2,

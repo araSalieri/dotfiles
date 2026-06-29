@@ -1,6 +1,9 @@
 fish_add_path ~/.local/bin ~/bin ~/.npm-global/bin
 
 if status is-interactive
+    # Suppress fish greeting
+    set -g fish_greeting ''
+
     # FZF
     set -x FZF_CTRL_T_OPTS "
   --walker-skip .git,node_modules,target
