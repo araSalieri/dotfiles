@@ -1,3 +1,5 @@
+local fn = require("hyprland.functions")
+
 hl.window_rule({
   name = "disable-discord-special",
   match = { class = "discord" },
@@ -27,4 +29,14 @@ hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d")
+end)
+
+hl.bind("SUPER + H", hl.dsp.submap("resize"))
+
+hl.define_submap("resize", function()
+  hl.bind("h", hl.dsp.window.resize(fn.resize_active_window(-20, 0)), { repeating = true })
+  hl.bind("l", hl.dsp.window.resize(fn.resize_active_window(20, 0)), { repeating = true })
+  hl.bind("k", hl.dsp.window.resize(fn.resize_active_window(0, -20)), { repeating = true })
+  hl.bind("j", hl.dsp.window.resize(fn.resize_active_window(0, 20)), { repeating = true })
+  hl.bind("escape", hl.dsp.submap("reset"))
 end)
