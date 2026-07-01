@@ -1,11 +1,5 @@
 local fn = require("hyprland.functions")
 
-hl.window_rule({
-  name = "disable-discord-special",
-  match = { class = "discord" },
-  workspace = "unset",
-})
-
 hl.config({
   misc = {
     disable_hyprland_logo = true,

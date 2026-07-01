@@ -450,8 +450,8 @@ return {
               { id = "console",     size = 0.15 },
               { id = "repl",        size = 0.15 },
             },
-            size = 40,
-            position = "right",
+            size = 10,
+            position = "bottom",
           },
         },
       })
