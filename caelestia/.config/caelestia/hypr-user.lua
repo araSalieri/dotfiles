@@ -34,8 +34,3 @@ hl.define_submap("resize", function()
   hl.bind("j", hl.dsp.window.resize(fn.resize_active_window(0, 20)), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
-
-hl.device({
-  name = "hl-virtual-keyboard-fcitx5",
-  kb_layout = "us",
-})
