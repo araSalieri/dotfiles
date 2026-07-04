@@ -40,31 +40,31 @@ if [ -n "$branch" ]; then
 fi
 
 # Model segment
-parts_out+="$(printf '\033[90m · %s\033[0m' "$model")"
+parts_out+="$(printf '\033[90m · ◆ %s\033[0m' "$model")"
 
 # Caveman mode (state file holds level word; absent when off)
 caveman_file="$HOME/.claude/.caveman-active"
 if [ -f "$caveman_file" ]; then
     caveman_level=$(tr -d '[:space:]' < "$caveman_file")
     if [ -n "$caveman_level" ]; then
-        parts_out+="$(printf '\033[90m · \033[0m\033[93m🦴 %s\033[0m' "$caveman_level")"
+        parts_out+="$(printf '\033[90m · \033[0m\033[93m▲ %s\033[0m' "$caveman_level")"
     fi
 fi
 
 # Context usage (only when available)
 if [ -n "$used_pct" ]; then
     printf -v used_int '%.0f' "$used_pct"
-    parts_out+="$(printf '\033[90m · ctx:%s%%\033[0m' "$used_int")"
+    parts_out+="$(printf '\033[90m · ◔ ctx:%s%%\033[0m' "$used_int")"
 fi
 
 # Rate limits (Claude.ai Pro/Max — present after first API response)
 if [ -n "$five_h" ]; then
     printf -v five_int '%.0f' "$five_h"
-    parts_out+="$(printf '\033[90m · 5h:%s%%\033[0m' "$five_int")"
+    parts_out+="$(printf '\033[90m · ⧗ 5h:%s%%\033[0m' "$five_int")"
 fi
 if [ -n "$week" ]; then
     printf -v week_int '%.0f' "$week"
-    parts_out+="$(printf '\033[90m · 7d:%s%%\033[0m' "$week_int")"
+    parts_out+="$(printf '\033[90m · ⧗ 7d:%s%%\033[0m' "$week_int")"
 fi
 
 printf '%s' "$parts_out"
