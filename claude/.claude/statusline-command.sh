@@ -42,6 +42,15 @@ fi
 # Model segment
 parts_out+="$(printf '\033[90m · %s\033[0m' "$model")"
 
+# Caveman mode (state file holds level word; absent when off)
+caveman_file="$HOME/.claude/.caveman-active"
+if [ -f "$caveman_file" ]; then
+    caveman_level=$(tr -d '[:space:]' < "$caveman_file")
+    if [ -n "$caveman_level" ]; then
+        parts_out+="$(printf '\033[90m · \033[0m\033[93m🦴 %s\033[0m' "$caveman_level")"
+    fi
+fi
+
 # Context usage (only when available)
 if [ -n "$used_pct" ]; then
     printf -v used_int '%.0f' "$used_pct"
