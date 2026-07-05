@@ -118,8 +118,10 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master", -- classic API; `main` ignores ensure_installed/highlight/indent
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
+    main = "nvim-treesitter.configs",
     opts = {
       ensure_installed = { "lua", "python", "typescript", "javascript", "rust", "go", "sql" },
       highlight = { enable = true },
@@ -444,8 +446,17 @@ return {
       })
 
       require("nvim-dap-virtual-text").setup({
-        commented = true,
-        virt_text_pos = "eol",
+        virt_text_pos = "eol",      -- value shown at end of line, not after the variable
+        only_first_definition = true, -- annotate the definition, not every use
+        all_references = false,     -- skip usage sites — kills the struct-dump spam
+        display_callback = function(variable, _, _, _, options)
+          local val = variable.value:gsub("%s+", " ")
+          if #val > 40 then val = val:sub(1, 39) .. "…" end
+          if options.virt_text_pos == "inline" then
+            return " = " .. val
+          end
+          return variable.name .. " = " .. val
+        end,
       })
 
       dapui.setup({
