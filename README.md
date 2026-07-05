@@ -74,6 +74,7 @@ dotfiles/
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
+| [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 
 ## Installation
 
@@ -103,7 +104,7 @@ stow caelestia
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |
 | [nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go DAP adapter |
 | [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
-| [neotest](https://github.com/nvim-neotest/neotest) + [neotest-rust](https://github.com/rouge8/neotest-rust), [neotest-golang](https://github.com/fredrikaverpil/neotest-golang), [neotest-python](https://github.com/nvim-neotest/neotest-python) | Test runner (Rust, Go, Python). Output panel opens as 20% vsplit |
+| [neotest](https://github.com/nvim-neotest/neotest) + [neotest-rust](https://github.com/rouge8/neotest-rust), [neotest-golang](https://github.com/fredrikaverpil/neotest-golang), [neotest-python](https://github.com/nvim-neotest/neotest-python) | Test runner (Rust, Go, Python). Rust needs `cargo-nextest`. Output panel opens as 20% horizontal split |
 | [flash.nvim](https://github.com/folke/flash.nvim) | Jump navigation with labels |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |

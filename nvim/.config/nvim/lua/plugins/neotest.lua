@@ -10,12 +10,12 @@ return {
       "nvim-neotest/neotest-python",
     },
     keys = {
-      { "<leader>Tr", function() require("neotest").run.run() end,                     desc = "Run nearest test" },
-      { "<leader>Tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   desc = "Run file tests" },
-      { "<leader>Ts", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
-      { "<leader>To", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
-      { "<leader>Td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
-      { "<leader>TS", function() require("neotest").run.stop() end,                    desc = "Stop test" },
+      { "<leader>xr", function() require("neotest").run.run() require("neotest").output_panel.open() end,                   desc = "Run nearest test" },
+      { "<leader>xf", function() require("neotest").run.run(vim.fn.expand("%")) require("neotest").output_panel.open() end, desc = "Run file tests" },
+      { "<leader>xs", function() require("neotest").summary.toggle() end,              desc = "Toggle test summary" },
+      { "<leader>xo", function() require("neotest").output_panel.toggle() end,         desc = "Toggle test output" },
+      { "<leader>xd", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug nearest test" },
+      { "<leader>xS", function() require("neotest").run.stop() end,                    desc = "Stop test" },
     },
     config = function()
       require("neotest").setup({
@@ -26,8 +26,8 @@ return {
         },
         output_panel = {
           open = function()
-            vim.cmd("botright vsplit")
-            vim.cmd("vertical resize " .. math.floor(vim.o.columns * 0.2))
+            vim.cmd("botright split")
+            vim.cmd("resize " .. math.floor(vim.o.lines * 0.2))
           end,
         },
       })

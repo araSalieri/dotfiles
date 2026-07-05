@@ -4,6 +4,28 @@ return {
     lazy = false,
     opts = {
       suppressed_dirs = { "~/", "~/Downloads", "/" },
+      pre_save_cmds = {
+        function()
+          local strip = {
+            ["neo-tree"] = true,
+            ["neotest-output-panel"] = true,
+            ["neotest-summary"] = true,
+            ["dapui_scopes"] = true,
+            ["dapui_breakpoints"] = true,
+            ["dapui_stacks"] = true,
+            ["dapui_watches"] = true,
+            ["dapui_console"] = true,
+            ["dap-repl"] = true,
+          }
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            local ft = vim.bo[buf].filetype
+            if strip[ft] and #vim.api.nvim_list_wins() > 1 then
+              pcall(vim.api.nvim_win_close, win, true)
+            end
+          end
+        end,
+      },
     },
     keys = {
       { "<leader>ss", "<cmd>AutoSession search<cr>", desc = "Search sessions" },
