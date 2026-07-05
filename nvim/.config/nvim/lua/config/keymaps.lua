@@ -44,7 +44,7 @@ map("n", "<leader>rr", function() require("neo-tree.sources.manager").refresh("f
 map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 
 -- Open external foot terminal at current file's directory
-map("n", "<leader>t", function()
+map("n", "<leader>tt", function()
   local dir = vim.fn.expand("%:p:h")
   if dir == "" then dir = vim.fn.getcwd() end
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })

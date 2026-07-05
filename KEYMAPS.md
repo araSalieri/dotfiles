@@ -24,12 +24,12 @@
 | Editing | `>` (visual) | Indent right (keep selection) |
 | Editing | `J` (visual) | Move line down |
 | Editing | `K` (visual) | Move line up |
-| Testing | `<leader>Tr` | Run nearest test |
-| Testing | `<leader>Tf` | Run file tests |
-| Testing | `<leader>Ts` | Toggle test summary |
-| Testing | `<leader>To` | Toggle test output |
-| Testing | `<leader>Td` | Debug nearest test |
-| Testing | `<leader>TS` | Stop test |
+| Testing | `<leader>tr` | Run nearest test |
+| Testing | `<leader>tf` | Run file tests |
+| Testing | `<leader>ts` | Toggle test summary |
+| Testing | `<leader>to` | Toggle test output |
+| Testing | `<leader>td` | Debug nearest test |
+| Testing | `<leader>tS` | Stop test |
 | Debugger | `<leader>db` | Toggle breakpoint |
 | Debugger | `<leader>dc` | Continue / start debugger |
 | Debugger | `<leader>di` | Step into |
@@ -71,5 +71,6 @@
 | Session | `<leader>ss` | Search sessions |
 | Refresh | `<leader>rr` | Refresh file explorer |
 | Refresh | `<leader>rb` | Refresh current buffer |
+| Terminal | `<leader>tt` | Open foot terminal at file's directory |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
