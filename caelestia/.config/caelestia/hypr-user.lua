@@ -3,11 +3,10 @@ local fn = require("hyprland.functions")
 hl.config({
   misc = {
     disable_hyprland_logo = true,
-    disable_splash_rendering = true,
   },
   dwindle = {
     force_split = 2,
-  }
+  },
 })
 
 hl.monitor({
@@ -23,6 +22,7 @@ hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d")
+  hl.exec_cmd("caelestia shell idleInhibitor toggle")
 end)
 
 hl.bind("SUPER + H", hl.dsp.submap("resize"))
