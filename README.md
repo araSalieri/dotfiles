@@ -25,8 +25,21 @@ dotfiles/
 │               │   ├── autocmds.lua
 │               │   ├── keymaps.lua
 │               │   └── options.lua
-│               └── plugins/
-│                   └── init.lua
+│               └── plugins/       # one file per concern, lazy.nvim auto-imports the dir
+│                   ├── colorscheme.lua
+│                   ├── neo-tree.lua
+│                   ├── fzf.lua
+│                   ├── treesitter.lua
+│                   ├── lsp.lua
+│                   ├── completion.lua
+│                   ├── lualine.lua
+│                   ├── dap.lua
+│                   ├── neotest.lua
+│                   ├── snacks.lua
+│                   ├── claude.lua
+│                   ├── markdown.lua
+│                   ├── formatting.lua
+│                   └── editor.lua
 └── claude/
     └── .claude/
         ├── settings.json
@@ -96,6 +109,7 @@ stow caelestia
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
 | [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
 | [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Rendered markdown in buffer |
+| [markdown-preview.nvim](https://github.com/selimacerbas/markdown-preview.nvim) | Live browser markdown preview |
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
@@ -114,7 +128,7 @@ Mason auto-installs the following language servers:
 - `rust_analyzer` — Rust
 - `gopls` — Go
 
-Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`, `sql`
+Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`, `sql`, `markdown`, `markdown_inline`
 
 ## LSP / Debug servers
 
