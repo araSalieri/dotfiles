@@ -420,15 +420,19 @@ return {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       "jay-babu/mason-nvim-dap.nvim",
+      "theHamsta/nvim-dap-virtual-text",
     },
     keys = {
-      { "<leader>db", "<cmd>DapToggleBreakpoint<cr>",           desc = "Toggle breakpoint" },
-      { "<leader>dc", "<cmd>DapContinue<cr>",                   desc = "Continue" },
-      { "<leader>di", "<cmd>DapStepInto<cr>",                   desc = "Step into" },
-      { "<leader>do", "<cmd>DapStepOver<cr>",                   desc = "Step over" },
-      { "<leader>dO", "<cmd>DapStepOut<cr>",                    desc = "Step out" },
-      { "<leader>dt", "<cmd>DapTerminate<cr>",                  desc = "Terminate" },
-      { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+      { "<leader>db", "<cmd>DapToggleBreakpoint<cr>",                              desc = "Toggle breakpoint" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Condition: ")) end, desc = "Conditional breakpoint" },
+      { "<leader>dc", "<cmd>DapContinue<cr>",                                      desc = "Continue" },
+      { "<leader>di", "<cmd>DapStepInto<cr>",                                      desc = "Step into" },
+      { "<leader>do", "<cmd>DapStepOver<cr>",                                      desc = "Step over" },
+      { "<leader>dO", "<cmd>DapStepOut<cr>",                                       desc = "Step out" },
+      { "<leader>dr", function() require("dap").run_last() end,                    desc = "Run last" },
+      { "<leader>dt", "<cmd>DapTerminate<cr>",                                     desc = "Terminate" },
+      { "<leader>de", function() require("dapui").eval() end,                      desc = "Eval", mode = { "n", "v" } },
+      { "<leader>du", function() require("dapui").toggle() end,                    desc = "Toggle DAP UI" },
     },
     config = function()
       local dap = require("dap")
@@ -439,22 +443,47 @@ return {
         automatic_installation = true,
       })
 
+      require("nvim-dap-virtual-text").setup({
+        commented = true,
+        virt_text_pos = "eol",
+      })
+
       dapui.setup({
+        -- icons/controls use dapui's built-in nerd defaults (render fine)
+        controls = { enabled = true, element = "repl" },
         layouts = {
           {
+            -- left sidebar: variables, watches, stacks, breakpoints (vertical, roomy)
             elements = {
-              { id = "scopes",      size = 0.25 },
+              { id = "scopes",      size = 0.40 },
+              { id = "watches",     size = 0.20 },
+              { id = "stacks",      size = 0.25 },
               { id = "breakpoints", size = 0.15 },
-              { id = "stacks",      size = 0.15 },
-              { id = "watches",     size = 0.15 },
-              { id = "console",     size = 0.15 },
-              { id = "repl",        size = 0.15 },
             },
-            size = 10,
+            size = 44,
+            position = "left",
+          },
+          {
+            -- bottom tray: repl + program output
+            elements = {
+              { id = "repl",    size = 0.55 },
+              { id = "console", size = 0.45 },
+            },
+            size = 12,
             position = "bottom",
           },
         },
+        floating = { border = "rounded", mappings = { close = { "q", "<Esc>" } } },
+        expand_lines = true,
+        render = { indent = 1, max_value_lines = 100 },
       })
+
+      -- breakpoint gutter signs (UTF-8 byte escapes so glyphs survive edits)
+      vim.fn.sign_define("DapBreakpoint",          { text = "\xe2\x97\x8f", texthl = "DiagnosticError", linehl = "", numhl = "" })       -- ●
+      vim.fn.sign_define("DapBreakpointCondition", { text = "\xe2\x97\x86", texthl = "DiagnosticWarn",  linehl = "", numhl = "" })       -- ◆
+      vim.fn.sign_define("DapBreakpointRejected",  { text = "\xe2\x97\x8b", texthl = "DiagnosticHint",  linehl = "", numhl = "" })       -- ○
+      vim.fn.sign_define("DapLogPoint",            { text = "\xe2\x97\x87", texthl = "DiagnosticInfo",  linehl = "", numhl = "" })       -- ◇
+      vim.fn.sign_define("DapStopped",             { text = "\xe2\x96\xb6", texthl = "DiagnosticOk",    linehl = "Visual", numhl = "" }) -- ▶
 
       local codelldb_path                                   = vim.fn.stdpath("data") ..
           "/mason/packages/codelldb/extension/adapter/codelldb"
