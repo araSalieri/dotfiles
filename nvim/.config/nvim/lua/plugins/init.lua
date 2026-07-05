@@ -464,23 +464,22 @@ return {
         controls = { enabled = true, element = "repl" },
         layouts = {
           {
-            -- left sidebar: variables, watches, stacks, breakpoints (vertical, roomy)
+            -- bottom tray: rest in columns, one short row-block
             elements = {
-              { id = "scopes",      size = 0.40 },
-              { id = "watches",     size = 0.20 },
-              { id = "stacks",      size = 0.25 },
-              { id = "breakpoints", size = 0.15 },
+              { id = "watches",     size = 0.21 },
+              { id = "stacks",      size = 0.26 },
+              { id = "breakpoints", size = 0.18 },
+              { id = "repl",        size = 0.35 },
             },
-            size = 44,
-            position = "left",
+            size = 10,
+            position = "bottom",
           },
           {
-            -- bottom tray: repl + program output
+            -- bottom tray: scopes only (own row, on top)
             elements = {
-              { id = "repl",    size = 0.55 },
-              { id = "console", size = 0.45 },
+              { id = "scopes", size = 1.0 },
             },
-            size = 12,
+            size = 10,
             position = "bottom",
           },
         },
