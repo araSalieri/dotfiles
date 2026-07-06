@@ -4,6 +4,9 @@ hl.config({
   misc = {
     disable_hyprland_logo = true,
   },
+  master = {
+    orientation = "right",
+  },
 })
 
 hl.monitor({
