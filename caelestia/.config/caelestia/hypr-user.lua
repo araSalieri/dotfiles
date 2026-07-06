@@ -4,8 +4,10 @@ hl.config({
   misc = {
     disable_hyprland_logo = true,
   },
-  master = {
-    orientation = "right",
+  general = { layout = "dwindle" },
+  dwindle = {
+    force_split = 2,
+    preserve_split = true,
   },
 })
 
