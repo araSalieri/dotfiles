@@ -39,8 +39,11 @@ if [ -n "$branch" ]; then
     parts_out+="$(printf '\033[90m on \033[0m\033[94m %s\033[0m' "$branch")"
 fi
 
-# Model segment
-parts_out+="$(printf '\033[90m · ◆ %s\033[0m' "$model")"
+# Second line: model + mode + usage
+parts_out+=$'\n'
+
+# Model segment (first on line 2, no leading separator)
+parts_out+="$(printf '\033[90m◆ \033[0m\033[0m%s\033[0m' "$model")"
 
 # Caveman mode (state file holds level word; absent when off)
 caveman_file="$HOME/.claude/.caveman-active"
