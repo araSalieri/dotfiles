@@ -4,9 +4,6 @@ hl.config({
   misc = {
     disable_hyprland_logo = true,
   },
-  dwindle = {
-    force_split = 2,
-  },
 })
 
 hl.monitor({
