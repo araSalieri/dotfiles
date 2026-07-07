@@ -10,11 +10,18 @@ return {
       { "<leader>fk", "<cmd>FzfLua keymaps<cr>",      desc = "Keymaps" },
       { "<leader>gc", "<cmd>FzfLua git_branches<cr>", desc = "Git branches" },
     },
-    opts = {
-      winopts = {
-        border  = "single",
-        preview = { border = "single" },
-      },
-    },
+    opts = function()
+      return {
+        winopts = {
+          border  = "single",
+          preview = { border = "single" },
+        },
+        actions = {
+          files = {
+            ["ctrl-x"] = require("fzf-lua").actions.file_split,
+          },
+        },
+      }
+    end,
   },
 }

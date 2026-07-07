@@ -71,3 +71,4 @@ if status is-interactive
 end
 
 mise activate fish | source
+kubectl completion fish | source
