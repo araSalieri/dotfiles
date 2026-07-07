@@ -24,7 +24,6 @@ hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d")
-  hl.exec_cmd("caelestia shell idleInhibitor toggle")
 end)
 
 hl.bind("SUPER + H", hl.dsp.submap("resize"))
