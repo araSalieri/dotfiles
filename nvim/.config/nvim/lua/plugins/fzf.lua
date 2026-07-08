@@ -18,7 +18,10 @@ return {
         },
         actions = {
           files = {
+            ["enter"]  = require("fzf-lua").actions.file_edit_or_qf,
             ["ctrl-x"] = require("fzf-lua").actions.file_split,
+            ["ctrl-v"] = require("fzf-lua").actions.file_vsplit,
+            ["ctrl-t"] = require("fzf-lua").actions.file_tabedit,
           },
         },
       }

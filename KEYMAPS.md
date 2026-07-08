@@ -14,6 +14,10 @@
 | Fuzzy Finder | `<leader>fb` | Buffers |
 | Fuzzy Finder | `<leader>ft` | Tabs |
 | Fuzzy Finder | `<leader>fk` | Keymaps |
+| Fuzzy Finder | `<CR>` (in picker) | Open file (or send to quickfix) |
+| Fuzzy Finder | `<C-x>` (in picker) | Open file in horizontal split |
+| Fuzzy Finder | `<C-v>` (in picker) | Open file in vertical split |
+| Fuzzy Finder | `<C-t>` (in picker) | Open file in new tab |
 | Buffer | `<leader>bn` | Next buffer |
 | Buffer | `<leader>bp` | Prev buffer |
 | Buffer | `<leader>bd` | Delete buffer (retain split) |

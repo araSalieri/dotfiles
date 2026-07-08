@@ -36,6 +36,7 @@ return {
 
       local config = {
         options = {
+          globalstatus = false,
           component_separators = '',
           section_separators = '',
           theme = {
@@ -56,7 +57,15 @@ return {
           lualine_b = {},
           lualine_y = {},
           lualine_z = {},
-          lualine_c = {},
+          lualine_c = {
+            {
+              function() return '▊' end,
+              color = { fg = colors.blue },
+              padding = { left = 0, right = 1 },
+            },
+            { 'filename', cond = conditions.buffer_not_empty, color = { fg = colors.magenta } },
+            { 'location' },
+          },
           lualine_x = {},
         },
       }
