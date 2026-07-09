@@ -53,6 +53,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     config = true,
+    event = { "BufReadPre", "BufNewFile" },
     keys = {
       { "<leader>gd", "<cmd>Gitsigns diffthis HEAD~1<cr>", desc = "Diff vs prev commit" },
       { "<leader>gD", "<cmd>Gitsigns diffthis<cr>",        desc = "Diff vs index" },
