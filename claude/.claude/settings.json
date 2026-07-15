@@ -29,6 +29,6 @@
       }
     }
   },
-  "theme": "dark-ansi",
-  "awaySummaryEnabled": false
+  "awaySummaryEnabled": false,
+  "theme": "dark-ansi"
 }
