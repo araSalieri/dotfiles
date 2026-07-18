@@ -6,7 +6,7 @@ surfaceBright 2a2a2a
 surfaceContainerLowest 000000
 surfaceContainerLow 121212
 surfaceContainer 181818
-surfaceContainerHigh 1e1e1e
+surfaceContainerHigh 030303
 surfaceContainerHighest 242424
 onSurface e3e3e3
 surfaceVariant 242424
