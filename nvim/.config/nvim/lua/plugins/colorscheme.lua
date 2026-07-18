@@ -1,41 +1,83 @@
+-- Palette mirrors caelestia-schemes/pureblack/default/dark.txt (catppuccin mocha
+-- accents on a pure black base). Keep both files in sync when either changes.
 return {
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     lazy = false,
     priority = 1000,
     config = function()
-      require("tokyonight").setup({
-        style = "night",
-        transparent = true,
-        styles = { sidebars = "transparent", floats = "transparent" },
-        on_highlights = function(hl, c)
-          hl.Normal = { bg = "NONE", fg = c.fg }
-          hl.NormalNC = { bg = "NONE" }
-          hl.NormalFloat = { bg = "NONE" }
-          hl.SignColumn = { bg = "NONE" }
-          hl.CursorLine = { bg = "#1a1b26" }
-          hl.StatusLine = { bg = "NONE" }
-          hl.StatusLineNC = { bg = "NONE" }
-          hl.TabLine = { bg = "NONE" }
-          hl.TabLineFill = { bg = "NONE" }
-          hl.WinSeparator = { bg = "NONE", fg = "#1a1a2e" }
-          hl.LineNr = { bg = "NONE" }
-          hl.CursorLineNr = { bg = "NONE" }
-          hl.EndOfBuffer = { bg = "NONE" }
-          hl.Pmenu = { bg = "NONE" }
-          hl.PmenuSel = { bg = "#1a1a1a" }
-          hl.FzfLuaNormal = { bg = "NONE" }
-          hl.FzfLuaBorder = { bg = "NONE", fg = "#1a1a2e" }
-          hl.FloatBorder = { bg = "NONE", fg = "#9d7cd8" }
-          hl.NeoTreeNormal = { bg = "NONE" }
-          hl.NeoTreeNormalNC = { bg = "NONE" }
-          hl.NeoTreeFloatBorder = { bg = "NONE", fg = "#9d7cd8" }
-          hl.NeoTreeCursorLine = { bg = "#1a1a2e" }
-          hl.SnacksLazygitNormal = { bg = "NONE" }
-          hl.SnacksLazygitBorder = { bg = "NONE", fg = "#9d7cd8" }
+      require("catppuccin").setup({
+        flavour = "mocha",
+        transparent_background = true,
+        color_overrides = {
+          mocha = {
+            base = "#000000",
+            mantle = "#000000",
+            crust = "#000000",
+            surface0 = "#1d1d1d",
+            surface1 = "#2c2c2c",
+            surface2 = "#3a3a3a",
+            overlay0 = "#484848",
+            overlay1 = "#565656",
+            overlay2 = "#656565",
+            subtext0 = "#747474",
+            subtext1 = "#a9a9a9",
+            text = "#e3e3e3",
+            rosewater = "#f5e0dc",
+            flamingo = "#f2cdcd",
+            pink = "#f5c2e7",
+            mauve = "#cba6f7",
+            red = "#f38ba8",
+            maroon = "#eba0ac",
+            peach = "#fab387",
+            yellow = "#f9e2af",
+            green = "#a6e3a1",
+            teal = "#94e2d5",
+            sky = "#89dceb",
+            sapphire = "#74c7ec",
+            blue = "#89b4fa",
+            lavender = "#b4befe",
+          },
+        },
+        integrations = {
+          fzf = true,
+          gitsigns = true,
+          neotree = true,
+          snacks = true,
+          treesitter = true,
+          native_lsp = { enabled = true },
+        },
+        custom_highlights = function(c)
+          return {
+            Normal = { bg = "NONE", fg = c.text },
+            NormalNC = { bg = "NONE" },
+            NormalFloat = { bg = "NONE" },
+            SignColumn = { bg = "NONE" },
+            CursorLine = { bg = c.surface0 },
+            StatusLine = { bg = "NONE" },
+            StatusLineNC = { bg = "NONE" },
+            TabLine = { bg = "NONE" },
+            TabLineFill = { bg = "NONE" },
+            WinSeparator = { bg = "NONE", fg = c.surface0 },
+            LineNr = { bg = "NONE" },
+            CursorLineNr = { bg = "NONE" },
+            EndOfBuffer = { bg = "NONE" },
+            Pmenu = { bg = "NONE" },
+            PmenuSel = { bg = c.surface1 },
+            FzfLuaNormal = { bg = "NONE" },
+            FzfLuaBorder = { bg = "NONE", fg = c.surface1 },
+            FloatBorder = { bg = "NONE", fg = c.mauve },
+            NeoTreeNormal = { bg = "NONE" },
+            NeoTreeNormalNC = { bg = "NONE" },
+            NeoTreeFloatBorder = { bg = "NONE", fg = c.mauve },
+            NeoTreeCursorLine = { bg = c.surface0 },
+            SnacksLazygitNormal = { bg = "NONE" },
+            SnacksLazygitBorder = { bg = "NONE", fg = c.mauve },
+          }
         end,
       })
-      vim.cmd("colorscheme tokyonight-night")
+      vim.cmd("colorscheme catppuccin")
     end,
   },
 }

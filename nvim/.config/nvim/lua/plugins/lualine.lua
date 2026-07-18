@@ -6,18 +6,19 @@ return {
       local lualine = require('lualine')
 
       -- stylua: ignore
+      -- matches caelestia-schemes/pureblack/default/dark.txt
       local colors = {
         bg       = 'NONE',
-        fg       = '#bbc2cf',
-        yellow   = '#ECBE7B',
-        cyan     = '#008080',
-        darkblue = '#081633',
-        green    = '#98be65',
-        orange   = '#FF8800',
-        violet   = '#a9a1e1',
-        magenta  = '#c678dd',
-        blue     = '#51afef',
-        red      = '#ec5f67',
+        fg       = '#a9a9a9',
+        yellow   = '#f9e2af',
+        cyan     = '#94e2d5',
+        darkblue = '#74c7ec',
+        green    = '#a6e3a1',
+        orange   = '#fab387',
+        violet   = '#b4befe',
+        magenta  = '#cba6f7',
+        blue     = '#89b4fa',
+        red      = '#f38ba8',
       }
 
       local conditions = {
