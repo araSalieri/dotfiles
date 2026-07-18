@@ -8,6 +8,6 @@ Caelestia only reads schemes from its own package data dir (`caelestia/utils/pat
 Restore after a caelestia reinstall/upgrade:
 
 ```sh
-sudo cp -r pureblack /usr/lib/python3.<ver>/site-packages/caelestia/data/schemes/
-caelestia scheme set pureblack default
+sudo cp -r pureblack /usr/lib/python3.14/site-packages/caelestia/data/schemes/
+caelestia scheme set --name pureblack
 ```
