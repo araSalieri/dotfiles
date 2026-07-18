@@ -49,6 +49,7 @@ return {
           native_lsp = { enabled = true },
         },
         custom_highlights = function(c)
+          local border = "#bfbfbf" -- scheme `primary`; no catppuccin equivalent
           return {
             Normal = { bg = "NONE", fg = c.text },
             NormalNC = { bg = "NONE" },
@@ -67,13 +68,13 @@ return {
             PmenuSel = { bg = c.surface1 },
             FzfLuaNormal = { bg = "NONE" },
             FzfLuaBorder = { bg = "NONE", fg = c.surface1 },
-            FloatBorder = { bg = "NONE", fg = c.mauve },
+            FloatBorder = { bg = "NONE", fg = border },
             NeoTreeNormal = { bg = "NONE" },
             NeoTreeNormalNC = { bg = "NONE" },
-            NeoTreeFloatBorder = { bg = "NONE", fg = c.mauve },
+            NeoTreeFloatBorder = { bg = "NONE", fg = border },
             NeoTreeCursorLine = { bg = c.surface0 },
             SnacksLazygitNormal = { bg = "NONE" },
-            SnacksLazygitBorder = { bg = "NONE", fg = c.mauve },
+            SnacksLazygitBorder = { bg = "NONE", fg = border },
           }
         end,
       })

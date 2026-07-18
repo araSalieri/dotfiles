@@ -4,7 +4,7 @@ gui:
   showRandomTip: false
   theme:
     activeBorderColor:
-      - "#cba6f7"
+      - "#bfbfbf"
       - bold
     inactiveBorderColor:
       - "#747474"
