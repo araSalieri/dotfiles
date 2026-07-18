@@ -9,7 +9,9 @@ return {
         win = { border = "rounded" },
         theme = {
           activeBorderColor          = { fg = "FloatBorder", bold = true },
-          inactiveBorderColor        = { fg = "FloatBorder" },
+          -- Comment, not FloatBorder: keeps unfocused panels dim so the active
+          -- one is distinguishable.
+          inactiveBorderColor        = { fg = "Comment" },
           searchingActiveBorderColor = { fg = "FloatBorder", bold = true },
           optionsTextColor           = { fg = "Function" },
           selectedLineBgColor        = { bg = "Visual" },
