@@ -16,6 +16,10 @@ dotfiles/
 │   └── pureblack/
 │       └── default/
 │           └── dark.txt
+├── lazygit/
+│   └── .config/
+│       └── lazygit/
+│           └── config.yml
 ├── fish/
 │   └── .config/
 │       └── fish/
@@ -89,13 +93,14 @@ stow fish
 stow nvim
 stow claude
 stow caelestia
+stow lazygit
 ```
 
 ## Neovim Plugins
 
 | Plugin | Purpose |
 |--------|---------|
-| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | Colorscheme (night, pure black bg) |
+| [catppuccin/nvim](https://github.com/catppuccin/nvim) | Colorscheme (mocha, pure black bg — palette from `caelestia-schemes/pureblack`) |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer |
 | [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Fuzzy finder (fzf-powered) |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting & indent |
