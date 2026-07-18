@@ -24,6 +24,14 @@ dotfiles/
 │   └── .config/
 │       └── fish/
 │           └── config.fish
+├── foot/
+│   └── .config/
+│       └── foot/
+│           └── foot.ini      # terminal: opaque pureblack bg, JetBrains Mono
+├── opencode/
+│   └── .config/
+│       └── opencode/
+│           └── opencode.jsonc # theme=system so the TUI inherits foot's colours
 ├── nvim/
 │   └── .config/
 │       └── nvim/
@@ -45,6 +53,7 @@ dotfiles/
 │                   ├── neotest.lua
 │                   ├── snacks.lua
 │                   ├── claude.lua
+│                   ├── opencode.lua
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
@@ -80,6 +89,9 @@ dotfiles/
 | [mise](https://mise.jdx.dev/) | Runtime version manager | `sudo pacman -S mise` |
 | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-jetbrains-mono-nerd` |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
+| [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
+| [opencode](https://opencode.ai/) | AI coding agent TUI | `sudo pacman -S opencode` |
+| [lsof](https://github.com/lsof-org/lsof) | opencode.nvim server discovery | `sudo pacman -S lsof` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
@@ -94,6 +106,8 @@ stow nvim
 stow claude
 stow caelestia
 stow lazygit
+stow foot
+stow opencode
 ```
 
 ## Neovim Plugins
@@ -123,6 +137,7 @@ stow lazygit
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
+| [opencode.nvim](https://github.com/NickvanDyke/opencode.nvim) | opencode integration — TUI launches in a separate foot window, discovered over its HTTP server |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
