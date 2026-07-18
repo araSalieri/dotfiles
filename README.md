@@ -12,6 +12,10 @@ dotfiles/
 │       └── caelestia/
 │           ├── hypr-user.lua  # Hyprland user overrides
 │           └── hypr-vars.lua  # Hyprland variables
+├── caelestia-schemes/        # NOT a stow package - backup of custom colour schemes
+│   └── pureblack/
+│       └── default/
+│           └── dark.txt
 ├── fish/
 │   └── .config/
 │       └── fish/
