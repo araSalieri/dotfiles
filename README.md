@@ -32,6 +32,10 @@ dotfiles/
 │   └── .config/
 │       └── opencode/
 │           └── opencode.jsonc # theme=system so the TUI inherits foot's colours
+├── swappy/
+│   └── .config/
+│       └── swappy/
+│           └── config          # screenshot annotation: no panel, early exit, saves to ~/pictures/screenshots
 ├── nvim/
 │   └── .config/
 │       └── nvim/
@@ -91,6 +95,7 @@ dotfiles/
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
 | [opencode](https://opencode.ai/) | AI coding agent TUI | `sudo pacman -S opencode` |
+| [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
 | [lsof](https://github.com/lsof-org/lsof) | opencode.nvim server discovery | `sudo pacman -S lsof` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
@@ -108,6 +113,7 @@ stow caelestia
 stow lazygit
 stow foot
 stow opencode
+stow swappy
 ```
 
 ## Neovim Plugins
