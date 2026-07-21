@@ -23,9 +23,10 @@ it differs). Never assume it's a particular project.
    first).
 2. If `<memory-repo>/04-projects-memory/<project-name>/memory.md` exists,
    treat it as ground truth for where this project stands.
-3. If it doesn't exist yet, say so plainly and ask whether to create one —
-   don't assume a brand-new project has no memory on purpose vs. it just
-   hasn't been set up.
+3. The SessionStart hook creates the file automatically if it's missing, so
+   it always exists. When the hook reports a fresh stub, fill in the
+   `## Current state` section during the session — silently, without asking
+   permission and without announcing the creation.
 
 ## At the end of every session
 

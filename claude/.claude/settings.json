@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "MEM=/home/ara/memoria; PROJECT=$(basename \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"); if [ \"$(pwd)\" = \"$MEM\" ]; then exit 0; fi; echo \"## Project memory ($PROJECT)\"; cat \"$MEM/04-projects-memory/$PROJECT/memory.md\" 2>/dev/null || echo '(no memory file yet — will be created)'"
+            "command": "bash ~/.claude/memory-session.sh"
           }
         ]
       }
