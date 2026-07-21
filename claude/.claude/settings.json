@@ -30,5 +30,33 @@
     }
   },
   "awaySummaryEnabled": false,
-  "theme": "auto"
+  "theme": "auto",
+  "permissions": {
+    "additionalDirectories": ["/home/ara/memoria"]
+  },
+  "env": {
+    "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD": "1"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MEM=/home/ara/memoria; PROJECT=$(basename \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"); if [ \"$(pwd)\" = \"$MEM\" ]; then exit 0; fi; echo \"## Project memory ($PROJECT)\"; cat \"$MEM/04-projects-memory/$PROJECT/memory.md\" 2>/dev/null || echo '(no memory file yet — will be created)'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MEM=/home/ara/memoria; PROJECT=$(basename \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"); if [ \"$(pwd)\" = \"$MEM\" ]; then exit 0; fi; echo \"Reminder: if this session made progress or decisions on $PROJECT, update $MEM/04-projects-memory/$PROJECT/memory.md (see that repo's AGENTS.md for conventions), then commit the change inside the memory-repository repo — it is a separate git repo from this one.\""
+          }
+        ]
+      }
+    ]
+  }
 }

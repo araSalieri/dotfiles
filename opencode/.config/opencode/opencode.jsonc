@@ -2,5 +2,23 @@
   "$schema": "https://opencode.ai/config.json",
   // "system" uses the terminal's ANSI colours and background instead of
   // opencode's built-in palette, keeping panels pureblack in foot
-  "theme": "system"
+  "theme": "system",
+  "permission": {
+    "external_directory": {
+      "/home/ara/memoria/**": "allow"
+    }
+  },
+  "experimental": {
+    "hook": {
+      "session_completed": [
+        {
+          "command": [
+            "sh",
+            "-c",
+            "MEM=/home/ara/memoria; PROJECT=$(basename \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"); if [ \"$(pwd)\" = \"$MEM\" ]; then exit 0; fi; echo \"Reminder: if this session made progress/decisions on '$PROJECT', update $MEM/04-projects-memory/$PROJECT/memory.md, then commit inside the memory-repository repo (separate git history from this one).\""
+          ]
+        }
+      ]
+    }
+  }
 }

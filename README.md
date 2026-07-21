@@ -31,7 +31,8 @@ dotfiles/
 ├── opencode/
 │   └── .config/
 │       └── opencode/
-│           └── opencode.jsonc # theme=system so the TUI inherits foot's colours
+│           ├── opencode.jsonc # theme=system so the TUI inherits foot's colours
+│           └── AGENTS.md      -> ../../../claude/.claude/AGENTS.md  # symlink: one global agent instruction file
 ├── swappy/
 │   └── .config/
 │       └── swappy/
@@ -64,6 +65,8 @@ dotfiles/
 └── claude/
     └── .claude/
         ├── settings.json
+        ├── AGENTS.md          # global agent instructions — canonical copy, opencode symlinks to it
+        ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
         ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
         ├── commands/
         │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
@@ -115,6 +118,32 @@ stow foot
 stow opencode
 stow swappy
 ```
+
+## External memory repo
+
+Both agents read one global instruction file (`claude/.claude/AGENTS.md`,
+symlinked into the opencode package) that points them at a memory
+repository outside this one:
+
+```
+/home/ara/memoria
+└── 04-projects-memory/<project>/memory.md   # one folder per project
+```
+
+It is a separate git repo — not a submodule, not stowed — and it has its
+own `AGENTS.md` describing the page conventions. Clone it to that path
+before the hooks are useful; they degrade quietly if it is missing.
+
+Both configs also register session hooks that derive the project name from
+the git root (`basename $(git rev-parse --show-toplevel)`), print that
+project's `memory.md` at session start, and remind the agent to update and
+commit it at session end. The hooks no-op when the working directory is
+the memory repo itself.
+
+| Agent | Allowlist | Hooks |
+|-------|-----------|-------|
+| Claude Code | `permissions.additionalDirectories` in `settings.json` | `SessionStart`, `Stop` |
+| opencode | `permission.external_directory` in `opencode.jsonc` | `experimental.hook.session_completed` |
 
 ## Neovim Plugins
 
