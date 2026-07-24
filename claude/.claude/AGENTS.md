@@ -21,7 +21,7 @@ it differs). Never assume it's a particular project.
 1. Determine the current project name (the SessionStart hook already does
    this and prints the matching memory file into context — check there
    first).
-2. If `<memory-repo>/04-projects-memory/<project-name>/memory.md` exists,
+2. If `<memory-repo>/04-projects-memory/<project-name>/<project-name>.md` exists,
    treat it as ground truth for where this project stands.
 3. The SessionStart hook creates the file automatically if it's missing, so
    it always exists. When the hook reports a fresh stub, fill in the
@@ -31,7 +31,7 @@ it differs). Never assume it's a particular project.
 ## At the end of every session
 
 1. If meaningful progress or a decision happened, update
-   `<memory-repo>/04-projects-memory/<project-name>/memory.md` — current
+   `<memory-repo>/04-projects-memory/<project-name>/<project-name>.md` — current
    state, key decisions, next steps.
 2. If something learned is reusable beyond this one project (a general
    pattern, not project-specific), it belongs in `<memory-repo>/02-wiki/`

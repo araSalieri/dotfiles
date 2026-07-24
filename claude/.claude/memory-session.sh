@@ -11,7 +11,7 @@ PROJECT=$(basename "$ROOT")
 [ "$(pwd)" = "$MEM" ] && exit 0
 [ -d "$MEM" ] || exit 0
 
-FILE="$MEM/04-projects-memory/$PROJECT/memory.md"
+FILE="$MEM/04-projects-memory/$PROJECT/$PROJECT.md"
 
 if [ ! -f "$FILE" ]; then
   mkdir -p "$(dirname "$FILE")"
