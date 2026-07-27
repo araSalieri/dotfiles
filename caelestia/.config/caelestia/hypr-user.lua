@@ -1,6 +1,10 @@
 local fn = require("utils.functions")
 
 hl.config({
+  ecosystem = {
+    no_donation_nag = true,
+    no_update_news = true,
+  },
   misc = {
     disable_hyprland_logo = true,
   },
