@@ -18,13 +18,27 @@ hl.monitor({
   scale = 1
 })
 
+hl.monitor({
+  output = "eDP-1",
+  mode = "2880x1800@120",
+  position = "0x0",
+  scale = 1.33
+})
+
+hl.monitor({
+  output = "HDMI-A-1",
+  mode = "preferred",
+  position = "auto",
+  scale = 1,
+  mirror = "eDP-1"
+})
+
 hl.env("QT_IM_MODULE", "fcitx")
 hl.env("XMODIFIERS", "@im=fcitx")
 hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d")
-  hl.exec_cmd("hyprctl reload")
 end)
 
 hl.bind("SUPER + H", hl.dsp.submap("resize"))
