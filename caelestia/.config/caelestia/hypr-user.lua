@@ -1,4 +1,4 @@
-local fn = require("hyprland.functions")
+local fn = require("utils.functions")
 
 hl.config({
   misc = {
@@ -30,9 +30,9 @@ end)
 hl.bind("SUPER + H", hl.dsp.submap("resize"))
 
 hl.define_submap("resize", function()
-  hl.bind("h", hl.dsp.window.resize(fn.resize_active_window(-20, 0)), { repeating = true })
-  hl.bind("l", hl.dsp.window.resize(fn.resize_active_window(20, 0)), { repeating = true })
-  hl.bind("k", hl.dsp.window.resize(fn.resize_active_window(0, -20)), { repeating = true })
-  hl.bind("j", hl.dsp.window.resize(fn.resize_active_window(0, 20)), { repeating = true })
+  hl.bind("h", fn.resize_active_window(-20, 0), { repeating = true })
+  hl.bind("l", fn.resize_active_window(20, 0), { repeating = true })
+  hl.bind("k", fn.resize_active_window(0, -20), { repeating = true })
+  hl.bind("j", fn.resize_active_window(0, 20), { repeating = true })
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
