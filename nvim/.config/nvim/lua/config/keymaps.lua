@@ -8,6 +8,13 @@ map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>Q", "<cmd>qa!<cr>", { desc = "Quit all" })
 
+-- Save without running format-on-save autocmds
+map("n", "<leader>W", "<cmd>noautocmd w<cr>", { desc = "Save file (no format)" })
+
+-- Format on save toggles
+map("n", "<leader>ft", "<cmd>FormatToggle<cr>", { desc = "Toggle format on save (buffer)" })
+map("n", "<leader>fT", "<cmd>FormatToggle!<cr>", { desc = "Toggle format on save (global)" })
+
 -- Window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })

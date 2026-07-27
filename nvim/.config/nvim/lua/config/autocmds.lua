@@ -38,6 +38,7 @@ augroup("FormatOnSave", { clear = true })
 autocmd("BufWritePre", {
   group = "FormatOnSave",
   callback = function(args)
+    if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then return end
     local ok, conform = pcall(require, "conform")
     if ok then
       conform.format({ bufnr = args.buf, async = false, lsp_fallback = true })
@@ -46,6 +47,18 @@ autocmd("BufWritePre", {
     end
   end,
 })
+
+-- :FormatToggle        toggle autoformat for current buffer
+-- :FormatToggle!       toggle autoformat globally
+vim.api.nvim_create_user_command("FormatToggle", function(args)
+  if args.bang then
+    vim.g.disable_autoformat = not vim.g.disable_autoformat
+    vim.notify("Autoformat on save " .. (vim.g.disable_autoformat and "OFF" or "ON") .. " (global)")
+  else
+    vim.b.disable_autoformat = not vim.b.disable_autoformat
+    vim.notify("Autoformat on save " .. (vim.b.disable_autoformat and "OFF" or "ON") .. " (buffer)")
+  end
+end, { bang = true, desc = "Toggle format on save (bang = global)" })
 
 -- Remove trailing whitespace on save
 augroup("TrimWhitespace", { clear = true })
