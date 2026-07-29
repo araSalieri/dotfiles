@@ -40,6 +40,16 @@ it differs). Never assume it's a particular project.
    from any commit in the current project — they're independent git
    histories.
 4. State in one line what you updated. Don't do this silently.
+5. **Return to the project directory afterwards.** Prefer `git -C
+   <memory-repo> …` so the working directory never moves in the first
+   place; if you did `cd` there, `cd` back before ending the turn.
+
+Why: the shell's working directory persists across tool calls, and hooks,
+slash commands and status lines read git state from wherever it happens to
+be. Leave it in the memory repo and the next `/commit` reports that repo's
+branch and a clean tree, hiding the project's real pending changes. This
+applies to *any* trip into the memory repo — not just the end-of-session
+one.
 
 ## Skip this entirely when
 
