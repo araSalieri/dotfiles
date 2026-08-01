@@ -62,19 +62,31 @@ dotfiles/
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
-└── claude/
-    └── .claude/
-        ├── settings.json
-        ├── AGENTS.md          # global agent instructions — canonical copy, opencode symlinks to it
-        ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
-        ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
-        ├── commands/
-        │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
-        └── skills/
-            ├── grill-me/
-            │   └── SKILL.md   # /grill-me — stress-test a plan or design
-            ├── find-skills     -> ../../.agents/skills/find-skills      # symlink: discover available skills
-            └── frontend-design -> ../../.agents/skills/frontend-design  # symlink: frontend/UI design guidance
+├── claude/
+│   └── .claude/
+│       ├── settings.json
+│       ├── AGENTS.md          # global agent instructions — canonical copy, opencode symlinks to it
+│       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
+│       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
+│       ├── commands/
+│       │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
+│       └── skills/
+│           ├── grill-me/
+│           │   └── SKILL.md   # /grill-me — stress-test a plan or design
+│           ├── find-skills     -> ../../../agents/.agents/skills/find-skills     # symlink into the agents package
+│           ├── text-to-speech  -> ../../../agents/.agents/skills/text-to-speech  # symlink into the agents package
+│           └── frontend-design -> ../../.agents/skills/frontend-design  # DANGLING - no source in this repo
+└── agents/
+    └── .agents/
+        └── skills/            # agent-agnostic skills, shared by any tool reading ~/.agents/skills
+            ├── find-skills/
+            │   └── SKILL.md   # discover available skills
+            └── text-to-speech/
+                ├── SKILL.md   # ElevenLabs TTS
+                └── references/
+                    ├── installation.md
+                    ├── streaming.md
+                    └── voice-settings.md
 ```
 
 
@@ -112,6 +124,7 @@ cd ~/dotfiles
 stow fish
 stow nvim
 stow claude
+stow agents      # must be stowed before/with claude — its skill symlinks point here
 stow caelestia
 stow lazygit
 stow foot
