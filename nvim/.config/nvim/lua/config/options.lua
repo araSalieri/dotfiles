@@ -39,7 +39,7 @@ opt.fillchars = {
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#1a1a2e", bg = "NONE" })
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#4a4a4a", bg = "NONE" })
   end,
 })
 

@@ -60,7 +60,7 @@ return {
             StatusLineNC = { bg = "NONE" },
             TabLine = { bg = "NONE" },
             TabLineFill = { bg = "NONE" },
-            WinSeparator = { bg = "NONE", fg = c.surface0 },
+            WinSeparator = { bg = "NONE", fg = "#4a4a4a" },
             LineNr = { bg = "NONE" },
             CursorLineNr = { bg = "NONE" },
             EndOfBuffer = { bg = "NONE" },
