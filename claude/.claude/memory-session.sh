@@ -7,8 +7,10 @@ MEM=/home/ara/memoria
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 PROJECT=$(basename "$ROOT")
 
-# Inside the memory repo itself there is no "current project" to look up.
-[ "$(pwd)" = "$MEM" ] && exit 0
+# The memory repo is a project like any other — basename resolves it to
+# "memoria" and its file sits at the same path as everyone else's. It was
+# skipped here until 2026-08-04, back when the vault tracked itself in
+# 02-wiki/log.md instead.
 [ -d "$MEM" ] || exit 0
 
 FILE="$MEM/04-projects-memory/$PROJECT/$PROJECT.md"

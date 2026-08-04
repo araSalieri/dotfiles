@@ -51,8 +51,20 @@ branch and a clean tree, hiding the project's real pending changes. This
 applies to *any* trip into the memory repo — not just the end-of-session
 one.
 
-## Skip this entirely when
+## When the current directory IS the memory repository
 
-The current working directory IS the memory repository itself — in that
-case just follow its own AGENTS.md directly, there's no "current project"
-to look up.
+Follow its own AGENTS.md for everything about the vault's schema — that
+file governs folder structure, page formats and the ingest/query/lint
+workflows, and it is the authority there.
+
+The project lookup above still applies, though: memoria is a project like
+any other and its memory lives at the same path as everyone else's,
+`04-projects-memory/memoria/memoria.md`. Read it at the start of the
+session and update it at the end, exactly as you would for any repo. It
+holds the state of the vault itself — its tooling, its generated assets,
+and why the schema is shaped the way it is.
+
+This replaced an append-only `02-wiki/log.md` on 2026-08-04. If you find
+instructions anywhere telling you to append a log entry after an ingest
+or an edit, they are stale; the file above is where that now goes, and
+only when something is worth carrying to the next session.
