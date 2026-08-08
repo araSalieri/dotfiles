@@ -3,6 +3,12 @@
   // "system" uses the terminal's ANSI colours and background instead of
   // opencode's built-in palette, keeping panels pureblack in foot
   "theme": "system",
+  // caveman: native plugin (session.created + tui.prompt.append hooks) plus the
+  // always-on ruleset. The ruleset lives in its own file rather than AGENTS.md
+  // because AGENTS.md here is a symlink to the Claude Code one, and Claude Code
+  // already injects caveman through its own plugin hook.
+  "plugin": ["./plugins/caveman/plugin.js"],
+  "instructions": ["/home/ara/.config/opencode/caveman-activate.md"],
   "permission": {
     "external_directory": {
       "/home/ara/memoria/**": "allow"
