@@ -62,7 +62,6 @@ dotfiles/
 │       ├── AGENTS.md          # global agent instructions
 │       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
 │       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
-│       ├── commit-rules.md    # commit message rules, shared by /commit and /wrap-commit
 │       ├── commands/
 │       │   ├── commit.md      # /commit — terse conventional commit, nothing else
 │       │   ├── wrap-commit.md # /wrap-commit — same commit, then runs /wrap

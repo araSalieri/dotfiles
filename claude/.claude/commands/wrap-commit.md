@@ -14,7 +14,7 @@ description: Stage all changes, create a terse conventional commit, then wrap me
 
 Write the commit message, then stage all modified/new files and create the commit in a single tool response.
 
-Rules (kept inline, not `cat`-ed from `~/.claude/commit-rules.md` — the sandbox only allows reading inside the session's working directory, so the interpolation fails outright in every repo but the dotfiles one):
+Rules (kept inline, duplicated across the two command files rather than shared — a `!`cat`` of a file under `~/.claude/` only resolves when cwd is the dotfiles repo, since the sandbox refuses reads outside the session's working directory):
 - Terse and exact. Why over what — the diff already says what changed.
 - Never: "this commit does X", "I"/"we", "as requested by", emoji, or any AI attribution trailer.
 - Conventional Commits: `<type>(<scope>): <imperative summary>`. Scope optional. Types: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`.
