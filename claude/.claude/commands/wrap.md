@@ -10,7 +10,7 @@ description: Write this session's progress into the memory repo and commit it th
 - Project changes this session: !`git status --short`
 - Commits this session: !`git log --oneline -10`
 - Memory repo status: !`git -C /home/ara/memoria status --short`
-- Vault schema, only the parts a wrap needs: !`bash ~/.claude/memoria-section.sh '### Project memory' '### Ingest'`
+- Vault schema, only the parts a wrap needs: !`bash ~/.claude/memoria-section.sh '## Project memory' '## Operations'`
 
 ## Task
 
@@ -25,9 +25,9 @@ line. Never append the same fact twice, and never re-record what an earlier run
 this session already wrote.
 
 The two schema sections a wrap needs are in Context above, pulled from
-`/home/ara/memoria/AGENTS.md` — the rest of that 27KB file is not auto-loaded,
-to keep it off every unrelated session. Read the full file only if the excerpt
-above is missing or carries a WARNING.
+`/home/ara/memoria/AGENTS.md`. From any project other than memoria that file is
+not auto-loaded, to keep it off unrelated sessions. Read the full file only if
+the excerpt above is missing or carries a WARNING.
 
 1. Read the memory file, then rewrite the parts this session invalidated —
    `## Current state`, `## Key decisions`, `## Next steps`. Fold new facts into

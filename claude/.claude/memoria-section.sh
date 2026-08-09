@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Print named sections of the memoria vault schema.
 #
-# memoria's AGENTS.md is ~27KB and is not auto-loaded into sessions. A wrap
-# needs two small parts of it, so pull those by heading rather than reading the
-# whole file or copying the format into the command (which would silently go
-# stale when the schema changes).
+# memoria's AGENTS.md is not auto-loaded outside memoria itself. A wrap needs
+# two small parts of it, so pull those by heading rather than reading the whole
+# file or copying the format into the command (which would silently go stale
+# when the schema changes).
 #
-# Usage: memoria-section.sh '### Project memory' '### Ingest'
+# Usage: memoria-section.sh '## Project memory' '## Operations'
 set -u
 
 SCHEMA=${MEMORIA_SCHEMA:-/home/ara/memoria/AGENTS.md}

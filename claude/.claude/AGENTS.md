@@ -16,9 +16,11 @@ Respond like smart caveman. Cut all filler, keep technical substance.
 
 Memory for ALL projects lives outside them, in `/home/ara/memoria` (`<mem>`).
 
-Schema — folders, page formats, ingest/query/lint — is `<mem>/AGENTS.md`, 27KB
-and deliberately **not** auto-loaded. Read it only when actually writing to the
-vault (i.e. during a wrap), never to answer a question about it.
+Schema — folders, page formats, ingest/query/lint — is `<mem>/AGENTS.md`, ~10KB.
+Auto-loaded only when cwd is memoria (its `CLAUDE.md` imports it). From any other
+project, read it only when actually writing to the vault (i.e. during a wrap),
+never to answer a question about it. Detail sits in `<mem>/.agents/pages.md` and
+`<mem>/.agents/ops.md`, read on demand — never preemptively.
 
 Project = whatever dir you're working in (folder name, repo name if it differs).
 Never assume a specific one. Its file: `<mem>/04-projects-memory/<p>/<p>.md`.
