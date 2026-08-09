@@ -47,16 +47,6 @@
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "MEM=/home/ara/memoria; PROJECT=$(basename \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"); if [ \"$(pwd)\" = \"$MEM\" ]; then exit 0; fi; echo \"Reminder: if this session made progress or decisions on $PROJECT, update $MEM/04-projects-memory/$PROJECT/memory.md (see that repo's AGENTS.md for conventions), then commit the change inside the memory-repository repo — it is a separate git repo from this one.\""
-          }
-        ]
-      }
     ]
   }
 }

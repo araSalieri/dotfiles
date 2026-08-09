@@ -1,15 +1,5 @@
 return {
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    ft = { "markdown", "Avante" },
-    opts = {
-      file_types = { "markdown", "Avante" },
-      latex = { enabled = false }, -- needs external latex binary; injection crashes without it
-    },
-  },
-
-  {
     "selimacerbas/markdown-preview.nvim",
     dependencies = { "selimacerbas/live-server.nvim" },
     ft = { "markdown" },

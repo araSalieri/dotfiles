@@ -28,11 +28,6 @@ dotfiles/
 │   └── .config/
 │       └── foot/
 │           └── foot.ini      # terminal: opaque pureblack bg, JetBrains Mono
-├── opencode/
-│   └── .config/
-│       └── opencode/
-│           ├── opencode.jsonc # theme=system so the TUI inherits foot's colours
-│           └── AGENTS.md      -> ../../../claude/.claude/AGENTS.md  # symlink: one global agent instruction file
 ├── swappy/
 │   └── .config/
 │       └── swappy/
@@ -58,14 +53,13 @@ dotfiles/
 │                   ├── neotest.lua
 │                   ├── snacks.lua
 │                   ├── claude.lua
-│                   ├── opencode.lua
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
 ├── claude/
 │   └── .claude/
 │       ├── settings.json
-│       ├── AGENTS.md          # global agent instructions — canonical copy, opencode symlinks to it
+│       ├── AGENTS.md          # global agent instructions
 │       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
 │       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
 │       ├── commands/
@@ -109,9 +103,7 @@ dotfiles/
 | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-jetbrains-mono-nerd` |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
-| [opencode](https://opencode.ai/) | AI coding agent TUI | `sudo pacman -S opencode` |
 | [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
-| [lsof](https://github.com/lsof-org/lsof) | opencode.nvim server discovery | `sudo pacman -S lsof` |
 | [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
@@ -128,15 +120,13 @@ stow agents      # must be stowed before/with claude — its skill symlinks poin
 stow caelestia
 stow lazygit
 stow foot
-stow opencode
 stow swappy
 ```
 
 ## External memory repo
 
-Both agents read one global instruction file (`claude/.claude/AGENTS.md`,
-symlinked into the opencode package) that points them at a memory
-repository outside this one:
+Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`)
+that points it at a memory repository outside this one:
 
 ```
 /home/ara/memoria
@@ -147,8 +137,8 @@ It is a separate git repo — not a submodule, not stowed — and it has its
 own `AGENTS.md` describing the page conventions. Clone it to that path
 before the hooks are useful; they degrade quietly if it is missing.
 
-Both configs also register session hooks that derive the project name from
-the git root (`basename $(git rev-parse --show-toplevel)`), print that
+`settings.json` also registers session hooks that derive the project name
+from the git root (`basename $(git rev-parse --show-toplevel)`), print that
 project's `memory.md` at session start, and remind the agent to update and
 commit it at session end. The hooks no-op when the working directory is
 the memory repo itself.
@@ -156,7 +146,6 @@ the memory repo itself.
 | Agent | Allowlist | Hooks |
 |-------|-----------|-------|
 | Claude Code | `permissions.additionalDirectories` in `settings.json` | `SessionStart`, `Stop` |
-| opencode | `permission.external_directory` in `opencode.jsonc` | `experimental.hook.session_completed` |
 
 ## Neovim Plugins
 
@@ -180,12 +169,10 @@ the memory repo itself.
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
 | [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
-| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Rendered markdown in buffer |
 | [markdown-preview.nvim](https://github.com/selimacerbas/markdown-preview.nvim) | Live browser markdown preview |
 | [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
 | [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
 | [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
-| [opencode.nvim](https://github.com/NickvanDyke/opencode.nvim) | opencode integration — TUI launches in a separate foot window, discovered over its HTTP server |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |

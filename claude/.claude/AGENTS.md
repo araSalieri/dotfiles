@@ -3,68 +3,60 @@
 This file applies to every project on this machine, regardless of which
 repo you're currently in.
 
+## Token efficiency
+
+Respond like smart caveman. Cut all filler, keep technical substance.
+- Drop articles (a, an, the), filler (just, really, basically, actually).
+- Drop pleasantries (sure, certainly, happy to).
+- No hedging. Fragments fine. Short synonyms.
+- Technical terms stay exact. Code blocks unchanged.
+- Pattern: [thing] [action] [reason]. [next step].
+
 ## External memory repository
 
-Project memory for ALL repos lives in one place, outside any individual
-project:
+Memory for ALL projects lives outside them, in `/home/ara/memoria` (`<mem>`).
+Schema — folders, page formats, ingest/query/lint — is that repo's `AGENTS.md`.
 
-**Memory repo:** `/home/ara/memoria`
-**Schema:** see that repo's `AGENTS.md` for full conventions (folder
-structure, page formats, ingest/query/lint workflows).
+Project = whatever dir you're working in (folder name, repo name if it differs).
+Never assume a specific one. Its file: `<mem>/04-projects-memory/<p>/<p>.md`.
 
-This file never names a specific project — the current project is
-whatever directory you're working in (its folder name, or its repo name if
-it differs). Never assume it's a particular project.
+### Session start
 
-## At the start of every session
+SessionStart hook prints that file into context — read it there, it's ground
+truth. Hook also creates it when missing; a fresh stub is not a task.
+If the hook reports **catch-up**, backfill from the transcript it names before
+answering the first request. Silently, no permission asking.
 
-1. Determine the current project name (the SessionStart hook already does
-   this and prints the matching memory file into context — check there
-   first).
-2. If `<memory-repo>/04-projects-memory/<project-name>/<project-name>.md` exists,
-   treat it as ground truth for where this project stands.
-3. The SessionStart hook creates the file automatically if it's missing, so
-   it always exists. When the hook reports a fresh stub, fill in the
-   `## Current state` section during the session — silently, without asking
-   permission and without announcing the creation.
+### Writing memory — only at the end
 
-## At the end of every session
+Snapshot, not journal. Written once, at wrap. Never mid-session: facts written
+at turn 10 are wrong by turn 40.
 
-1. If meaningful progress or a decision happened, update
-   `<memory-repo>/04-projects-memory/<project-name>/<project-name>.md` — current
-   state, key decisions, next steps.
-2. If something learned is reusable beyond this one project (a general
-   pattern, not project-specific), it belongs in `<memory-repo>/02-wiki/`
-   instead — run the Ingest operation from that repo's AGENTS.md.
-3. Commit the change **inside the memory-repository repo**, separately
-   from any commit in the current project — they're independent git
-   histories.
-4. State in one line what you updated. Don't do this silently.
-5. **Return to the project directory afterwards.** Prefer `git -C
-   <memory-repo> …` so the working directory never moves in the first
-   place; if you did `cd` there, `cd` back before ending the turn.
+Trigger: `/wrap`, or the user says so ("wrap up", "done for today", "update
+memory"). Never volunteer it, never remind, never fire because session feels
+long.
 
-Why: the shell's working directory persists across tool calls, and hooks,
-slash commands and status lines read git state from wherever it happens to
-be. Leave it in the memory repo and the next `/commit` reports that repo's
-branch and a clean tree, hiding the project's real pending changes. This
-applies to *any* trip into the memory repo — not just the end-of-session
-one.
+Procedure lives in `claude/.claude/commands/wrap.md`. Short version: rewrite
+`Current state` / `Key decisions` / `Next steps`, folding into the prose (no
+dated entries); anything generalisable goes to `<mem>/02-wiki/` via Ingest;
+commit inside the memory repo, separate from any project commit; report in one
+line.
 
-## When the current directory IS the memory repository
+Killed terminal skips the wrap — SessionStart catch-up covers that. Not a
+reason to write early.
 
-Follow its own AGENTS.md for everything about the vault's schema — that
-file governs folder structure, page formats and the ingest/query/lint
-workflows, and it is the authority there.
+### Never `cd` into the memory repo
 
-The project lookup above still applies, though: memoria is a project like
-any other and its memory lives at the same path as everyone else's,
-`04-projects-memory/memoria/memoria.md`. Read it at the start of the
-session and update it at the end, exactly as you would for any repo. It
-holds the state of the vault itself — its tooling, its generated assets,
-and why the schema is shaped the way it is.
+Use `git -C <mem> …`; if you did `cd`, `cd` back before ending the turn. Working
+dir persists across tool calls, so hooks, statusline and `/commit` would read
+memoria's git state instead of the project's. Every trip, not just the wrap.
 
-This replaced an append-only `02-wiki/log.md` on 2026-08-04. If you find
-instructions anywhere telling you to append a log entry after an ingest
-or an edit, they are stale; the file above is where that now goes, and
-only when something is worth carrying to the next session.
+### When cwd IS memoria
+
+Its own AGENTS.md is authority on the vault schema.
+
+memoria is still a project: memory at `04-projects-memory/memoria/memoria.md`,
+same read-at-start / write-at-wrap rules. Holds the vault's own state — tooling,
+generated assets, why the schema is shaped that way. Replaced an append-only
+`02-wiki/log.md` on 2026-08-04; any instruction to append a log entry after an
+ingest is stale.
