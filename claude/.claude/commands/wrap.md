@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git -C /home/ara/memoria:*), Bash(git status:*), Bash(git log:*), Bash(git diff:*), Read, Edit, Write, Glob, Grep
-description: End-of-session wrap — write this session's progress into the memory repo and commit it there
+description: Write this session's progress into the memory repo and commit it there — runs on its own or as the tail of /commit
 ---
 
 ## Context
@@ -10,6 +10,7 @@ description: End-of-session wrap — write this session's progress into the memo
 - Project changes this session: !`git status --short`
 - Commits this session: !`git log --oneline -10`
 - Memory repo status: !`git -C /home/ara/memoria status --short`
+- Vault schema, only the parts a wrap needs: !`bash ~/.claude/memoria-section.sh '### Project memory' '### Ingest'`
 
 ## Task
 
@@ -17,7 +18,18 @@ Close out the session. The project name is the basename of the project root
 above; its memory file is
 `/home/ara/memoria/04-projects-memory/<project>/<project>.md`.
 
-1. Read that file, then rewrite the parts this session invalidated —
+`/commit` calls this every time, so it may run several times in one session.
+Make it idempotent: re-read the memory file, and if it already reflects where
+the project now stands, change nothing, skip the commit, and say so in one
+line. Never append the same fact twice, and never re-record what an earlier run
+this session already wrote.
+
+The two schema sections a wrap needs are in Context above, pulled from
+`/home/ara/memoria/AGENTS.md` — the rest of that 27KB file is not auto-loaded,
+to keep it off every unrelated session. Read the full file only if the excerpt
+above is missing or carries a WARNING.
+
+1. Read the memory file, then rewrite the parts this session invalidated —
    `## Current state`, `## Key decisions`, `## Next steps`. Fold new facts into
    the existing prose rather than appending a dated log entry; the file is a
    snapshot of where the project stands, not a journal. Bump `updated:` in the
@@ -32,7 +44,9 @@ above; its memory file is
 4. Commit inside the memory repo with `git -C /home/ara/memoria …` — never
    `cd` there, the working directory persists across tool calls and would make
    the next `/commit` report the wrong repo. Separate history from the project;
-   do not touch the project's own working tree here.
+   do not touch the project's own working tree here. When the project *is*
+   memoria they are one repo — stage only the memory file, so the wrap commit
+   stays separate from whatever vault edits the session made.
 5. Finish with one line naming what you recorded. If the session genuinely
    produced nothing worth keeping, say so and still `touch` the memory file so
    the next session's catch-up hook stays quiet.

@@ -62,14 +62,18 @@ dotfiles/
 │       ├── AGENTS.md          # global agent instructions
 │       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
 │       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
+│       ├── memory-session.sh  # SessionStart hook: print project memory, flag a missed wrap
+│       ├── memoria-section.sh # pull named sections out of memoria's 27KB schema file
 │       ├── commands/
-│       │   └── commit.md      # /commit — caveman-style conventional commit (via caveman-commit skill)
+│       │   ├── commit.md      # /commit — terse conventional commit, then runs /wrap
+│       │   └── wrap.md        # /wrap — write + commit project memory into memoria
 │       └── skills/
 │           ├── grill-me/
 │           │   └── SKILL.md   # /grill-me — stress-test a plan or design
+│           ├── skill-retention/
+│           │   └── SKILL.md   # protects your own skill formation on unfamiliar tech
 │           ├── find-skills     -> ../../../agents/.agents/skills/find-skills     # symlink into the agents package
-│           ├── text-to-speech  -> ../../../agents/.agents/skills/text-to-speech  # symlink into the agents package
-│           └── frontend-design -> ../../.agents/skills/frontend-design  # DANGLING - no source in this repo
+│           └── text-to-speech  -> ../../../agents/.agents/skills/text-to-speech  # symlink into the agents package
 └── agents/
     └── .agents/
         └── skills/            # agent-agnostic skills, shared by any tool reading ~/.agents/skills

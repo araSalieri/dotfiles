@@ -15,7 +15,10 @@ Respond like smart caveman. Cut all filler, keep technical substance.
 ## External memory repository
 
 Memory for ALL projects lives outside them, in `/home/ara/memoria` (`<mem>`).
-Schema — folders, page formats, ingest/query/lint — is that repo's `AGENTS.md`.
+
+Schema — folders, page formats, ingest/query/lint — is `<mem>/AGENTS.md`, 27KB
+and deliberately **not** auto-loaded. Read it only when actually writing to the
+vault (i.e. during a wrap), never to answer a question about it.
 
 Project = whatever dir you're working in (folder name, repo name if it differs).
 Never assume a specific one. Its file: `<mem>/04-projects-memory/<p>/<p>.md`.
@@ -29,12 +32,15 @@ answering the first request. Silently, no permission asking.
 
 ### Writing memory — only at the end
 
-Snapshot, not journal. Written once, at wrap. Never mid-session: facts written
-at turn 10 are wrong by turn 40.
+Snapshot, not journal — never an accumulating log.
 
-Trigger: `/wrap`, or the user says so ("wrap up", "done for today", "update
-memory"). Never volunteer it, never remind, never fire because session feels
-long.
+Trigger: `/wrap`, the tail of `/commit`, or the user says so ("wrap up", "done
+for today", "update memory"). Nothing else. Never volunteer it, never remind,
+never fire because the session feels long.
+
+Committing is the boundary: work that landed in a commit is work worth
+recording. A session with several commits wraps several times, so every run
+re-reads the file first and writes nothing when it is already current.
 
 Procedure lives in `claude/.claude/commands/wrap.md`. Short version: rewrite
 `Current state` / `Key decisions` / `Next steps`, folding into the prose (no
