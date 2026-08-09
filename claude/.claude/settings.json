@@ -11,7 +11,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.claude/memory-session.sh"
+            "command": "p=$(basename $(git rev-parse --show-toplevel 2>/dev/null || pwd)); f=/home/ara/memoria/04-projects-memory/$p/$p.md; if [ -f \"$f\" ]; then echo \"Project memory: $f ($(wc -c <\"$f\") bytes) — read it before the first substantive action.\"; else echo \"Project memory: none yet for '$p'. Do not create it; /wrap will.\"; fi"
           }
         ]
       }

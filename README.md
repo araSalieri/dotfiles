@@ -62,10 +62,10 @@ dotfiles/
 │       ├── AGENTS.md          # global agent instructions
 │       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
 │       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
-│       ├── memory-session.sh  # SessionStart hook: print project memory, flag a missed wrap
-│       ├── memoria-section.sh # pull named sections out of memoria's 27KB schema file
+│       ├── commit-rules.md    # commit message rules, shared by /commit and /wrap-commit
 │       ├── commands/
-│       │   ├── commit.md      # /commit — terse conventional commit, then runs /wrap
+│       │   ├── commit.md      # /commit — terse conventional commit, nothing else
+│       │   ├── wrap-commit.md # /wrap-commit — same commit, then runs /wrap
 │       │   └── wrap.md        # /wrap — write + commit project memory into memoria
 │       └── skills/
 │           ├── grill-me/
@@ -129,27 +129,24 @@ stow swappy
 
 ## External memory repo
 
-Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`)
-that points it at a memory repository outside this one:
+Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`) that points it at a memory repository outside this one:
 
 ```
 /home/ara/memoria
-└── 04-projects-memory/<project>/memory.md   # one folder per project
+└── 04-projects-memory/<project>/<project>.md   # one folder per project
 ```
 
-It is a separate git repo — not a submodule, not stowed — and it has its
-own `AGENTS.md` describing the page conventions. Clone it to that path
-before the hooks are useful; they degrade quietly if it is missing.
+The file repeats the folder name rather than being called `memory.md` — the basename is what Obsidian's graph view labels the node with.
 
-`settings.json` also registers session hooks that derive the project name
-from the git root (`basename $(git rev-parse --show-toplevel)`), print that
-project's `memory.md` at session start, and remind the agent to update and
-commit it at session end. The hooks no-op when the working directory is
-the memory repo itself.
+It is a separate git repo — not a submodule, not stowed — and it has its own `AGENTS.md` describing the page conventions. Clone it to that path before any of this is useful.
+
+A `SessionStart` hook in `settings.json` — inline, no script file — derives the project name from the git root (`basename $(git rev-parse --show-toplevel)`) and prints a one-line pointer at that project's memory file plus its byte size, or says there is none yet. It prints the pointer only; `AGENTS.md` tells the agent to read the file itself. Until 2026-08-09 the hook printed the whole file, which every session paid for whether or not the work touched it.
+
+Writing is `/wrap` and `/wrap-commit`, never a hook. memoria itself is an ordinary project here, with its own file at the same path.
 
 | Agent | Allowlist | Hooks |
 |-------|-----------|-------|
-| Claude Code | `permissions.additionalDirectories` in `settings.json` | `SessionStart`, `Stop` |
+| Claude Code | `permissions.additionalDirectories` in `settings.json` | `SessionStart` (pointer only) |
 
 ## Neovim Plugins
 
