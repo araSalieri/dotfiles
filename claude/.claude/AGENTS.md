@@ -36,8 +36,6 @@ Trigger: `/wrap`, the tail of `/wrap-commit`, or the user says so ("wrap up", "d
 
 That split is deliberate: committing is cheap and frequent, recording is not, and a wrap on every commit meant memory got rewritten several times a session whether or not anything had changed. `/wrap-commit` is there for when the two genuinely go together. Either way every run re-reads the file first and writes nothing when it is already current.
 
-Procedure lives in `claude/.claude/commands/wrap.md`. Short version: rewrite `Current state` / `Key decisions` / `Next steps`, folding into the prose (no dated entries); commit inside the memory repo, separate from any project commit; report in one line.
-
 **A wrap writes `04-projects-memory/<project>/` only, and opens nothing** — never `02-wiki/`, no matter how generalisable the lesson looked, and never an Obsidian window. Ingest is something the human asks for by pointing at a source; wraps inferring one wrote pages nobody had asked for (2026-08-10). Link to an existing `[[page]]` freely; creating or editing one needs a request.
 
 A killed terminal loses that session's memory outright. Nothing backfills it — catch-up was removed on 2026-08-09 because it was the last thing that wrote without being asked. Still not a reason to write early: the fix is to wrap before closing, not to hedge mid-session.
