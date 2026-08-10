@@ -71,19 +71,14 @@ dotfiles/
 │           │   └── SKILL.md   # /grill-me — stress-test a plan or design
 │           ├── skill-retention/
 │           │   └── SKILL.md   # protects your own skill formation on unfamiliar tech
-│           ├── find-skills     -> ../../../agents/.agents/skills/find-skills     # symlink into the agents package
-│           └── text-to-speech  -> ../../../agents/.agents/skills/text-to-speech  # symlink into the agents package
-└── agents/
-    └── .agents/
-        └── skills/            # agent-agnostic skills, shared by any tool reading ~/.agents/skills
-            ├── find-skills/
-            │   └── SKILL.md   # discover available skills
-            └── text-to-speech/
-                ├── SKILL.md   # ElevenLabs TTS
-                └── references/
-                    ├── installation.md
-                    ├── streaming.md
-                    └── voice-settings.md
+│           ├── find-skills/
+│           │   └── SKILL.md   # discover available skills
+│           └── text-to-speech/
+│               ├── SKILL.md   # ElevenLabs TTS
+│               └── references/
+│                   ├── installation.md
+│                   ├── streaming.md
+│                   └── voice-settings.md
 ```
 
 
@@ -119,7 +114,6 @@ cd ~/dotfiles
 stow fish
 stow nvim
 stow claude
-stow agents      # must be stowed before/with claude — its skill symlinks point here
 stow caelestia
 stow lazygit
 stow foot
