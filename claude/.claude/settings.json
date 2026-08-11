@@ -1,9 +1,4 @@
 {
-  "permissions": {
-    "additionalDirectories": [
-      "/home/ara/memoria"
-    ]
-  },
   "model": "opus",
   "statusLine": {
     "type": "command",

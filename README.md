@@ -124,7 +124,7 @@ Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`) that 
 
 It is a separate git repo — not a submodule, not stowed — and it has its own `AGENTS.md` describing the page conventions. Clone it to that path before any of this is useful.
 
-The vault is written on request only: the human points at a source and asks for an ingest, or asks a question the pages answer. There is no per-project memory and no hook — the `04-projects-memory/` layer, the `SessionStart` pointer hook and the `/wrap` + `/wrap-commit` commands were all removed 2026-08-11, with nothing replacing them. Sessions start cold.
+The vault is written on request only: the human points at a source and asks for an ingest, or asks a question the pages answer. There is no per-project memory and no hook — sessions start cold.
 
 | Agent | Allowlist | Hooks |
 |-------|-----------|-------|
