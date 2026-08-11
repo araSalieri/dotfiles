@@ -63,9 +63,7 @@ dotfiles/
 │       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
 │       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
 │       ├── commands/
-│       │   ├── commit.md      # /commit — terse conventional commit, nothing else
-│       │   ├── wrap-commit.md # /wrap-commit — same commit, then runs /wrap
-│       │   └── wrap.md        # /wrap — write + commit project memory into memoria
+│       │   └── commit.md      # /commit — terse conventional commit, nothing else
 │       └── skills/
 │           ├── grill-me/
 │           │   └── SKILL.md   # /grill-me — stress-test a plan or design
@@ -120,26 +118,17 @@ stow foot
 stow swappy
 ```
 
-## External memory repo
+## External knowledge vault
 
-Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`) that points it at a memory repository outside this one:
-
-```
-/home/ara/memoria
-└── 04-projects-memory/<project>/<project>.md   # one folder per project
-```
-
-The file repeats the folder name rather than being called `memory.md` — the basename is what Obsidian's graph view labels the node with.
+Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`) that points it at `/home/ara/memoria`, a personal wiki outside this repo.
 
 It is a separate git repo — not a submodule, not stowed — and it has its own `AGENTS.md` describing the page conventions. Clone it to that path before any of this is useful.
 
-A `SessionStart` hook in `settings.json` — inline, no script file — derives the project name from the git root (`basename $(git rev-parse --show-toplevel)`) and prints a one-line pointer at that project's memory file plus its byte size, or says there is none yet. It prints the pointer only; `AGENTS.md` tells the agent to read the file itself. Until 2026-08-09 the hook printed the whole file, which every session paid for whether or not the work touched it.
-
-Writing is `/wrap` and `/wrap-commit`, never a hook. memoria itself is an ordinary project here, with its own file at the same path.
+The vault is written on request only: the human points at a source and asks for an ingest, or asks a question the pages answer. There is no per-project memory and no hook — the `04-projects-memory/` layer, the `SessionStart` pointer hook and the `/wrap` + `/wrap-commit` commands were all removed 2026-08-11, with nothing replacing them. Sessions start cold.
 
 | Agent | Allowlist | Hooks |
 |-------|-----------|-------|
-| Claude Code | `permissions.additionalDirectories` in `settings.json` | `SessionStart` (pointer only) |
+| Claude Code | `permissions.additionalDirectories` in `settings.json` | — |
 
 ## Neovim Plugins
 
