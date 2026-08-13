@@ -57,6 +57,11 @@ map("n", "<leader>tt", function()
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
 end, { desc = "Open foot terminal here" })
 
+-- Open OMP in a new foot terminal (same cwd so the socket matches nvim)
+map("n", "<leader>ao", function()
+  vim.fn.jobstart({ "foot", "-D", vim.fn.getcwd(), "omp" }, { detach = true })
+end, { desc = "Open Oh My Pi (foot)" })
+
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 

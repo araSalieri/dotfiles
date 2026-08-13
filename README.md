@@ -115,19 +115,24 @@ stow caelestia
 stow lazygit
 stow foot
 stow swappy
+stow omp
 ```
 
-## External knowledge vault
+## OMP (Oh My Pi)
 
-Claude Code reads one global instruction file (`claude/.claude/AGENTS.md`) that points it at `/home/ara/memoria`, a personal wiki outside this repo.
+Agent config (`~/.omp/agent/AGENTS.md`, `config.yaml`) is stowed from `omp/.omp/agent/`.
 
-It is a separate git repo — not a submodule, not stowed — and it has its own `AGENTS.md` describing the page conventions. Clone it to that path before any of this is useful.
+Plugin code lives in `~/.omp/plugins/{node_modules,cache}` — fetched from source, not committed.
+Only the install declaration is durable; restore with:
 
-The vault is written on request only: the human points at a source and asks for an ingest, or asks a question the pages answer. There is no per-project memory and no hook — sessions start cold.
+```bash
+omp plugin marketplace add DietrichGebert/ponytail
+omp plugin install ponytail@ponytail
+omp plugin install omp.nvim
+```
 
-| Agent | Allowlist | Hooks |
-|-------|-----------|-------|
-| Claude Code | `permissions.additionalDirectories` in `settings.json` | — |
+`omp plugin list` should then show `ponytail@ponytail` and `omp.nvim`. Enablement/feature/settings state lives in
+`~/.omp/plugins/omp-plugins.lock.json` (machine-independent); stow it too if you want that state versioned.
 
 ## Neovim Plugins
 
