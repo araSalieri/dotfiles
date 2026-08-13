@@ -52,7 +52,6 @@ dotfiles/
 │                   ├── dap.lua
 │                   ├── neotest.lua
 │                   ├── snacks.lua
-│                   ├── claude.lua
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
@@ -153,9 +152,6 @@ The vault is written on request only: the human points at a source and asks for 
 | [snacks.nvim](https://github.com/folke/snacks.nvim) | Lazygit integration |
 | [nvim-dap-envfile](https://github.com/ravsii/nvim-dap-envfile) | Auto-load `.env` into DAP configs |
 | [markdown-preview.nvim](https://github.com/selimacerbas/markdown-preview.nvim) | Live browser markdown preview |
-| [claudecode.nvim](https://github.com/coder/claudecode.nvim) | Claude Code integration |
-| [claude-fzf.nvim](https://github.com/pittcat/claude-fzf.nvim) | fzf-powered file/grep context for Claude |
-| [claude-fzf-history.nvim](https://github.com/pittcat/claude-fzf-history.nvim) | Browse and add Claude history via fzf |
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |

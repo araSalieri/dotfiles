@@ -1,0 +1,15 @@
+modelRoles:
+  default: moonshot/kimi-k3
+symbolPreset: unicode
+theme:
+  dark: titanium
+  light: light
+setupVersion: 1
+statusLine:
+  separator: powerline-thin
+display:
+  showTokenUsage: true
+memory:
+  backend: hindsight
+hindsight:
+  apiUrl: http://100.65.161.173:8888

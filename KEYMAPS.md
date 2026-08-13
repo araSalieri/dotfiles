@@ -41,18 +41,6 @@
 | Debugger | `<leader>dO` | Step out |
 | Debugger | `<leader>dt` | Terminate debugger |
 | Debugger | `<leader>du` | Toggle DAP UI |
-| Claude | `<leader>ac` | Toggle Claude terminal |
-| Claude | `<leader>af` | Focus Claude |
-| Claude | `<leader>ar` | Resume Claude session |
-| Claude | `<leader>aC` | Continue Claude session |
-| Claude | `<leader>am` | Select Claude model |
-| Claude | `<leader>ab` | Add current buffer to Claude |
-| Claude | `<leader>as` | Send selection to Claude (visual) / Add file from tree (in neo-tree) |
-| Claude (fzf) | `<leader>cf` | Add files to Claude via fzf |
-| Claude (fzf) | `<leader>cg` | Search and add files to Claude |
-| Claude (fzf) | `<leader>cb` | Add buffers to Claude via fzf |
-| Claude (fzf) | `<leader>cd` | Add directory files to Claude |
-| Claude (fzf) | `<leader>ch` | Add Claude history via fzf |
 | Flash | `s` | Jump with labels |
 | Flash | `S` (normal/op-pending) | Treesitter jump |
 | Flash | `r` (operator-pending) | Remote flash |
