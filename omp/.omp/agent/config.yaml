@@ -1,30 +1,28 @@
 modelRoles:
-  vision: openai/gpt-5.6-luna
-  commit: deepseek/deepseek-v4-flash
+  plan: xai/grok-4.6
+  slow: xai/grok-4.6
   default: deepseek/deepseek-v4-pro
+  vision: openai/gpt-5.6-luna
+  designer: xai/grok-4.6
+  task: xai/grok-4.6
+  advisor: xai/grok-4.6
+  commit: deepseek/deepseek-v4-flash
   smol: deepseek/deepseek-v4-flash
-  slow: xai/grok-4.6:high
-  plan: xai/grok-4.6:high
-
+  tiny: deepseek/deepseek-v4-flash
 symbolPreset: unicode
-
 theme:
   dark: titanium
   light: light
-
 setupVersion: 1
-
 statusLine:
   separator: powerline-thin
-
 display:
   showTokenUsage: true
-
 memory:
   backend: hindsight
-
 hindsight:
   apiUrl: http://100.65.161.173:8888
-
 defaultThinkingLevel: auto
 hideThinkingBlock: true
+advisor:
+  enabled: true
