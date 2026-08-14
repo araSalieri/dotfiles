@@ -1,17 +1,30 @@
 modelRoles:
-  vision: "openai/gpt-4o"
+  vision: openai/gpt-5.6-luna
+  commit: deepseek/deepseek-v4-flash
+  default: deepseek/deepseek-v4-pro
+  smol: deepseek/deepseek-v4-flash
+  slow: xai/grok-4.6:high
+  plan: xai/grok-4.6:high
+
 symbolPreset: unicode
+
 theme:
   dark: titanium
   light: light
+
 setupVersion: 1
+
 statusLine:
   separator: powerline-thin
+
 display:
   showTokenUsage: true
+
 memory:
   backend: hindsight
+
 hindsight:
   apiUrl: http://100.65.161.173:8888
+
 defaultThinkingLevel: auto
 hideThinkingBlock: true
