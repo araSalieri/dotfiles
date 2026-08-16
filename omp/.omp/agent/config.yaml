@@ -25,3 +25,5 @@ hindsight:
 hideThinkingBlock: true
 advisor:
   enabled: true
+autolearn:
+  enabled: true
