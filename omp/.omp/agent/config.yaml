@@ -6,9 +6,9 @@ modelRoles:
   designer: deepseek/deepseek-v4-pro:high
   task: deepseek/deepseek-v4-pro
   advisor: deepseek/deepseek-v4-pro:high
-  commit: deepseek/deepseek-v4-flash
-  smol: deepseek/deepseek-v4-flash
-  tiny: deepseek/deepseek-v4-flash
+  commit: deepseek/deepseek-v4-flash:low
+  smol: deepseek/deepseek-v4-flash:low
+  tiny: deepseek/deepseek-v4-flash:low
 symbolPreset: unicode
 theme:
   dark: titanium
@@ -21,7 +21,7 @@ display:
 memory:
   backend: hindsight
 hindsight:
-  apiUrl: http://100.65.161.173:8888
+  apiUrl: http://aegis:8888
 hideThinkingBlock: true
 advisor:
   enabled: true
