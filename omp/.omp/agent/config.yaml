@@ -4,7 +4,7 @@ modelRoles:
   default: deepseek/deepseek-v4-pro:high
   vision: openai/gpt-5.6-luna
   designer: deepseek/deepseek-v4-pro:high
-  task: deepseek/deepseek-v4-pro:high
+  task: deepseek/deepseek-v4-pro
   advisor: deepseek/deepseek-v4-pro:high
   commit: deepseek/deepseek-v4-flash
   smol: deepseek/deepseek-v4-flash

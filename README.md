@@ -55,27 +55,11 @@ dotfiles/
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
-├── claude/
-│   └── .claude/
-│       ├── settings.json
-│       ├── AGENTS.md          # global agent instructions
-│       ├── CLAUDE.md          # just `@AGENTS.md`, so Claude Code picks the same file up
-│       ├── statusline-command.sh  # status line: cwd, branch, model, ctx%, 5h/7d rate limits
-│       ├── commands/
-│       │   └── commit.md      # /commit — terse conventional commit, nothing else
-│       └── skills/
-│           ├── grill-me/
-│           │   └── SKILL.md   # /grill-me — stress-test a plan or design
-│           ├── skill-retention/
-│           │   └── SKILL.md   # protects your own skill formation on unfamiliar tech
-│           ├── find-skills/
-│           │   └── SKILL.md   # discover available skills
-│           └── text-to-speech/
-│               ├── SKILL.md   # ElevenLabs TTS
-│               └── references/
-│                   ├── installation.md
-│                   ├── streaming.md
-│                   └── voice-settings.md
+└── omp/
+│   └── .omp/
+│       └── agent/
+│           ├── AGENTS.md      # global agent instructions
+│           └── config.yaml    # agent config (models, theme, etc.)
 ```
 
 
@@ -99,7 +83,8 @@ dotfiles/
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
 | [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
-| [Claude Code](https://claude.ai/code) | AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
+| [paru](https://github.com/Morganamilo/paru) | AUR helper | `sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si` |
+| [omp (Oh My Pi)](https://github.com/can1357/oh-my-pi) | AI coding assistant CLI | `paru -S omp-bin` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 
@@ -110,7 +95,6 @@ git clone https://github.com/<you>/dotfiles ~/dotfiles
 cd ~/dotfiles
 stow fish
 stow nvim
-stow claude
 stow caelestia
 stow lazygit
 stow foot
