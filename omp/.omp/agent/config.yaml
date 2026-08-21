@@ -1,11 +1,11 @@
+defaultThinkingLevel: auto
 modelRoles:
-  plan: xai/grok-4.6:high
+  plan: xai/grok-4.6:medium
   slow: xai/grok-4.6:high
-  default: deepseek/deepseek-v4-pro:high
+  default: deepseek/deepseek-v4-pro
   vision: openai/gpt-5.6-luna
-  designer: deepseek/deepseek-v4-pro:high
-  task: deepseek/deepseek-v4-pro
-  advisor: deepseek/deepseek-v4-pro:high
+  designer: deepseek/deepseek-v4-pro:medium
+  task: deepseek/deepseek-v4-flash:low
   commit: deepseek/deepseek-v4-flash:low
   smol: deepseek/deepseek-v4-flash:low
   tiny: deepseek/deepseek-v4-flash:low
@@ -13,7 +13,7 @@ symbolPreset: unicode
 theme:
   dark: titanium
   light: light
-setupVersion: 1
+setupVersion: 2
 statusLine:
   separator: powerline-thin
 display:
@@ -24,6 +24,6 @@ hindsight:
   apiUrl: http://aegis:8888
 hideThinkingBlock: true
 advisor:
-  enabled: true
-autolearn:
-  enabled: true
+  enabled: false
+composer:
+  shape: borderless
