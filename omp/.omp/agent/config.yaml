@@ -2,7 +2,7 @@ defaultThinkingLevel: auto
 modelRoles:
   plan: xai/grok-4.6:medium
   slow: xai/grok-4.6:high
-  default: deepseek/deepseek-v4-pro
+  default: deepseek/deepseek-v4-flash
   vision: openai/gpt-5.6-luna
   designer: deepseek/deepseek-v4-pro:medium
   task: deepseek/deepseek-v4-flash:low
