@@ -2,13 +2,13 @@ defaultThinkingLevel: auto
 modelRoles:
   plan: xai/grok-4.6:medium
   slow: xai/grok-4.6:high
-  default: deepseek/deepseek-v4-flash
-  vision: openai/gpt-5.6-luna
-  designer: deepseek/deepseek-v4-pro:medium
-  task: deepseek/deepseek-v4-flash:low
-  commit: deepseek/deepseek-v4-flash:low
-  smol: deepseek/deepseek-v4-flash:low
-  tiny: deepseek/deepseek-v4-flash:low
+  default: opencode-go/deepseek-v4-flash
+  vision: opencode-go/deepseek-v4-flash-vision-exp
+  designer: opencode-go/deepseek-v4-pro:medium
+  task: opencode-go/deepseek-v4-flash:low
+  commit: opencode-go/deepseek-v4-flash:low
+  smol: opencode-go/deepseek-v4-flash:low
+  tiny: opencode-go/deepseek-v4-flash:low
 symbolPreset: unicode
 theme:
   dark: titanium
