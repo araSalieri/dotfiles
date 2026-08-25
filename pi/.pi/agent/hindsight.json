@@ -7,10 +7,6 @@
       "enabled": true,
       "derive": "manual",
       "bankId": "memories"
-    },
-    "user": {
-      "enabled": true,
-      "bankId": "memories"
     }
   }
 }
