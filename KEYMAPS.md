@@ -65,10 +65,10 @@
 | Refresh | `<leader>rb` | Refresh current buffer |
 | Terminal | `<leader>tt` | Open foot terminal at file's directory |
 | Pi | `<leader>cc` | Open pi in a new foot terminal (project root) |
-| Pi | `<leader>pa` (visual) | Queue selection as `file:line` |
-| Pi | `<leader>pA` | Queue current buffer as `file:line` |
-| Pi | `<leader>ps` | Send queued `file:line` refs to pi |
-| Pi | `<leader>pl` | List queued refs |
-| Pi | `<leader>pc` | Clear queued refs |
+| Pi | `<leader>ca` (visual) | Queue selection as `file:line` / range |
+| Pi | `<leader>cA` | Queue current line as `file:line` |
+| Pi | `<leader>cs` | Send queued `file:line` refs to pi |
+| Pi | `<leader>cl` | List queued refs |
+| Pi | `<leader>cx` | Clear queued refs |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
