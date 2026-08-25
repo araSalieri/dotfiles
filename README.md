@@ -110,8 +110,11 @@ Extensions (`packages` in `settings.json`), skills, and custom agents under `~/.
 from source via `pi install` and are not committed. Secrets (`auth.json`, `models-store.json`) and session
 state (`sessions/`) are machine-local and excluded.
 
-The `pi-nvim` package (in `packages`) opens a unix socket, and the `carderne/pi-nvim` Neovim plugin
-(below) connects to it so `<leader>p` sends the current file + visual selection straight into pi.
+The `@ldelossa/pi-ide` package (in `packages`) connects pi to Neovim over a loopback WebSocket
+MCP server served by the `pi-ide.nvim` plugin (below). pi auto-connects when nvim is open in the
+same cwd (or use `/ide` in pi to connect/switch/disconnect): pi sees your cursor and selection as
+ambient context, every write/edit opens as a two-pane diff (accept with `:w`, reject by closing),
+and nvim gets ghost-text suggestions served by the pi session (`opencode-go/deepseek-v4-flash`).
 
 ## Neovim Plugins
 
@@ -139,7 +142,7 @@ The `pi-nvim` package (in `packages`) opens a unix socket, and the `carderne/pi-
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
-| [pi-nvim](https://github.com/carderne/pi-nvim) | Bridge: send file/selection from Neovim to pi |
+| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way pi bridge: ambient context, interactive diffs, ghost-text suggestions |
 
 ## LSP / Treesitter
 

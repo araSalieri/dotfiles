@@ -42,7 +42,7 @@
     "npm:pi-interactive-shell",
     "git:github.com/davebcn87/pi-autoresearch",
     "npm:@tmustier/pi-ralph-wiggum",
-    "npm:pi-nvim",
+    "npm:@ldelossa/pi-ide",
     "npm:@luxusai/pi-hindsight",
     "npm:pi-ui-minimal"
   ],
