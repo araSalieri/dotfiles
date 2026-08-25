@@ -59,6 +59,16 @@ if status is-interactive
         echo -en "\e]133;A\e\\"
     end
 
+    # tmux: name new sessions after the directory they're started in
+    function tmux
+        if test (count $argv) -eq 0; and not set -q TMUX
+            set -l name (basename $PWD | string replace -a -r '[:.\s]' '-')
+            command tmux new-session -A -s $name
+        else
+            command tmux $argv
+        end
+    end
+
     # Custom fish config (caelestia)
     set -q XDG_CONFIG_HOME && set -l cConf $XDG_CONFIG_HOME/caelestia || set -l cConf $HOME/.config/caelestia
     source $cConf/user-config.fish 2>/dev/null
