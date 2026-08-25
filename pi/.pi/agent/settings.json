@@ -43,7 +43,8 @@
     "git:github.com/davebcn87/pi-autoresearch",
     "npm:@tmustier/pi-ralph-wiggum",
     "npm:pi-nvim",
-    "npm:@luxusai/pi-hindsight"
+    "npm:@luxusai/pi-hindsight",
+    "npm:pi-ui-minimal"
   ],
   "lastChangelogVersion": "0.84.3",
   "theme": "dark",
