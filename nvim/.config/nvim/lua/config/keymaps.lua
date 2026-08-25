@@ -57,10 +57,13 @@ map("n", "<leader>tt", function()
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
 end, { desc = "Open foot terminal here" })
 
--- Open OMP in a new foot terminal (same cwd so the socket matches nvim)
-map("n", "<leader>ao", function()
-  vim.fn.jobstart({ "foot", "-D", vim.fn.getcwd(), "omp" }, { detach = true })
-end, { desc = "Open Oh My Pi (foot)" })
+-- Open pi in a new foot terminal (git project root when available, else cwd)
+map("n", "<leader>cc", function()
+  local dir = vim.fn.getcwd()
+  local root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel 2>/dev/null")
+  if root[1] and root[1] ~= "" then dir = root[1] end
+  vim.fn.jobstart({ "foot", "-D", dir, "pi" }, { detach = true })
+end, { desc = "Open pi (foot terminal)" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")

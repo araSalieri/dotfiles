@@ -72,3 +72,6 @@ end
 
 mise activate fish | source
 kubectl completion fish | source
+
+# Pi
+fish_add_path "/home/ara/.local/share/mise/installs/node/26.4.0/bin"

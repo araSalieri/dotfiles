@@ -55,11 +55,11 @@ dotfiles/
 │                   ├── markdown.lua
 │                   ├── formatting.lua
 │                   └── editor.lua
-└── omp/
-│   └── .omp/
+└── pi/
+│   └── .pi/
 │       └── agent/
 │           ├── AGENTS.md      # global agent instructions
-│           └── config.yaml    # agent config (models, theme, etc.)
+│           └── settings.json  # packages, theme, model, provider (no secrets)
 ```
 
 
@@ -84,7 +84,7 @@ dotfiles/
 | [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
 | [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
 | [paru](https://github.com/Morganamilo/paru) | AUR helper | `sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si` |
-| [omp (Oh My Pi)](https://github.com/can1357/oh-my-pi) | AI coding assistant CLI | `paru -S omp-bin` |
+| [pi](https://pi.dev/) | AI coding assistant CLI | `npm install -g --ignore-scripts @earendil-works/pi-coding-agent` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 
@@ -99,24 +99,19 @@ stow caelestia
 stow lazygit
 stow foot
 stow swappy
-stow omp
+stow pi
 ```
 
-## OMP (Oh My Pi)
+## Pi
 
-Agent config (`~/.omp/agent/AGENTS.md`, `config.yaml`) is stowed from `omp/.omp/agent/`.
+Agent config (`~/.pi/agent/AGENTS.md`, `settings.json`) is stowed from `pi/.pi/agent/`.
 
-Plugin code lives in `~/.omp/plugins/{node_modules,cache}` — fetched from source, not committed.
-Only the install declaration is durable; restore with:
+Extensions (`packages` in `settings.json`), skills, and custom agents under `~/.pi/agent/` are installed
+from source via `pi install` and are not committed. Secrets (`auth.json`, `models-store.json`) and session
+state (`sessions/`) are machine-local and excluded.
 
-```bash
-omp plugin marketplace add DietrichGebert/ponytail
-omp plugin install ponytail@ponytail
-omp plugin install omp.nvim
-```
-
-`omp plugin list` should then show `ponytail@ponytail` and `omp.nvim`. Enablement/feature/settings state lives in
-`~/.omp/plugins/omp-plugins.lock.json` (machine-independent); stow it too if you want that state versioned.
+The `pi-nvim` package (in `packages`) opens a unix socket, and the `carderne/pi-nvim` Neovim plugin
+(below) connects to it so `<leader>p` sends the current file + visual selection straight into pi.
 
 ## Neovim Plugins
 
@@ -144,6 +139,7 @@ omp plugin install omp.nvim
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
+| [pi-nvim](https://github.com/carderne/pi-nvim) | Bridge: send file/selection from Neovim to pi |
 
 ## LSP / Treesitter
 
