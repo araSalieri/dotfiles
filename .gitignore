@@ -1,1 +1,5 @@
 nvim/.config/nvim/lazy-lock.json
+
+# Hindsight: project-local runtime state + config (machine-local)
+.pi/hindsight/
+.pi/hindsight.json

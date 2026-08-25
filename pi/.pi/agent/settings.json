@@ -42,7 +42,8 @@
     "npm:pi-interactive-shell",
     "git:github.com/davebcn87/pi-autoresearch",
     "npm:@tmustier/pi-ralph-wiggum",
-    "npm:pi-nvim"
+    "npm:pi-nvim",
+    "npm:@luxusai/pi-hindsight"
   ],
   "lastChangelogVersion": "0.84.3",
   "theme": "dark",
