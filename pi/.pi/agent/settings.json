@@ -44,11 +44,12 @@
     "npm:@tmustier/pi-ralph-wiggum",
     "npm:@ldelossa/pi-ide",
     "npm:@luxusai/pi-hindsight",
-    "npm:pi-ui-minimal"
+    "npm:pi-ui-minimal",
+    "npm:@narumitw/pi-auto-thinking"
   ],
   "lastChangelogVersion": "0.84.3",
   "theme": "dark",
-  "defaultProvider": "opencode-go",
+  "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-pro",
-  "hideThinkingBlock": true
+  "hideThinkingBlock": false
 }
