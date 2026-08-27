@@ -1,0 +1,29 @@
+defaultThinkingLevel: auto
+modelRoles:
+  plan: deepseek/deepseek-v4-pro:high
+  slow: deepseek/deepseek-v4-pro:high
+  default: deepseek/deepseek-v4-flash
+  vision: deepseek/deepseek-v4-flash-vision-exp
+  designer: deepseek/deepseek-v4-pro:medium
+  task: deepseek/deepseek-v4-flash:low
+  commit: deepseek/deepseek-v4-flash:low
+  smol: deepseek/deepseek-v4-flash:low
+  tiny: deepseek/deepseek-v4-flash:low
+symbolPreset: unicode
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
+statusLine:
+  separator: powerline-thin
+display:
+  showTokenUsage: true
+memory:
+  backend: hindsight
+hindsight:
+  apiUrl: http://aegis:8888
+hideThinkingBlock: true
+advisor:
+  enabled: false
+composer:
+  shape: borderless
