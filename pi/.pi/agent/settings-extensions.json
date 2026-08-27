@@ -1,0 +1,8 @@
+{
+  "powerbar": {
+    "bar-width": "16",
+    "separator": " · ",
+    "left": "git-branch,tokens",
+    "placement": "belowEditor"
+  }
+}
