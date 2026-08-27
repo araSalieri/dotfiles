@@ -22,8 +22,11 @@ memory:
   backend: hindsight
 hindsight:
   apiUrl: http://aegis:8888
+  bankId: memories
 hideThinkingBlock: true
 advisor:
   enabled: false
 composer:
   shape: borderless
+startup:
+  quiet: true
