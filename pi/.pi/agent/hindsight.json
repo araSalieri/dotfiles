@@ -1,4 +1,5 @@
 {
+  "setupComplete": true,
   "hindsight": {
     "baseUrl": "http://aegis:8888"
   },
