@@ -65,13 +65,19 @@ map("n", "<leader>cc", function()
   vim.fn.jobstart({ "foot", "-D", dir, "pi" }, { detach = true })
 end, { desc = "Open pi (foot terminal)" })
 
--- pi-ide: queue file:line refs and send to a connected pi (prefix "c")
+-- Open omp in a new foot terminal (git project root when available, else cwd)
+map("n", "<leader>co", function()
+  local dir = vim.fn.getcwd()
+  local root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel 2>/dev/null")
+  if root[1] and root[1] ~= "" then dir = root[1] end
+  vim.fn.jobstart({ "foot", "-D", dir, "omp" }, { detach = true })
+end, { desc = "Open omp (foot terminal)" })
+
+-- pi-ide: send selection/line refs to a connected omp session (prefix "c")
 local piq = require("config.pi-queue")
-map("v", "<leader>ca", piq.queue_selection, { desc = "Queue selection (file:line / range)" })
-map("n", "<leader>cA", piq.queue_current, { desc = "Queue current line as file:line" })
-map("n", "<leader>cs", piq.send, { desc = "Send queued refs to pi" })
-map("n", "<leader>cl", piq.list, { desc = "List queued refs" })
-map("n", "<leader>cx", piq.clear, { desc = "Clear queued refs" })
+map("v", "<leader>ca", piq.add_ref, { desc = "Send selection as ref to omp" })
+map("n", "<leader>cA", piq.add_ref, { desc = "Send current line as ref to omp" })
+map("n", "<leader>cx", piq.clear, { desc = "Clear queued refs in omp" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
