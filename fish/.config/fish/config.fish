@@ -69,6 +69,15 @@ if status is-interactive
         end
     end
 
+    # Auto-accept the omp commit split-plan confirmation ("Proceed? (y/N):")
+    function omp
+        if test (count $argv) -ge 1; and test "$argv[1]" = commit
+            printf 'y\n' | command omp $argv
+        else
+            command omp $argv
+        end
+    end
+
     # Custom fish config (caelestia)
     set -q XDG_CONFIG_HOME && set -l cConf $XDG_CONFIG_HOME/caelestia || set -l cConf $HOME/.config/caelestia
     source $cConf/user-config.fish 2>/dev/null
