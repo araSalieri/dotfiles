@@ -47,7 +47,8 @@
     "npm:@narumitw/pi-auto-thinking",
     "npm:pi-lens",
     "git:github.com/DietrichGebert/ponytail",
-    "npm:pi-vision-handoff"
+    "npm:pi-vision-handoff",
+    "npm:@czottmann/pi-automode"
   ],
   "lastChangelogVersion": "0.84.3",
   "theme": "dark",
