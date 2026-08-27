@@ -27,7 +27,6 @@
     "npm:pi-ask-user",
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
-    "git:github.com/VandeeFeng/pi-memory-md",
     "npm:@devkade/pi-plan",
     "npm:pi-simplify",
     "npm:pi-add-dir",
@@ -45,7 +44,10 @@
     "npm:@ldelossa/pi-ide",
     "npm:@luxusai/pi-hindsight",
     "npm:pi-ui-minimal",
-    "npm:@narumitw/pi-auto-thinking"
+    "npm:@narumitw/pi-auto-thinking",
+    "npm:pi-lens",
+    "git:github.com/DietrichGebert/ponytail",
+    "npm:pi-vision-handoff"
   ],
   "lastChangelogVersion": "0.84.3",
   "theme": "dark",
