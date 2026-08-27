@@ -2,22 +2,22 @@
   "subagents": {
     "agentOverrides": {
       "context-builder": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-flash"
       },
       "planner": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-pro"
       },
       "researcher": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-pro"
       },
       "reviewer": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-pro"
       },
       "scout": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-flash"
       },
       "worker": {
-        "model": ""
+        "model": "deepseek/deepseek-v4-pro"
       }
     }
   },
