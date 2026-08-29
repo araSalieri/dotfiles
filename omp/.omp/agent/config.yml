@@ -1,17 +1,16 @@
 defaultThinkingLevel: auto
 modelRoles:
-  plan: deepseek/deepseek-v4-pro:high
-  slow: deepseek/deepseek-v4-pro:high
-  default: deepseek/deepseek-v4-flash
+  plan: openrouter/z-ai/glm-5.3-flash:high
+  slow: openrouter/z-ai/glm-5.3-flash:high
+  default: openrouter/z-ai/glm-5.3-flash
   vision: deepseek/deepseek-v4-flash-vision-exp
-  designer: deepseek/deepseek-v4-pro:medium
-  task: deepseek/deepseek-v4-flash:low
+  designer: openrouter/z-ai/glm-5.3-flash:medium
   commit: deepseek/deepseek-v4-flash:low
   smol: deepseek/deepseek-v4-flash:low
   tiny: deepseek/deepseek-v4-flash:low
 symbolPreset: unicode
 theme:
-  dark: titanium
+  dark: obsidian
   light: light
 setupVersion: 2
 statusLine:
