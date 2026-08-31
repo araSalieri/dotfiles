@@ -32,7 +32,7 @@ dotfiles/
 │   └── .config/
 │       └── swappy/
 │           └── config          # screenshot annotation: no panel, early exit, saves to ~/pictures/screenshots
-├── nvim/
+└── nvim/
 │   └── .config/
 │       └── nvim/
 │           ├── init.lua
@@ -54,12 +54,7 @@ dotfiles/
 │                   ├── snacks.lua
 │                   ├── markdown.lua
 │                   ├── formatting.lua
-│                   └── editor.lua
-└── pi/
-│   └── .pi/
-│       └── agent/
-│           ├── AGENTS.md      # global agent instructions
-│           └── settings.json  # packages, theme, model, provider (no secrets)
+                    └── editor.lua
 ```
 
 
@@ -84,7 +79,6 @@ dotfiles/
 | [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
 | [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
 | [paru](https://github.com/Morganamilo/paru) | AUR helper | `sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si` |
-| [pi](https://pi.dev/) | AI coding assistant CLI | `npm install -g --ignore-scripts @earendil-works/pi-coding-agent` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 
@@ -99,22 +93,15 @@ stow caelestia
 stow lazygit
 stow foot
 stow swappy
-stow pi
 ```
 
-## Pi
+## omp-ide bridge
 
-Agent config (`~/.pi/agent/AGENTS.md`, `settings.json`) is stowed from `pi/.pi/agent/`.
-
-Extensions (`packages` in `settings.json`), skills, and custom agents under `~/.pi/agent/` are installed
-from source via `pi install` and are not committed. Secrets (`auth.json`, `models-store.json`) and session
-state (`sessions/`) are machine-local and excluded.
-
-The `@ldelossa/pi-ide` package (in `packages`) connects pi to Neovim over a loopback WebSocket
-MCP server served by the `pi-ide.nvim` plugin (below). pi auto-connects when nvim is open in the
-same cwd (or use `/ide` in pi to connect/switch/disconnect): pi sees your cursor and selection as
-ambient context, every write/edit opens as a two-pane diff (accept with `:w`, reject by closing),
-and nvim gets ghost-text suggestions served by the pi session (`opencode-go/deepseek-v4-flash`).
+omp connects to Neovim over the loopback WebSocket MCP server served by the `pi-ide.nvim` plugin
+(extension: `omp/.omp/agent/extensions/omp-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim
+is open in the same cwd: omp sees your cursor and selection as ambient context, every write/edit
+opens as a two-pane diff (accept with `:w`, reject by closing), and nvim gets ghost-text
+suggestions. nvim queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cx`.
 
 ## Neovim Plugins
 
@@ -142,7 +129,7 @@ and nvim gets ghost-text suggestions served by the pi session (`opencode-go/deep
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
-| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way pi bridge: ambient context, interactive diffs, ghost-text suggestions |
+| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way agent bridge (omp): ambient context, interactive diffs, ghost-text suggestions |
 
 ## LSP / Treesitter
 

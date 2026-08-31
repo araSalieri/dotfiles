@@ -1,13 +1,14 @@
--- pi-ide: two-way bridge between pi and Neovim over a loopback WebSocket MCP
--- server. Pi side: `npm:@ldelossa/pi-ide` (listed in pi/.pi/agent/settings.json).
+-- pi-ide: two-way bridge between omp and Neovim over a loopback WebSocket MCP
+-- server. omp side: extension at omp/.omp/agent/extensions/omp-ide/ (lock dir
+-- ~/.pi/ide — "pi" there is upstream naming).
 --
--- pi auto-connects on start when nvim is open in the same cwd (or `/ide` in
--- pi to connect/switch/disconnect). While connected:
---   * pi always sees your current file, cursor, and selection (ambient context)
---   * every pi write/edit opens as a two-pane diff — edit freely, `:w` to
+-- omp auto-connects when nvim is open in the same cwd. While connected:
+--   * omp always sees your current file, cursor, and selection (ambient context)
+--   * every omp write/edit opens as a two-pane diff — edit freely, `:w` to
 --     accept, close the window to reject
---   * ghost-text suggestions served by the connected pi session
---   * pi can read your LSP diagnostics and open buffers
+--   * ghost-text suggestions served by the connected omp session
+--   * omp can read your LSP diagnostics and open buffers
+--   * nvim queues file:line refs for omp via <leader>ca/cA/cx (config/pi-queue.lua)
 return {
   {
     "ldelossa/pi-ide.nvim",
