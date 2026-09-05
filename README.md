@@ -24,14 +24,6 @@ dotfiles/
 │   └── .config/
 │       └── fish/
 │           └── config.fish
-├── foot/
-│   └── .config/
-│       └── foot/
-│           └── foot.ini      # terminal: opaque pureblack bg, JetBrains Mono
-├── swappy/
-│   └── .config/
-│       └── swappy/
-│           └── config          # screenshot annotation: no panel, early exit, saves to ~/pictures/screenshots
 └── nvim/
 │   └── .config/
 │       └── nvim/
@@ -62,24 +54,18 @@ dotfiles/
 
 | Tool | Purpose | Install |
 |------|---------|---------|
+| [fish](https://fishshell.com/) | Shell | `sudo pacman -S fish` |
 | [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo pacman -S stow` |
 | [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo pacman -S neovim` |
-| [fish](https://fishshell.com/) | Shell | `sudo pacman -S fish` |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
-| [bat](https://github.com/sharkdp/bat) | fzf file preview | `sudo pacman -S bat` |
-| [fd](https://github.com/sharkdp/fd) | fzf repo search (Alt+C) | `sudo pacman -S fd` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
-| [eza](https://github.com/eza-community/eza) | `ls` replacement | `sudo pacman -S eza` |
-| [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter `cd` | `sudo pacman -S zoxide` |
 | [direnv](https://direnv.net/) | Per-directory env | `sudo pacman -S direnv` |
 | [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
 | [mise](https://mise.jdx.dev/) | Runtime version manager | `sudo pacman -S mise` |
 | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-jetbrains-mono-nerd` |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
-| [foot](https://codeberg.org/dnkl/foot) | Terminal emulator | `sudo pacman -S foot` |
-| [swappy](https://github.com/jtheoof/swappy) | Screenshot annotation | `sudo pacman -S swappy` |
 | [paru](https://github.com/Morganamilo/paru) | AUR helper | `sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si` |
-| [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `cargo install tree-sitter-cli` |
+| [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `sudo pacman -S tree-sitter tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 
 ## Installation
@@ -91,8 +77,6 @@ stow fish
 stow nvim
 stow caelestia
 stow lazygit
-stow foot
-stow swappy
 ```
 
 ## omp-ide bridge
