@@ -1,3 +1,0 @@
-return {
-  browser = "zen-browser",
-}
