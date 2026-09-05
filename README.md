@@ -58,6 +58,9 @@ dotfiles/
 │           ├── config.yml
 │           └── extensions/
 │               └── omp-ide/       # nvim bridge extension
+├── noctalia/
+│   └── .config/
+│       └── config.toml         # Noctalia shell config (bar, launcher, screenshots via satty)
 └── tmux/
     └── .tmux.conf
 ```
@@ -91,6 +94,7 @@ stow fish
 stow foot
 stow nvim
 stow lazygit
+stow noctalia
 stow tmux
 stow omp
 stow hypr
