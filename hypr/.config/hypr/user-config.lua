@@ -16,6 +16,10 @@ hl.config({
   dwindle = {
     force_split = 2,
   },
+  cursor = {
+    inactive_timeout = 3,
+    hide_on_key_press = true,
+  },
 })
 
 hl.layer_rule({
