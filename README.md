@@ -60,7 +60,8 @@ dotfiles/
 │               └── omp-ide/       # nvim bridge extension
 ├── noctalia/
 │   └── .config/
-│       └── config.toml         # Noctalia shell config (bar, launcher, screenshots via satty)
+│       └── noctalia/
+│           ├── config.toml      # Noctalia shell config (bar, launcher, screenshots via satty)
 └── tmux/
     └── .tmux.conf
 ```
