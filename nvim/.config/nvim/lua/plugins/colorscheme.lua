@@ -1,5 +1,4 @@
--- Palette mirrors caelestia-schemes/pureblack/default/dark.txt (catppuccin mocha
--- accents on a pure black base). Keep both files in sync when either changes.
+-- Catppuccin mocha on pure black base (palette defined inline below).
 return {
   {
     "catppuccin/nvim",

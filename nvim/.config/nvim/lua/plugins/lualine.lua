@@ -6,7 +6,7 @@ return {
       local lualine = require('lualine')
 
       -- stylua: ignore
-      -- matches caelestia-schemes/pureblack/default/dark.txt
+      -- Palette: catppuccin mocha on pure black base (matches nvim colorscheme.lua overrides)
       local colors = {
         bg       = 'NONE',
         fg       = '#a9a9a9',

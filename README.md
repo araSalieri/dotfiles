@@ -7,24 +7,26 @@ Personal configuration managed with [stow](https://www.gnu.org/software/stow/).
 ```
 dotfiles/
 ├── KEYMAPS.md                # Neovim keymap reference
-├── caelestia/
-│   └── .config/
-│       └── caelestia/
-│           ├── hypr-user.lua  # Hyprland user overrides
-│           └── hypr-vars.lua  # Hyprland variables
-├── caelestia-schemes/        # NOT a stow package - backup of custom colour schemes
-│   └── pureblack/
-│       └── default/
-│           └── dark.txt
-├── lazygit/
-│   └── .config/
-│       └── lazygit/
-│           └── config.yml
 ├── fish/
 │   └── .config/
 │       └── fish/
 │           └── config.fish
-└── nvim/
+├── foot/
+│   └── .config/
+│       └── foot/
+│           └── foot.ini
+├── hypr/
+│   └── .config/
+│       └── hypr/
+│           ├── hyprland.lua      # Hyprland entry point
+│           ├── user-config.lua   # User settings & variables
+│           ├── user-keybinds.lua # User keybinds
+│           └── user-rule.lua     # Window rules
+├── lazygit/
+│   └── .config/
+│       └── lazygit/
+│           └── config.yml
+├── nvim/
 │   └── .config/
 │       └── nvim/
 │           ├── init.lua
@@ -32,23 +34,33 @@ dotfiles/
 │               ├── config/
 │               │   ├── autocmds.lua
 │               │   ├── keymaps.lua
-│               │   └── options.lua
+│               │   ├── options.lua
+│               │   └── pi-queue.lua   # queues file refs for omp
 │               └── plugins/       # one file per concern, lazy.nvim auto-imports the dir
 │                   ├── colorscheme.lua
-│                   ├── neo-tree.lua
-│                   ├── fzf.lua
-│                   ├── treesitter.lua
-│                   ├── lsp.lua
 │                   ├── completion.lua
-│                   ├── lualine.lua
 │                   ├── dap.lua
-│                   ├── neotest.lua
-│                   ├── snacks.lua
-│                   ├── markdown.lua
+│                   ├── editor.lua
 │                   ├── formatting.lua
-                    └── editor.lua
+│                   ├── fzf.lua
+│                   ├── lsp.lua
+│                   ├── lualine.lua
+│                   ├── markdown.lua
+│                   ├── neo-tree.lua
+│                   ├── neotest.lua
+│                   ├── pi-ide.lua
+│                   ├── snacks.lua
+│                   └── treesitter.lua
+├── omp/
+│   └── .omp/
+│       └── agent/
+│           ├── AGENTS.md
+│           ├── config.yml
+│           └── extensions/
+│               └── omp-ide/       # nvim bridge extension
+└── tmux/
+    └── .tmux.conf
 ```
-
 
 ## Prerequisites
 
@@ -57,6 +69,8 @@ dotfiles/
 | [fish](https://fishshell.com/) | Shell | `sudo pacman -S fish` |
 | [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo pacman -S stow` |
 | [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo pacman -S neovim` |
+| [foot](https://codeberg.org/dnkl/foot) | Terminal launched by nvim `<leader>tt` / `<leader>co` | `sudo pacman -S foot` |
+| [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `sudo pacman -S tmux` |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
 | [direnv](https://direnv.net/) | Per-directory env | `sudo pacman -S direnv` |
@@ -74,9 +88,12 @@ dotfiles/
 git clone https://github.com/<you>/dotfiles ~/dotfiles
 cd ~/dotfiles
 stow fish
+stow foot
 stow nvim
-stow caelestia
 stow lazygit
+stow tmux
+stow omp
+stow hypr
 ```
 
 ## omp-ide bridge
@@ -91,7 +108,7 @@ suggestions. nvim queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<le
 
 | Plugin | Purpose |
 |--------|---------|
-| [catppuccin/nvim](https://github.com/catppuccin/nvim) | Colorscheme (mocha, pure black bg — palette from `caelestia-schemes/pureblack`) |
+| [catppuccin/nvim](https://github.com/catppuccin/nvim) | Colorscheme (mocha, pure black bg — palette overrides inline in `colorscheme.lua`) |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer |
 | [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Fuzzy finder (fzf-powered) |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting & indent |
@@ -104,6 +121,7 @@ suggestions. nvim queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<le
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) + [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | Debugger (DAP) |
 | [nvim-dap-go](https://github.com/leoluz/nvim-dap-go) | Go DAP adapter |
 | [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python) | Python DAP adapter |
+| [nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text) | Inline variable values while debugging |
 | [neotest](https://github.com/nvim-neotest/neotest) + [neotest-rust](https://github.com/rouge8/neotest-rust), [neotest-golang](https://github.com/fredrikaverpil/neotest-golang), [neotest-python](https://github.com/nvim-neotest/neotest-python) | Test runner (Rust, Go, Python). Rust needs `cargo-nextest`. Output panel opens as 20% horizontal split |
 | [flash.nvim](https://github.com/folke/flash.nvim) | Jump navigation with labels |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Surround motions |
