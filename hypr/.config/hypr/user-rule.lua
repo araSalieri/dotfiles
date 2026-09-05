@@ -1,0 +1,1 @@
+-- hl.window_rule({ match = { class = "steam" }, workspace = "special:steam", float = true })
