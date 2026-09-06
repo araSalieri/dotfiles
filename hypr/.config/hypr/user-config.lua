@@ -1,5 +1,6 @@
 hl.config({
   general = {
+    layout = "master",
     gaps_in = 5,
     gaps_out = 10,
     border_size = 1,
@@ -12,9 +13,6 @@ hl.config({
   },
   decoration = {
     rounding = 15,
-  },
-  dwindle = {
-    force_split = 2,
   },
   cursor = {
     inactive_timeout = 3,
