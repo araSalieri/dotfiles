@@ -59,11 +59,6 @@ return {
           lualine_y = {},
           lualine_z = {},
           lualine_c = {
-            {
-              function() return '▊' end,
-              color = { fg = colors.blue },
-              padding = { left = 0, right = 1 },
-            },
             { 'filename', cond = conditions.buffer_not_empty, color = { fg = colors.magenta } },
             { 'location' },
           },
@@ -79,11 +74,6 @@ return {
         table.insert(config.sections.lualine_x, component)
       end
 
-      ins_left {
-        function() return '▊' end,
-        color = { fg = colors.blue },
-        padding = { left = 0, right = 1 },
-      }
 
       ins_left {
         function() return '' end,
@@ -189,11 +179,6 @@ return {
         cond = conditions.hide_in_width,
       }
 
-      ins_right {
-        function() return '▊' end,
-        color   = { fg = colors.blue },
-        padding = { left = 1 },
-      }
 
       lualine.setup(config)
     end,
