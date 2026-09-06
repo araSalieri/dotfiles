@@ -45,9 +45,6 @@ map("v", ">", ">gv")
 map("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move line down" })
 map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 
--- Refresh neo-tree and current buffer
-map("n", "<leader>rr", function() require("neo-tree.sources.manager").refresh("filesystem") end,
-  { desc = "Refresh file explorer" })
 map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 
 -- Open external foot terminal at current file's directory

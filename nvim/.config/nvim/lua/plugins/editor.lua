@@ -8,6 +8,8 @@ return {
         function()
           local strip = {
             ["neo-tree"] = true,
+            ["snacks_picker_list"] = true,
+            ["snacks_picker_input"] = true,
             ["neotest-output-panel"] = true,
             ["neotest-summary"] = true,
             ["dapui_scopes"] = true,
