@@ -6,12 +6,10 @@ return {
     opts = {
       lazygit = {
         enabled = true,
-        win = { border = "rounded" },
+        win = { border = false },
         theme = {
           activeBorderColor          = { fg = "FloatBorder", bold = true },
-          -- Comment, not FloatBorder: keeps unfocused panels dim so the active
-          -- one is distinguishable.
-          inactiveBorderColor        = { fg = "Comment" },
+          inactiveBorderColor        = { fg = "LazygitInactiveBorder" },
           searchingActiveBorderColor = { fg = "FloatBorder", bold = true },
           optionsTextColor           = { fg = "Function" },
           selectedLineBgColor        = { bg = "Visual" },

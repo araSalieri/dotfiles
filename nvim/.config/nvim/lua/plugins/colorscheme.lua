@@ -74,6 +74,7 @@ return {
             NeoTreeCursorLine = { bg = c.surface0 },
             SnacksLazygitNormal = { bg = "NONE" },
             SnacksLazygitBorder = { bg = "NONE", fg = border },
+            LazygitInactiveBorder = { fg = "#000000" },
           }
         end,
       })

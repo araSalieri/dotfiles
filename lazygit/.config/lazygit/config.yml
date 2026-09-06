@@ -1,12 +1,15 @@
 gui:
   nerdFontsVersion: "3"
   showRandomTip: false
+  shrinkSidePanelsToContent: true
+  expandFocusedSidePanel: true
+  showCommandLog: false
   theme:
     activeBorderColor:
       - "#bfbfbf"
       - bold
     inactiveBorderColor:
-      - "#747474"
+      - "#000000"
     searchingActiveBorderColor:
       - "#f9e2af"
     optionsTextColor:
