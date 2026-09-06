@@ -1,27 +1,98 @@
 [accessibility]
-ui_scale = 1.20
+ui_scale = 1.0000000074505806
 
 [bar.default]
-center = [ "workspaces", "spacer_1", "active_window" ]
-concave_edge_corners = true
-end = [ "media", "spacer_1", "tray", "notifications", "network", "volume", "session" ]
+background_opacity = 0.0
+border = "surface_variant"
+border_width = 20.0
+capsule_group = []
+capsule_padding = 15.0
+capsule_thickness = 0.69999998807907104
+center = [
+    "media",
+    "audio_visualizer",
+    "spacer_1",
+    "workspaces",
+    "spacer_1",
+    "special-workspaces",
+    "cat",
+    "tray",
+    "notifications",
+    "volume",
+    "clock"
+]
+concave_edge_corners = false
+end = []
+font_family = "JetBrainsMono Nerd Font Mono"
+layer = "overlay"
 margin_edge = 0
-margin_ends = 0
-radius_bottom_left = 12
-radius_bottom_right = 12
+margin_ends = 900
+padding = 0
+panel_overlap = 0
+radius_bottom_left = 50
+radius_bottom_right = 50
 radius_top_left = 0
 radius_top_right = 0
-scale = 1.10
-start = [ "launcher", "clock", "spacer_1", "group:g1" ]
-thickness = 35
+reserve_space = false
+scale = 1.0000000074505806
+shadow = false
+smart_auto_hide = true
+start = []
+thickness = 25
 
-    [[bar.default.capsule_group]]
-    border = ""
-    fill = "on_secondary"
-    id = "g1"
-    members = [ "temp", "sysmon_2", "sysmon_3" ]
-    opacity = 1.0
-    padding = 6.0
+[desktop_widgets]
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-2" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-2"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[osd.kinds]
+keyboard_layout = false
+
+[plugins]
+enabled = [ "dotnetrob/cat", "jamesfeeder/special-workspaces" ]
 
 [shell]
 clipboard_image_action_command = "satty -f -"
@@ -36,6 +107,7 @@ settings_show_advanced = true
     open_near_click_control_center = true
     session_placement = "floating"
     session_position = "center"
+    transparency_mode = "glass"
 
     [shell.screenshot]
     copy_to_clipboard = false
@@ -82,22 +154,47 @@ settings_show_advanced = true
 gpu_poll_seconds = 2
 
 [theme]
+builtin = "Ayu"
+custom_palette = "theme-oled"
 mode = "dark"
-source = "wallpaper"
-wallpaper_scheme = "m3-tonal-spot"
+pure_black_dark = true
+source = "builtin"
+wallpaper_scheme = "m3-monochrome"
 
     [theme.templates]
-    builtin_ids = [ "btop", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt", "alacritty" ]
+    builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt" ]
+
+[wallpaper]
+fill_mode = "center"
+transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/ara/pictures/pure_black.jpg"
+
+    [wallpaper.last]
+    path = "/home/ara/pictures/pure_black.jpg"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/ara/pictures/pure_black.jpg"
+
+[widget.audio_visualizer]
+show_when_idle = true
+
+[widget.cat]
+cat_color = "primary"
+cat_color_mode = "custom"
+cat_size = 35
+type = "dotnetrob/cat:cat"
 
 [widget.clock]
 color = "secondary"
-format = "{:%H:%M %A %m/%d/%y}"
+format = "{:%H:%M %y/%m/%d}"
 
 [widget.launcher]
 color = "secondary"
 
 [widget.media]
-hide_when_no_media = true
+hide_when_no_media = false
 title_scroll = "on_hover"
 
 [widget.network]
@@ -112,8 +209,9 @@ color = "error"
 [widget.spacer_1]
 type = "spacer"
 
-[widget.temp]
-show_value = false
+[widget.special-workspaces]
+inactive_style = "ghost"
+type = "jamesfeeder/special-workspaces:special-workspaces"
 
 [widget.sysmon_2]
 glyph = "gpu-usage"
@@ -126,8 +224,11 @@ glyph = "cpu-2"
 stat = "ram_used"
 type = "sysmon"
 
+[widget.temp]
+show_value = false
+
 [widget.tray]
-capsule = true
+capsule = false
 capsule_fill = "on_secondary"
 
 [widget.volume]
@@ -135,8 +236,10 @@ color = "secondary"
 
 [widget.workspaces]
 active_pill_size = 2.5
-capsule = true
-capsule_fill = "on_primary"
+anchor = true
+capsule = false
+capsule_fill = "shadow"
+hide_when_empty = true
 inactive_pill_size = 1.0
-pill_scale = 0.80
+pill_scale = 0.80000000000000004
 show_labels = false
