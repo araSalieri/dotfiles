@@ -2,6 +2,7 @@
 ui_scale = 1.0000000074505806
 
 [bar.default]
+auto_hide = true
 background_opacity = 0.0
 border = "surface_variant"
 border_width = 20.0
@@ -10,22 +11,22 @@ capsule_padding = 15.0
 capsule_thickness = 0.69999998807907104
 center = [ "workspaces" ]
 concave_edge_corners = false
-end = [ "tray", "clock" ]
+end = [ "group:g1" ]
 font_family = "JetBrainsMono Nerd Font Mono"
 layer = "overlay"
 margin_edge = 0
-margin_ends = 1000
+margin_ends = 1022
 padding = 0
 panel_overlap = 0
-radius_bottom_left = 50
-radius_bottom_right = 50
+radius_bottom_left = 80
+radius_bottom_right = 80
 radius_top_left = 0
 radius_top_right = 0
 reserve_space = false
 scale = 1.0000000074505806
 shadow = false
-smart_auto_hide = true
-start = [ "group:g1" ]
+smart_auto_hide = false
+start = [ "group:g2" ]
 thickness = 25
 
     [[bar.default.capsule_group]]
@@ -34,9 +35,22 @@ thickness = 25
     enabled = true
     fill = "surface_variant"
     id = "g1"
-    members = [ "volume", "notifications" ]
+    members = [ "volume", "tray" ]
     opacity = 1.0
     padding = 15.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "clock", "notifications" ]
+    opacity = 1.0
+    padding = 15.0
+
+[control_center]
+width = 600
 
 [desktop_widgets]
 schema_version = 2
@@ -90,7 +104,7 @@ widget_order = [ "lockscreen-login-box@DP-2" ]
 keyboard_layout = false
 
 [plugins]
-enabled = []
+enabled = [ "jamesfeeder/special-workspaces" ]
 
 [shell]
 clipboard_image_action_command = "satty -f -"
@@ -102,15 +116,14 @@ settings_show_advanced = true
     auto_sync = true
 
     [shell.panel]
-    open_near_click_control_center = true
+    open_near_click_control_center = false
     session_placement = "floating"
     session_position = "center"
     transparency_mode = "glass"
 
     [shell.screenshot]
-    copy_to_clipboard = false
-    pipe_command = "satty -f -"
-    pipe_to_command = true
+    copy_to_clipboard = true
+    pipe_to_command = false
     save_to_file = false
 
     [[shell.session.actions]]
@@ -188,8 +201,9 @@ type = "dotnetrob/cat:cat"
 
 [widget.clock]
 capsule = true
-color = "secondary"
+color = "primary"
 format = "{:%H:%M}"
+interactive = false
 
 [widget.launcher]
 color = "secondary"
@@ -204,7 +218,7 @@ title_scroll = "on_hover"
 color = "secondary"
 
 [widget.notifications]
-color = "secondary"
+color = "primary"
 
 [widget.session]
 color = "error"
@@ -233,16 +247,21 @@ show_value = false
 [widget.tray]
 capsule = false
 capsule_fill = "on_secondary"
+color = "primary"
+detached_panel = true
+drawer_columns = 4
 
 [widget.volume]
-color = "secondary"
+color = "primary"
+show_label = false
 
 [widget.workspaces]
-active_pill_size = 2.5
+active_pill_size = 4.0
 anchor = true
 capsule = false
 capsule_fill = "shadow"
 hide_when_empty = false
 inactive_pill_size = 1.0
+labels_only_when_occupied = true
 pill_scale = 0.80000000000000004
 show_labels = false
