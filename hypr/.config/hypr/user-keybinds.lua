@@ -6,6 +6,10 @@ local launchPrefix = "uwsm app -- "
 hl.unbind(mainMod .. " + SHIFT + S")
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
 
+-- Bind Matrix
+hl.unbind(mainMod .. " + P")
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(launchPrefix .. "foot unimatrix -s 90"))
+
 -- Bind Terminal to T
 hl.unbind(mainMod .. " + T")
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(launchPrefix .. TERMINAL))
