@@ -24,6 +24,7 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.cursorline = true
 opt.scrolloff = 8
+opt.cmdheight = 0
 opt.laststatus = 3
 opt.fillchars = {
   eob = " ",
