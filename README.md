@@ -81,10 +81,12 @@ dotfiles/
 | [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
 | [mise](https://mise.jdx.dev/) | Runtime version manager | `sudo pacman -S mise` |
 | [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) | Terminal font | `sudo pacman -S ttf-jetbrains-mono-nerd` |
-| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
 | [paru](https://github.com/Morganamilo/paru) | AUR helper | `sudo pacman -S --needed base-devel && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si` |
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `sudo pacman -S tree-sitter tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
+| [lazydocker](https://github.com/jesseduffield/lazydocker) | Docker TUI | `paru -S lazydocker` |
+| [unimatrix](https://github.com/will8211/unimatrix) | Matrix terminal effect | `paru -S unimatrix-git` |
 
 ## Installation
 
