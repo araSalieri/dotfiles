@@ -18,6 +18,9 @@ hl.config({
     inactive_timeout = 3,
     hide_on_key_press = true,
   },
+  misc = {
+    vrr = 0,
+  }
 })
 
 hl.layer_rule({
