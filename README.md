@@ -53,11 +53,13 @@ dotfiles/
 │                   └── treesitter.lua
 ├── omp/
 │   └── .omp/
-│       └── agent/
-│           ├── AGENTS.md
-│           ├── config.yml
-│           └── extensions/
-│               └── omp-ide/       # nvim bridge extension
+│       ├── agent/
+│       │   ├── AGENTS.md
+│       │   ├── config.yml
+│       │   └── extensions/
+│       │       └── omp-ide/       # nvim bridge extension
+│       └── plugins/
+│           └── omp-plugins.lock.json  # plugin enable/feature/settings state
 ├── noctalia/
 │   └── .config/
 │       └── noctalia/
@@ -110,6 +112,22 @@ omp connects to Neovim over the loopback WebSocket MCP server served by the `pi-
 is open in the same cwd: omp sees your cursor and selection as ambient context, every write/edit
 opens as a two-pane diff (accept with `:w`, reject by closing), and nvim gets ghost-text
 suggestions. nvim queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cx`.
+
+## omp plugins
+
+Plugin state is tracked via the lock file, stowed to `~/.omp/plugins/omp-plugins.lock.json`.
+Cache and registries (`marketplaces.json`, `installed_plugins.json`, `cache/`, `node_modules/`)
+are machine-local and re-created by:
+
+```
+omp plugin marketplace add DietrichGebert/ponytail
+omp plugin install ponytail@ponytail
+omp plugin marketplace add obra/superpowers-marketplace
+omp plugin install superpowers@superpowers-marketplace
+```
+
+Enablement, features, and settings come from the tracked lock file. After plugin changes
+(install/enable/disable/settings via omp), commit the lock file diff.
 
 ## Neovim Plugins
 
