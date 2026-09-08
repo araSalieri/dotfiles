@@ -38,14 +38,8 @@ hl.unbind(mainMod .. " + S")
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("ara"))
 hl.bind(mainMod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:ara" }))
 
--- hl.bind(mainMod .. " + G", hl.dsp.workspace.toggle_special("steam"))
--- hl.bind(mainMod .. " + G", hl.dsp.exec_cmd([[
---   if hyprctl clients | grep -q 'class: steam'; then
---     hyprctl dispatch togglespecialworkspace steam
---   else
---     (steam &) ; hyprctl dispatch togglespecialworkspace steam
---   fi
--- ]]))
+-- Bind Gaming workspace (steam client + games open here via template rules)
+hl.bind(mainMod .. " + G", hl.dsp.focus({ workspace = "name:gaming" }))
 
 -- Monitor focus/move, shifted off SHIFT+num (which is now absolute focus):
 hl.bind(mainMod .. " + CONTROL + ALT + 1", hl.dsp.focus({ monitor = MONITOR1 }))
