@@ -5,28 +5,29 @@ ui_scale = 1.0000000074505806
 auto_hide = true
 background_opacity = 0.0
 border = "surface_variant"
-border_width = 20.0
+border_width = 0.0
 capsule = true
 capsule_padding = 15.0
-capsule_thickness = 0.69999998807907104
-center = [ "workspaces" ]
-concave_edge_corners = false
-end = [ "group:g1" ]
+capsule_thickness = 0.74999998696148396
+center = [ "group:g1" ]
+concave_edge_corners = true
+end = []
 font_family = "JetBrainsMono Nerd Font Mono"
 layer = "overlay"
-margin_edge = 0
-margin_ends = 1022
+margin_edge = 4
+margin_ends = 0
 padding = 0
 panel_overlap = 0
-radius_bottom_left = 80
-radius_bottom_right = 80
+radius = 0
+radius_bottom_left = 0
+radius_bottom_right = 0
 radius_top_left = 0
 radius_top_right = 0
 reserve_space = false
 scale = 1.0000000074505806
 shadow = false
 smart_auto_hide = false
-start = [ "group:g2" ]
+start = []
 thickness = 25
 
     [[bar.default.capsule_group]]
@@ -35,19 +36,9 @@ thickness = 25
     enabled = true
     fill = "surface_variant"
     id = "g1"
-    members = [ "volume", "tray" ]
-    opacity = 1.0
-    padding = 15.0
-
-    [[bar.default.capsule_group]]
-    accordion = false
-    accordion_direction = "end"
-    enabled = true
-    fill = "surface_variant"
-    id = "g2"
-    members = [ "clock", "notifications" ]
-    opacity = 1.0
-    padding = 15.0
+    members = [ "clock", "notifications", "workspaces", "volume", "tray" ]
+    opacity = 0.80000001192092896
+    padding = 12.0
 
 [control_center]
 width = 600
