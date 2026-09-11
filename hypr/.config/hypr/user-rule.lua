@@ -1,4 +1,3 @@
-hl.window_rule({ match = { class = "steam" }, workspace = "name:gaming", float = false })
+hl.window_rule({ match = { class = "steam" }, workspace = "name:gaming", float = false, border_color = { colors = { "rgba(0, 30, 66, 1.0)" } } })
 
--- Yellow border on special workspace windows (visual cue for SUPER+S scratchpad)
 hl.window_rule({ match = { workspace = "special:ara" }, border_color = { colors = { "rgba(186, 142, 35, 1)" } } })
