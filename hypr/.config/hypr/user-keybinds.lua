@@ -18,6 +18,12 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(launchPrefix .. TERMINAL))
 hl.unbind(mainMod .. " + D")
 hl.unbind(mainMod .. " + C")
 
+-- Bind Bar
+hl.unbind(mainMod .. " + X")
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(noctCall .. "bar-toggle"))
+hl.unbind(mainMod .. " + Z")
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd(noctCall .. "panel-toggle control-center"))
+
 -- Bind Workspace move
 for i = 1, NUM_WPM do
   local key = i % 10
