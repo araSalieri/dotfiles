@@ -1,10 +1,10 @@
 defaultThinkingLevel: auto
 modelRoles:
-  plan: openrouter/z-ai/glm-5.3-flash:high
-  slow: openrouter/z-ai/glm-5.3-flash:high
+  plan: openrouter/z-ai/glm-5.3-flash:max
+  slow: openrouter/z-ai/glm-5.3-flash:max
   default: openrouter/z-ai/glm-5.3-flash
   vision: deepseek/deepseek-v4-flash-vision-exp
-  designer: openrouter/z-ai/glm-5.3-flash:medium
+  designer: openrouter/z-ai/glm-5.3-flash:max
   commit: deepseek/deepseek-v4-flash:low
   smol: deepseek/deepseek-v4-flash:low
   tiny: deepseek/deepseek-v4-flash:low
