@@ -1,6 +1,6 @@
 hl.config({
   general = {
-    layout = "master",
+    layout = "scrolling",
     gaps_in = 5,
     gaps_out = 10,
     border_size = 2,
@@ -12,7 +12,14 @@ hl.config({
     },
   },
   master = {
-    mfact = 0.55,
+    mfact = 0.5,
+  },
+  scrolling = {
+    direction = "right",
+    column_width = 0.5,
+    focus_fit_method = 1,
+    follow_focus = true,
+
   },
   decoration = {
     rounding = 15,

@@ -57,3 +57,17 @@ hl.unbind(mainMod .. " + SHIFT + CONTROL + 3")
 hl.bind(mainMod .. " + SHIFT + CONTROL + 1", hl.dsp.window.move({ monitor = MONITOR1 }))
 hl.bind(mainMod .. " + SHIFT + CONTROL + 2", hl.dsp.window.move({ monitor = MONITOR2 }))
 hl.bind(mainMod .. " + SHIFT + CONTROL + 3", hl.dsp.window.move({ monitor = MONITOR3 }))
+
+-- Scrolling
+hl.unbind(mainMod .. " + period")
+hl.bind(mainMod .. " + period", hl.dsp.layout("move +col"))
+hl.bind(mainMod .. " + comma", hl.dsp.layout("move -col"))
+
+hl.bind(mainMod .. " + equal", hl.dsp.layout("colresize +conf"))
+hl.bind(mainMod .. " + minus", hl.dsp.layout("colresize -conf"))
+
+hl.bind(mainMod .. " + bracketleft", hl.dsp.layout("consume_or_expel prev"))
+hl.bind(mainMod .. " + bracketright", hl.dsp.layout("consume_or_expel next"))
+
+hl.bind(mainMod .. " + SHIFT + comma", hl.dsp.layout("swapcol l"))
+hl.bind(mainMod .. " + SHIFT + period", hl.dsp.layout("swapcol r"))
