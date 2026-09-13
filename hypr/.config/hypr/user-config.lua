@@ -11,6 +11,9 @@ hl.config({
       inactive_border = "rgba(0,0,0,1)",
     },
   },
+  master = {
+    mfact = 0.55,
+  },
   decoration = {
     rounding = 15,
   },

@@ -18,6 +18,7 @@ require("config.workspaces")
 pcall(function() dofile(os.getenv("HOME") .. "/.cache/noctalia/HVE/overlay.lua") end)
 -- <<< HYPRLAND VISUAL EDITOR (HVE) <<<
 
+pcall(require, "masterstack")
 pcall(require, "user-keybinds")
 pcall(require, "user-config")
 pcall(require, "user-rule")
