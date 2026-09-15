@@ -6,6 +6,7 @@ modelRoles:
   vision: openrouter/z-ai/glm-5.3-flash
   designer: openrouter/z-ai/glm-5.3-flash:max
   commit: deepseek/deepseek-v4-flash:low
+  advisor: openrouter/z-ai/glm-5.3-flash
 symbolPreset: unicode
 theme:
   dark: obsidian
@@ -29,3 +30,5 @@ startup:
   quiet: true
 dev:
   autoqaConsent: granted
+advisor:
+  enabled: true
