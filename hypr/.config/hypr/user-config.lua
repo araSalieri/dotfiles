@@ -30,6 +30,11 @@ hl.config({
   },
   misc = {
     vrr = 0,
+  },
+  input = {
+    touchpad = {
+      natural_scroll = true
+    }
   }
 })
 
