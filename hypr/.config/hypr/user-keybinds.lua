@@ -14,6 +14,14 @@ hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(launchPrefix .. "foot unimatrix -s 90
 hl.unbind(mainMod .. " + T")
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(launchPrefix .. TERMINAL))
 
+-- Rebind Browser
+hl.unbind(mainMod .. " + W")
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(launchPrefix .. BROWSER))
+
+-- Rebind File Manager
+hl.unbind(mainMod .. " + E")
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER))
+
 -- Unbind Fullscreen, Calculator
 hl.unbind(mainMod .. " + D")
 hl.unbind(mainMod .. " + C")
