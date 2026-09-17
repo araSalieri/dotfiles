@@ -125,7 +125,7 @@ widget_order = [ "lockscreen-login-box@FALLBACK", "lockscreen-login-box@DP-2" ]
 keyboard_layout = false
 
 [plugins]
-enabled = []
+enabled = [ "noctalia/timer" ]
 
 [shell]
 clipboard_image_action_command = "satty -f -"
@@ -199,6 +199,7 @@ wallpaper_scheme = "m3-monochrome"
 
     [theme.templates]
     builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt" ]
+    community_ids = [ "yazi" ]
 
 [wallpaper]
 fill_mode = "center"
