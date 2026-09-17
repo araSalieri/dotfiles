@@ -12,6 +12,7 @@ function tmux
     end
 end
 
+export EDITOR="nvim"
 mise activate fish | source
 
 if status is-interactive
