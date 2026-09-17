@@ -12,7 +12,6 @@ function tmux
     end
 end
 
-export EDITOR="nvim"
 mise activate fish | source
 
 if status is-interactive
@@ -37,3 +36,5 @@ if status is-interactive
 
     fzf --fish | source
 end
+
+set -gx EDITOR nvim
