@@ -3,15 +3,6 @@ source /usr/share/cachyos-fish-config/cachyos-config.fish
 function fish_greeting
 end
 
-function tmux
-    if test (count $argv) -eq 0; and not set -q TMUX
-        set -l name (basename $PWD | string replace -a -r '[:.\s]' '-')
-        command tmux new-session -A -s $name
-    else
-        command tmux $argv
-    end
-end
-
 mise activate fish | source
 
 if status is-interactive
