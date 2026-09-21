@@ -1,0 +1,43 @@
+{
+  "lastChangelogVersion": "0.86.1",
+  "defaultProvider": "openrouter",
+  "defaultModel": "z-ai/glm-5.3-flash",
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-lens",
+    "npm:@plannotator/pi-extension",
+    "npm:@ff-labs/pi-fff",
+    "npm:context-mode",
+    "npm:pi-simplify"
+  ],
+  "subagents": {
+    "agentOverrides": {
+      "context-builder": {
+        "model": "z-ai/glm-5.3-flash"
+      },
+      "planner": {
+        "model": "z-ai/glm-5.3"
+      },
+      "researcher": {
+        "model": "z-ai/glm-5.3-flash"
+      },
+      "reviewer": {
+        "model": "z-ai/glm-5.3-flash"
+      },
+      "scout": {
+        "model": "z-ai/glm-5.3-flash"
+      },
+      "worker": {
+        "model": "z-ai/glm-5.3-flash"
+      }
+    }
+  },
+  "editorPaddingX": 1,
+  "quietStartup": true,
+  "theme": "dark-noborder",
+  "hideThinkingBlock": true
+}
