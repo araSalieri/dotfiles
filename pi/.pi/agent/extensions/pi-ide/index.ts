@@ -1,10 +1,23 @@
-import { appendFile } from "node:fs/promises";
+// pi-ide: two-way bridge between pi and Neovim over a loopback WebSocket MCP
+// server. Neovim side: pi-ide.nvim (lock dir ~/.pi/ide).
+//
+// Neovim IDE integration for pi.
+//
+// pi auto-connects when nvim is open in the same cwd. While connected:
+//   * pi sees your active selection (ambient context) — hovering/browsing
+//     injects nothing; deliberate refs flow via <leader>ca/cA/cx
+//   * every pi write/edit opens as a two-pane diff — edit freely, `:w` to
+//     accept, close the window to reject
+//   * ghost-text suggestions served by the connected pi session
+//   * pi can read your LSP diagnostics and open buffers
+//   * nvim queues file:line refs for pi via <leader>ca/cA/cx (config/pi-queue.lua)
+import { appendFile, readFile } from "node:fs/promises";
 import { basename, resolve as resolvePath } from "node:path";
 import type {
 	ExtensionAPI,
 	ExtensionContext,
 	ExtensionUIContext,
-} from "@oh-my-pi/pi-coding-agent";
+} from "@earendil-works/pi-coding-agent";
 import { IdeClient, isPidAlive, isPortListening, listLockfiles, type Lockfile, matchesCwd } from "./client.ts";
 import {
 	SUGGESTION_SYSTEM_PROMPT,
@@ -14,27 +27,27 @@ import {
 	type SuggestionParams,
 } from "./suggestion.ts";
 
-const SUGGESTION_FLAG = "omp-ide-suggestion-model";
-const SUGGESTION_DEBUG_LOG_FLAG = "omp-ide-suggestion-debug-log";
+const SUGGESTION_FLAG = "pi-ide-suggestion-model";
+const SUGGESTION_DEBUG_LOG_FLAG = "pi-ide-suggestion-debug-log";
 
 type Selection = { startLine: number; endLine: number; text: string };
 type EditorState = { filePath: string | null; cursorLine: number | null; selection: Selection | null };
 type Ref = { filePath: string; startLine: number; endLine: number };
 
 const MAX_SELECTION_LINES = 100;
-const STATUS_KEY = "omp-ide";
+const STATUS_KEY = "pi-ide";
 const SPINNER = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 const SPINNER_INTERVAL_MS = 80;
 
 // --- Autoconnect config & state ---
-const STICKY_STATE_KEY = Symbol.for("omp-ide:sticky-state");
+const STICKY_STATE_KEY = Symbol.for("pi-ide:sticky-state");
 
 type StickyState = {
 	lockfile?: Lockfile;
 };
 
 function isAutoconnectEnabled(): boolean {
-	return process.env.OMP_IDE_AUTOCONNECT !== "0";
+	return process.env.PI_IDE_AUTOCONNECT !== "0";
 }
 
 // --- Sticky state helpers ---
@@ -179,7 +192,10 @@ function onNotification(method: string, params: unknown): void {
 }
 
 function renderEditorBlock(): string | null {
-	if (!state.filePath) return null;
+	// Only an active selection is worth sending to the model. Hover/browsing
+	// (cursor moved, nothing selected) injects nothing — deliberate context
+	// still flows via the <refs> queue (<leader>ca/cA/cx).
+	if (!state.filePath || !state.selection) return null;
 	const out = ["<editor>", `  <file>${state.filePath}</file>`];
 	if (state.cursorLine !== null) out.push(`  <cursor>line ${state.cursorLine + 1}</cursor>`);
 	if (state.selection) {
@@ -248,6 +264,7 @@ async function logSuggestionDebug(
 	entry: {
 		model: string;
 		params: SuggestionParams;
+
 		userText: string;
 		durationMs: number;
 		stopReason: string;
@@ -270,45 +287,23 @@ async function logSuggestionDebug(
 	}
 }
 
+/**
+ * Resolve the suggestion model. Precedence: CLI flag (operator override) >
+ * editor-provided preference > current session model.
+ */
 function resolveSuggestionModel(pi: ExtensionAPI, ctx: ExtensionContext, editorPref: string | undefined) {
-	// Precedence: CLI flag (operator override) > editor-provided preference >
-	// current session model.
 	const flagValue = pi.getFlag(SUGGESTION_FLAG);
 	const pick = (typeof flagValue === "string" && flagValue) ? flagValue : (editorPref || "");
 	if (pick) {
-		const m = ctx.models.resolve(pick);
+		// Format "provider/id"; provider ids never contain "/", model ids may.
+		const slash = pick.indexOf("/");
+		if (slash <= 0) throw new Error(`invalid model format (expected provider/id): ${pick}`);
+		const m = ctx.modelRegistry.find(pick.slice(0, slash), pick.slice(slash + 1));
 		if (!m) throw new Error(`model not found: ${pick}`);
 		return m;
 	}
-	if (!ctx.model) throw new Error("no current model, no editor-provided model, and --omp-ide-suggestion-model not set");
+	if (!ctx.model) throw new Error("no current model, no editor-provided model, and --pi-ide-suggestion-model not set");
 	return ctx.model;
-}
-
-async function getModelAuth(
-	ctx: ExtensionContext,
-	model: { provider: string; id: string },
-): Promise<{ apiKey: string; headers?: Record<string, string> }> {
-	const registry = ctx.modelRegistry as unknown as {
-		getApiKeyAndHeaders?: (model: unknown) => Promise<{
-			ok?: boolean;
-			apiKey?: string;
-			headers?: Record<string, string>;
-			error?: string;
-		}>;
-		getApiKey?: (model: unknown) => Promise<string>;
-	};
-	if (typeof registry.getApiKeyAndHeaders === "function") {
-		const auth = await registry.getApiKeyAndHeaders(model);
-		if (!auth.ok) throw new Error(auth.error ?? `auth failed for ${model.provider}`);
-		if (!auth.apiKey) throw new Error(`no API key for ${model.provider}`);
-		return { apiKey: auth.apiKey, headers: auth.headers };
-	}
-	if (typeof registry.getApiKey === "function") {
-		const key = await registry.getApiKey(model);
-		if (!key) throw new Error(`no API key for ${model.provider}`);
-		return { apiKey: key, headers: { Authorization: `Bearer ${key}` } };
-	}
-	throw new Error(`no API key for ${model.provider}`);
 }
 
 async function generateSuggestions(pi: ExtensionAPI, params: SuggestionParams, signal: AbortSignal): Promise<string[]> {
@@ -316,31 +311,33 @@ async function generateSuggestions(pi: ExtensionAPI, params: SuggestionParams, s
 		if (!sessionCtx) throw new Error("session not yet started");
 		const ctx = sessionCtx;
 		const model = resolveSuggestionModel(pi, ctx, params.model);
-		const auth = await getModelAuth(ctx, model);
 
 		const userText = buildSuggestionPrompt(params);
 		const startedAt = Date.now();
-		const { completeSimple } = await import("@oh-my-pi/pi-ai");
-		const response = await completeSimple(
-			model,
-			{
-				systemPrompt: SUGGESTION_SYSTEM_PROMPT,
-				messages: [
-					{
-						role: "user",
-						content: [{ type: "text", text: userText }],
-						timestamp: Date.now(),
-					},
-				],
-			},
-			{
-				apiKey: auth.apiKey,
-				headers: auth.headers,
-				maxTokens: 1024,
+		// streamSimple resolves provider auth internally (unlike raw pi-ai calls).
+		const response = await ctx.modelRegistry
+			.streamSimple(
+				model,
+				{
+					systemPrompt: SUGGESTION_SYSTEM_PROMPT,
+					messages: [
+						{
+							role: "user",
+							content: [{ type: "text", text: userText }],
+							timestamp: Date.now(),
+						},
+					],
+				},
+				{
+				maxTokens: 2048,
+				// Ghost text needs fast raw output; keep reasoning minimal so
+				// thinking models don't burn the token budget before emitting text.
+				reasoning: "minimal",
 				signal,
 				cacheRetention: "short",
-			},
-		);
+				},
+			)
+			.result();
 		if (response.stopReason === "error" || response.stopReason === "aborted") {
 			throw new Error(response.errorMessage ?? `suggestion model stopped with ${response.stopReason}`);
 		}
@@ -363,7 +360,7 @@ async function generateSuggestions(pi: ExtensionAPI, params: SuggestionParams, s
 		});
 		return returnedSuggestions;
 	} catch (err) {
-		pi.logger.error(`omp-ide suggestions failed: ${err instanceof Error ? err.message : String(err)}`);
+		console.error(`pi-ide suggestions failed: ${err instanceof Error ? err.message : String(err)}`);
 		return [];
 	}
 }
@@ -509,6 +506,104 @@ async function autoConnect(ctx: ExtensionContext, pi: ExtensionAPI, options: { p
 	}
 }
 
+// --- Diff routing (write + edit tools) ---
+
+/**
+ * Route a write tool call through the IDE diff view. Mutates `event.input`
+ * in place with the accepted content, or returns a block result on reject.
+ */
+async function routeWrite(
+	event: { toolCallId: string; input: { path?: unknown; content?: unknown } },
+	ctx: ExtensionContext,
+): Promise<{ block?: boolean; reason?: string } | undefined> {
+	const input = event.input as { path?: unknown; content?: unknown };
+	const rawPath = typeof input.path === "string" ? input.path : "";
+	// Internal URLs (xd://, archive:, db:, local:, etc.) and other scheme
+	// targets must NOT be routed through the editor.
+	if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(rawPath)) return;
+
+	const path = resolvePath(ctx.cwd, rawPath);
+	const proposedContent = typeof input.content === "string" ? input.content : "";
+
+	const tabName = `pi-write:${event.toolCallId}`;
+	let result: { content?: { text?: string }[] };
+	try {
+		result = await client!.callTool("openDiff", {
+			old_file_path: path,
+			new_file_path: path,
+			new_file_contents: proposedContent,
+			tab_name: tabName,
+		});
+	} catch (err) {
+		ctx.ui.notify(`IDE diff failed: ${err instanceof Error ? err.message : String(err)}`, "warning");
+		return;
+	}
+	void client!.callTool("close_tab", { tab_name: tabName }).catch(() => {});
+	const parsed = parseDiffResult(result);
+	if (!parsed.saved) return { block: true, reason: `user rejected the write in IDE` };
+	// Replace the content with what the user accepted in the editor.
+	input.content = parsed.text;
+	return undefined;
+}
+
+/**
+ * Route an edit tool call through the IDE diff view. Computes the proposed
+ * content from the current file plus the requested replacements, shows the
+ * diff, and on accept rewrites the input as a single whole-file replacement
+ * (oldText = current content, newText = accepted content) so the edit tool
+ * reproduces exactly what the user approved — including any hand-edits made
+ * in the diff buffer.
+ */
+async function routeEdit(
+	event: { toolCallId: string; input: { path?: unknown; edits?: unknown } },
+	ctx: ExtensionContext,
+): Promise<{ block?: boolean; reason?: string } | undefined> {
+	const input = event.input as { path?: string; edits?: { oldText: string; newText: string }[] };
+	const rawPath = typeof input.path === "string" ? input.path : "";
+	if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(rawPath)) return;
+	if (!Array.isArray(input.edits) || input.edits.length === 0) return;
+
+	const path = resolvePath(ctx.cwd, rawPath);
+	let original: string;
+	try {
+		original = await readFile(path, "utf8");
+	} catch {
+		// Missing/unreadable file: let the tool run and fail on its own terms.
+		return;
+	}
+
+	// Replicate the edit tool's sequential application to preview the result.
+	let proposed = original;
+	for (const e of input.edits) {
+		if (typeof e?.oldText !== "string" || typeof e?.newText !== "string") return;
+		if (!proposed.includes(e.oldText)) return; // let the tool produce its own error
+		proposed = proposed.replace(e.oldText, e.newText);
+	}
+
+	const tabName = `pi-edit:${event.toolCallId}`;
+	let result: { content?: { text?: string }[] };
+	try {
+		result = await client!.callTool("openDiff", {
+			old_file_path: path,
+			new_file_path: path,
+			new_file_contents: proposed,
+			tab_name: tabName,
+		});
+	} catch (err) {
+		ctx.ui.notify(`IDE diff failed: ${err instanceof Error ? err.message : String(err)}`, "warning");
+		return;
+	}
+	void client!.callTool("close_tab", { tab_name: tabName }).catch(() => {});
+	const parsed = parseDiffResult(result);
+	if (!parsed.saved) return { block: true, reason: `user rejected the edit in IDE` };
+	// Collapse the multi-edit input into one exact whole-file replacement of
+	// what the user accepted. The edit tool matches oldText against the file
+	// at execution time; if the file changed since our read, the edit tool
+	// reports its own error and the model can retry.
+	input.edits = [{ oldText: original, newText: parsed.text }];
+	return undefined;
+}
+
 export default function (pi: ExtensionAPI) {
 	pi.registerFlag(SUGGESTION_FLAG, {
 		type: "string",
@@ -519,21 +614,10 @@ export default function (pi: ExtensionAPI) {
 		description: "Path to append raw inline suggestion debug logs.",
 	});
 
-	pi.on("session_start", async (_event, ctx) => {
+	pi.on("session_start", async (event, ctx) => {
 		sessionCtx = ctx;
-		await autoConnect(ctx, pi, { preferSticky: false });
-	});
-	pi.on("session_switch", async (_event, ctx) => {
-		sessionCtx = ctx;
-		await autoConnect(ctx, pi, { preferSticky: true });
-	});
-	pi.on("session_branch", async (_event, ctx) => {
-		sessionCtx = ctx;
-		await autoConnect(ctx, pi, { preferSticky: true });
-	});
-	pi.on("session_tree", async (_event, ctx) => {
-		sessionCtx = ctx;
-		await autoConnect(ctx, pi, { preferSticky: true });
+		// startup = cold start; reload/new/resume/fork can reuse the sticky IDE.
+		await autoConnect(ctx, pi, { preferSticky: event.reason !== "startup" });
 	});
 
 	pi.registerCommand("ide", {
@@ -585,7 +669,7 @@ export default function (pi: ExtensionAPI) {
 				...event.messages,
 				{
 					role: "custom",
-					customType: "omp-ide.editor-context",
+					customType: "pi-ide.editor-context",
 					content: blocks.join("\n\n"),
 					display: false,
 					timestamp: Date.now(),
@@ -596,38 +680,13 @@ export default function (pi: ExtensionAPI) {
 
 	pi.on("tool_call", async (event, ctx) => {
 		if (!client?.isConnected()) return;
-		if (event.toolName !== "write") return;
-
-		const input = event.input as { path?: unknown; content?: unknown };
-		const rawPath = typeof input.path === "string" ? input.path : "";
-		// Internal URLs (xd://, archive:, db:, local:, etc.) and other scheme
-		// targets must NOT be routed through the editor.
-		if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(rawPath)) return;
-
-		const path = resolvePath(ctx.cwd, rawPath);
-		const proposedContent = typeof input.content === "string" ? input.content : "";
-
-		const tabName = `omp-${event.toolName}:${event.toolCallId}`;
-		let result: { content?: { text?: string }[] };
-		try {
-			result = await client.callTool("openDiff", {
-				old_file_path: path,
-				new_file_path: path,
-				new_file_contents: proposedContent,
-				tab_name: tabName,
-			});
-		} catch (err) {
-			ctx.ui.notify(`IDE diff failed: ${err instanceof Error ? err.message : String(err)}`, "warning");
-			return;
+		if (event.toolName === "write") {
+			return routeWrite(event as never, ctx);
 		}
-		void client.callTool("close_tab", { tab_name: tabName }).catch(() => {});
-		const parsed = parseDiffResult(result);
-		if (!parsed.saved) return { block: true, reason: `user rejected the write in IDE` };
-		// Revise the tool's execution input: replace content with what the user
-		// accepted in the editor. omp's tool_call contract is return-based (the
-		// returned `input` replaces the raw execution input); mutating
-		// `event.input` in place has no effect.
-		return { input: { ...(input as Record<string, unknown>), content: parsed.text } };
+		if (event.toolName === "edit") {
+			return routeEdit(event as never, ctx);
+		}
+		return undefined;
 	});
 
 	pi.on("session_shutdown", () => {

@@ -39,10 +39,9 @@
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
-| omp | `<leader>co` | Open omp in foot terminal (git root or cwd) |
-| omp | `<leader>ca` (visual) | Send selection as ref to omp |
-| omp | `<leader>cA` | Send current line as ref to omp |
-| omp | `<leader>cx` | Clear queued refs in omp |
+| pi-ide | `<leader>ca` (visual) | Send selection as ref to the connected agent |
+| pi-ide | `<leader>cA` | Send current line as ref to the connected agent |
+| pi-ide | `<leader>cx` | Clear queued refs in the connected agent |
 | pi-ide | `<M-\>` (insert) | Trigger ghost-text suggestion |
 | pi-ide | `<M-]>` (insert) | Next suggestion |
 | pi-ide | `<M-[>` (insert) | Previous suggestion |
@@ -91,5 +90,5 @@
 
 Notes:
 
-- `<leader>ca` coexists by mode: normal-mode is LSP code actions (buffer-local, LSP-attached buffers); visual-mode sends the selection to omp.
+- `<leader>ca` coexists by mode: normal-mode is LSP code actions (buffer-local, LSP-attached buffers); visual-mode sends the selection to the connected agent attached to the pi-ide server.
 - `<Tab>` in insert mode belongs to nvim-cmp completion; pi-ide suggestions use the `<M-...>`/`<C-l>`/`<C-]>` keys above.

@@ -1,12 +1,12 @@
--- pi-queue: push the current selection/line to a connected omp session as a
--- `ref_queued` notification. omp owns the queue (no queue here) and
+-- pi-queue: push the current selection/line to a connected agent session as a
+-- `ref_queued` notification. The agent owns the queue (no queue here) and
 -- auto-clears it after each turn. Visual mode sends the selection range,
 -- normal mode sends the current line.
 --
 -- Keymaps (prefix `c`):
 --   <leader>ca  (visual)  send selection range as a ref
 --   <leader>cA  (normal)  send current line as a ref
---   <leader>cx  (normal)  clear queued refs in omp
+--   <leader>cx  (normal)  clear queued refs in the agent
 local M = {}
 
 local function notify(msg, level)
@@ -42,7 +42,7 @@ local function current_path()
   return path
 end
 
---- Send the current selection (visual) or current line (normal) to omp.
+--- Send the current selection (visual) or current line (normal) to the connected agent.
 function M.add_ref()
   local s = server()
   if not s or not s.get_status().running then
@@ -50,7 +50,7 @@ function M.add_ref()
     return
   end
   if s.get_status().client_count == 0 then
-    notify("No connected omp client (run /ide in omp)", vim.log.levels.WARN)
+    notify("No connected agent client (run /ide in the agent)", vim.log.levels.WARN)
     return
   end
 
@@ -79,7 +79,7 @@ function M.add_ref()
     or string.format("%s:%d-%d", relative(path), start_line + 1, end_line + 1)
   notify("queued " .. label)
 end
---- Clear any queued refs held by the connected omp client.
+--- Clear any queued refs held by the connected agent.
 function M.clear()
   local s = server()
   if not s or not s.get_status().running then
@@ -87,7 +87,7 @@ function M.clear()
     return
   end
   if s.get_status().client_count == 0 then
-    notify("No connected omp client (run /ide in omp)", vim.log.levels.WARN)
+    notify("No connected agent client (run /ide in the agent)", vim.log.levels.WARN)
     return
   end
   s.broadcast("refs_cleared", {})

@@ -35,7 +35,7 @@ dotfiles/
 │               │   ├── autocmds.lua
 │               │   ├── keymaps.lua
 │               │   ├── options.lua
-│               │   └── pi-queue.lua   # queues file refs for omp
+│               │   └── pi-queue.lua   # queues file refs for the connected agent
 │               └── plugins/       # one file per concern, lazy.nvim auto-imports the dir
 │                   ├── colorscheme.lua
 │                   ├── completion.lua
@@ -51,15 +51,15 @@ dotfiles/
 │                   ├── pi-ide.lua
 │                   ├── snacks.lua
 │                   └── treesitter.lua
-├── omp/
-│   └── .omp/
-│       ├── agent/
-│       │   ├── AGENTS.md
-│       │   ├── config.yml
-│       │   └── extensions/
-│       │       └── omp-ide/       # nvim bridge extension
-│       └── plugins/
-│           └── omp-plugins.lock.json  # plugin enable/feature/settings state
+├── pi/
+│   └── .pi/
+│       └── agent/
+│           └── extensions/
+│               └── pi-ide/        # nvim bridge extension (pi side)
+│                   ├── index.ts
+│                   ├── client.ts
+│                   ├── suggestion.ts
+│                   └── package.json
 ├── noctalia/
 │   └── .config/
 │       └── noctalia/
@@ -101,33 +101,31 @@ stow nvim
 stow lazygit
 stow noctalia
 stow tmux
-stow omp
+stow pi
 stow hypr
 ```
 
-## omp-ide bridge
+## pi-ide bridge
 
-omp connects to Neovim over the loopback WebSocket MCP server served by the `pi-ide.nvim` plugin
-(extension: `omp/.omp/agent/extensions/omp-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim
-is open in the same cwd: omp sees your cursor and selection as ambient context, every write/edit
-opens as a two-pane diff (accept with `:w`, reject by closing), and nvim gets ghost-text
-suggestions. nvim queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cx`.
+The pi agent connects to Neovim over the loopback WebSocket MCP server served by the
+`pi-ide.nvim` plugin (extension: `pi/.pi/agent/extensions/pi-ide/`, stowed to
+`~/.pi/agent/extensions/pi-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim is open in the
+same cwd: the agent sees your cursor and selection as ambient context, every write/edit opens as a
+two-pane diff (accept with `:w`, reject by closing), and nvim gets ghost-text suggestions. nvim
+queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cx`.
 
-## omp plugins
+Notes:
 
-Plugin state is tracked via the lock file, stowed to `~/.omp/plugins/omp-plugins.lock.json`.
-Cache and registries (`marketplaces.json`, `installed_plugins.json`, `cache/`, `node_modules/`)
-are machine-local and re-created by:
+- Suggestions stream via `ctx.modelRegistry.streamSimple()` (resolves auth internally); pass
+  `--pi-ide-suggestion-model provider/id` to override. Non-thinking models work best for
+  inline completion
+- Both `write` and `edit` tool calls route through the nvim diff (edit is collapsed into a
+  whole-file replacement of the accepted content, so hand-edits in the diff are preserved)
+- The suggestion model must exist in pi's registry — the editor-configured model in
+  `plugins/pi-ide.lua` is a pi provider/id
 
-```
-omp plugin marketplace add DietrichGebert/ponytail
-omp plugin install ponytail@ponytail
-omp plugin marketplace add obra/superpowers-marketplace
-omp plugin install superpowers@superpowers-marketplace
-```
-
-Enablement, features, and settings come from the tracked lock file. After plugin changes
-(install/enable/disable/settings via omp), commit the lock file diff.
+Flags: `--pi-ide-suggestion-model`, `--pi-ide-suggestion-debug-log <file>`; env
+`PI_IDE_AUTOCONNECT=0` disables auto-connect.
 
 ## Neovim Plugins
 
@@ -156,7 +154,7 @@ Enablement, features, and settings come from the tracked lock file. After plugin
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
-| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way agent bridge (omp): ambient context, interactive diffs, ghost-text suggestions |
+| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way agent bridge: ambient context, interactive diffs, ghost-text suggestions |
 
 ## LSP / Treesitter
 

@@ -32,7 +32,7 @@ return {
             layout = { preset = "default", preview = true },
           },
           files = {
-            hidden = true, -- fd --hidden: dot-dirs (.config, .omp, ...) included; .git still excluded
+            hidden = true, -- fd --hidden: dot-dirs (.config, ...) included; .git still excluded
           },
           grep = {
             hidden = true, -- rg --hidden: dot-dirs searched; .git still excluded via --glob=!.git

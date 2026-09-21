@@ -3,6 +3,10 @@ import { readdir, readFile } from "node:fs/promises";
 import * as net from "node:net";
 import { homedir } from "node:os";
 import { join } from "node:path";
+// Node's global WebSocket (undici) cannot send custom headers on the upgrade
+// request, and pi-ide.nvim requires `x-pi-ide-authorization`. Use the `ws`
+// package, which supports a headers option.
+import { WebSocket } from "ws";
 
 export type Lockfile = {
 	port: number;
@@ -48,7 +52,9 @@ export async function listLockfiles(): Promise<Lockfile[]> {
 				ideName: typeof data.ideName === "string" ? data.ideName : "unknown",
 				authToken: data.authToken,
 			});
-		} catch {}
+		} catch {
+			// Unreadable/invalid lockfile: skip it.
+		}
 	}
 	return out;
 }
@@ -124,13 +130,15 @@ export class IdeClient {
 			await this.request("initialize", {
 				protocolVersion: PROTOCOL_VERSION,
 				capabilities: {},
-				clientInfo: { name: "omp-ide", version: "0.1.0" },
+				clientInfo: { name: "pi-ide", version: "0.1.0" },
 			});
 		} catch (err) {
 			this.ws = null;
 			try {
 				ws.close();
-			} catch {}
+			} catch {
+				// Socket already dead; nothing to clean up.
+			}
 			throw err;
 		}
 	}
