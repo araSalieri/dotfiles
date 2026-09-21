@@ -15,6 +15,7 @@ return {
     config = function()
       require("pi-ide").setup({
         auto_start = true,
+        suggestion = { auto_trigger = false },
       })
     end,
   },
