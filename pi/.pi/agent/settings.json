@@ -12,7 +12,8 @@
     "npm:@plannotator/pi-extension",
     "npm:@ff-labs/pi-fff",
     "npm:context-mode",
-    "npm:pi-simplify"
+    "npm:pi-simplify",
+    "npm:@eamode/pi-commit"
   ],
   "subagents": {
     "agentOverrides": {
