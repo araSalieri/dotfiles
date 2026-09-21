@@ -1,0 +1,12 @@
+{
+  "hindsight": {
+    "baseUrl": "http://aegis:8888"
+  },
+  "banks": {
+    "project": {
+      "enabled": true,
+      "derive": "manual",
+      "bankId": "memories"
+    }
+  }
+}

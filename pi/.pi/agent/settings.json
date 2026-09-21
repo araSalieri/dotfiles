@@ -13,9 +13,9 @@
     "npm:pi-lens",
     "npm:@plannotator/pi-extension",
     "npm:@ff-labs/pi-fff",
-    "npm:context-mode",
     "npm:pi-simplify",
-    "npm:@gotgenes/pi-permission-system"
+    "npm:@gotgenes/pi-permission-system",
+    "npm:@luxusai/pi-hindsight"
   ],
   "subagents": {
     "agentOverrides": {
