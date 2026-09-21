@@ -15,6 +15,9 @@ dotfiles/
 │   └── .config/
 │       └── foot/
 │           └── foot.ini
+├── git/
+│   └── git/
+│       └── ignore                 # global gitignore (`.pi/hindsight/*`)
 ├── hypr/
 │   └── .config/
 │       └── hypr/
@@ -54,12 +57,23 @@ dotfiles/
 ├── pi/
 │   └── .pi/
 │       └── agent/
+│           ├── APPEND_SYSTEM.md        # extra system-prompt rules
+│           ├── hindsight.json          # pi-hindsight memory endpoint & banks
+│           ├── settings.json           # model, packages (superpowers, pi-hindsight,
+│           │                           #   pi-permission-system, pi-lens, …), subagent models
+│           ├── themes/
+│           │   └── dark-noborder.json  # borderless dark theme
+│           ├── skills/
+│           │   └── commit/SKILL.md     # git commit workflow skill
 │           └── extensions/
-│               └── pi-ide/        # nvim bridge extension (pi side)
-│                   ├── index.ts
-│                   ├── client.ts
-│                   ├── suggestion.ts
-│                   └── package.json
+│               ├── minimal-editor.ts   # borderless `>` input editor
+│               ├── pi-ide/            # nvim bridge extension (pi side)
+│               │   ├── index.ts
+│               │   ├── client.ts
+│               │   ├── suggestion.ts
+│               │   └── package.json
+│               └── pi-permission-system/
+│                   └── config.json    # tool/permission rules (rm ask/deny, sudo ask, .env ask)
 ├── noctalia/
 │   └── .config/
 │       └── noctalia/
@@ -97,6 +111,7 @@ git clone https://github.com/<you>/dotfiles ~/dotfiles
 cd ~/dotfiles
 stow fish
 stow foot
+stow git
 stow nvim
 stow lazygit
 stow noctalia
@@ -110,22 +125,42 @@ stow hypr
 The pi agent connects to Neovim over the loopback WebSocket MCP server served by the
 `pi-ide.nvim` plugin (extension: `pi/.pi/agent/extensions/pi-ide/`, stowed to
 `~/.pi/agent/extensions/pi-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim is open in the
-same cwd: the agent sees your cursor and selection as ambient context, every write/edit opens as a
-two-pane diff (accept with `:w`, reject by closing), and nvim gets ghost-text suggestions. nvim
+same cwd: the agent sees your cursor and selection as ambient context, and every write/edit opens as
+a two-pane diff (accept with `:w`, reject by closing). nvim
 queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cx`.
+
+Ghost-text suggestions are still implemented in the extension but disabled in nvim
+(`suggestion = { auto_trigger = false }` in `plugins/pi-ide.lua`).
 
 Notes:
 
-- Suggestions stream via `ctx.modelRegistry.streamSimple()` (resolves auth internally); pass
-  `--pi-ide-suggestion-model provider/id` to override. Non-thinking models work best for
-  inline completion
 - Both `write` and `edit` tool calls route through the nvim diff (edit is collapsed into a
   whole-file replacement of the accepted content, so hand-edits in the diff are preserved)
-- The suggestion model must exist in pi's registry — the editor-configured model in
-  `plugins/pi-ide.lua` is a pi provider/id
+- Suggestions stream via `ctx.modelRegistry.streamSimple()` (resolves auth internally) — only
+  relevant if you re-enable them; pass `--pi-ide-suggestion-model provider/id` to override
 
 Flags: `--pi-ide-suggestion-model`, `--pi-ide-suggestion-debug-log <file>`; env
 `PI_IDE_AUTOCONNECT=0` disables auto-connect.
+
+## pi agent
+
+`pi/.pi/agent/` (stowed to `~/.pi/agent/`) configures the [pi coding agent](https://github.com/earendil-works/pi):
+
+- **`settings.json`** — default model/thinking level, pi packages (`pi-mcp-adapter`, `pi-web-access`,
+  `pi-subagents`, `pi-lens`, `pi-fff`, `pi-simplify`, `pi-permission-system`, `pi-hindsight`, and
+  `superpowers` from git), subagent model overrides, and the `dark-noborder` theme
+- **`skills/commit/`** — local commit skill (stages and commits in one response); replaced the
+  `@eamode/pi-commit` extension
+- **`extensions/pi-permission-system/`** — permission rules: `rm -rf` denied, `rm`/`sudo`/`.env`
+  writes ask, everything else allowed (audit log gitignored)
+- **`extensions/minimal-editor.ts`** — replaces pi's bordered input editor with a `>` prompt
+- **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
+- **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
+
+## git
+
+`git/git/ignore` is installed as the global gitignore via `core.excludesFile` and excludes
+`.pi/hindsight/*` (pi-hindsight runtime state).
 
 ## Neovim Plugins
 
