@@ -207,10 +207,14 @@ function appendRefToEditor(ref: Ref): void {
 	if (REF_LINE_RE.test(lines[lastIdx].trim())) {
 		lines[lastIdx] = `${lines[lastIdx].trimEnd()} ${line}`;
 		ui.setEditorText(lines.join("\n"));
+		// setEditorText doesn't schedule a repaint; push a status update to
+		// force the TUI to redraw so the ref appears immediately.
+		renderStatus();
 		return;
 	}
 	const base = current.trimEnd();
 	ui.setEditorText(base ? `${base}\n${line}` : line);
+	renderStatus();
 }
 
 function renderEditorBlock(): string | null {
