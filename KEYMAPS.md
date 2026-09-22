@@ -40,7 +40,6 @@
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
 | pi-ide | `<leader>ca` (visual) | Send selection as ref to the connected agent |
-| pi-ide | `<leader>cA` | Send current line as ref to the connected agent |
 | pi-ide | `<leader>cx` | Clear queued refs in the connected agent |
 | pi-ide | `<M-\>` (insert) | Trigger ghost-text suggestion |
 | pi-ide | `<M-]>` (insert) | Next suggestion |

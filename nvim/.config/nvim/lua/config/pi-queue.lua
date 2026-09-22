@@ -6,7 +6,6 @@
 --
 -- Keymaps (prefix `c`):
 --   <leader>ca  (visual)  send selection range as a ref
---   <leader>cA  (normal)  send current line as a ref
 --   <leader>cf  (picker/buffer)  send file(s) selected in snacks picker/explorer,
 --                                or the current buffer's file, as full-file refs
 local M = {}

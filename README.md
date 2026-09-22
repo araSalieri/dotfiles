@@ -127,8 +127,8 @@ The pi agent connects to Neovim over the loopback WebSocket MCP server served by
 `~/.pi/agent/extensions/pi-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim is open in the
 same cwd: the agent sees your cursor and selection as ambient context, and every write/edit opens as
 a two-pane diff (accept with `:w`, reject by closing). nvim
-queues `file:line` refs via `<leader>ca` / `<leader>cA` / `<leader>cf`
-(selection / line / selected file(s) from the snacks picker or explorer, or
+queues `file:line` refs via `<leader>ca` / `<leader>cf`
+(selection / selected file(s) from the snacks picker or explorer, or
 the current buffer's file when no picker is open).
 
 Ghost-text suggestions are still implemented in the extension but disabled in nvim

@@ -35,10 +35,6 @@ type Selection = { startLine: number; endLine: number; text: string };
 type EditorState = { filePath: string | null; cursorLine: number | null; selection: Selection | null };
 type Ref = { filePath: string; startLine?: number; endLine?: number };
 
-// A line consisting solely of one or more @path refs, each with an optional
-// :lines range, e.g. "@src/app.ts:10-20 @src/util.ts:5 @README.md".
-const REF_LINE_RE = /^(?:@\S+(?::\d+(?:-\d+)?)?)(?:\s+@\S+(?::\d+(?:-\d+)?)?)*$/;
-
 function formatRef(ref: Ref): string {
 	const cwd = sessionCtx?.cwd;
 	const p = cwd && ref.filePath.startsWith(`${cwd}/`)
@@ -190,30 +186,21 @@ function onNotification(method: string, params: unknown): void {
 }
 
 /**
- * Append an @path:lines ref to the editor input, accumulating refs
- * space-separated on a single refs-only line, like Claude Code's Neovim
- * integration. Skipped if the identical ref already exists on that line.
+ * Append an @path:lines ref inline at the end of the editor input, so it
+ * continues on the same line as existing text. Skipped if the identical
+ * ref token already exists in the text.
  * No-ops when there is no TUI (RPC/print modes).
  */
 function appendRefToEditor(ref: Ref): void {
 	const current = ui?.getEditorText() ?? null;
 	logRefDebug({ event: "appendRefToEditor", ref, hasUi: !!ui, uiAvailable, current });
 	if (!ui || !uiAvailable || current === null) return;
-	const line = formatRef(ref);
-	const lines = current.split("\n");
-	if (lines.some((l) => l.trim().split(/\s+/).includes(line))) return;
-	// Accumulate refs space-separated on a single refs-only line.
-	const lastIdx = lines.length - 1;
-	if (REF_LINE_RE.test(lines[lastIdx].trim())) {
-		lines[lastIdx] = `${lines[lastIdx].trimEnd()} ${line}`;
-		ui.setEditorText(lines.join("\n"));
-		// setEditorText doesn't schedule a repaint; push a status update to
-		// force the TUI to redraw so the ref appears immediately.
-		renderStatus();
-		return;
-	}
+	const token = formatRef(ref);
+	if (current.split(/\s+/).includes(token)) return;
 	const base = current.trimEnd();
-	ui.setEditorText(base ? `${base}\n${line}` : line);
+	ui.setEditorText(base ? `${base} ${token}` : token);
+	// setEditorText doesn't schedule a repaint; push a status update to
+	// force the TUI to redraw so the ref appears immediately.
 	renderStatus();
 }
 

@@ -54,10 +54,9 @@ map("n", "<leader>tt", function()
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
 end, { desc = "Open foot terminal here" })
 
--- pi-ide: send selection/line refs to the connected agent session (prefix "c")
+-- pi-ide: send selection/file refs to the connected agent session (prefix "c")
 local piq = require("config.pi-queue")
 map("v", "<leader>ca", piq.add_ref, { desc = "Send selection as ref to agent" })
-map("n", "<leader>cA", piq.add_ref, { desc = "Send current line as ref to agent" })
 map("n", "<leader>cf", piq.file_ref, { desc = "Send selected file(s) as ref to agent" })
 
 -- Clear search highlight
