@@ -58,7 +58,7 @@ end, { desc = "Open foot terminal here" })
 local piq = require("config.pi-queue")
 map("v", "<leader>ca", piq.add_ref, { desc = "Send selection as ref to agent" })
 map("n", "<leader>cA", piq.add_ref, { desc = "Send current line as ref to agent" })
-map("n", "<leader>cx", piq.clear, { desc = "Clear queued refs in agent" })
+map("n", "<leader>cf", piq.file_ref, { desc = "Send selected file(s) as ref to agent" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")

@@ -1,12 +1,14 @@
 -- pi-queue: push the current selection/line to a connected agent session as a
--- `ref_queued` notification. The agent owns the queue (no queue here) and
--- auto-clears it after each turn. Visual mode sends the selection range,
--- normal mode sends the current line.
+-- `ref_queued` notification. The agent appends an `@path:lines` ref to its
+-- editor input (Claude Code nvim style); refs are consumed when the message
+-- is sent. Visual mode sends
+-- the selection range, normal mode sends the current line.
 --
 -- Keymaps (prefix `c`):
 --   <leader>ca  (visual)  send selection range as a ref
 --   <leader>cA  (normal)  send current line as a ref
---   <leader>cx  (normal)  clear queued refs in the agent
+--   <leader>cf  (picker/buffer)  send file(s) selected in snacks picker/explorer,
+--                                or the current buffer's file, as full-file refs
 local M = {}
 
 local function notify(msg, level)
@@ -77,10 +79,13 @@ function M.add_ref()
   local label = start_line == end_line
     and string.format("%s:%d", relative(path), start_line + 1)
     or string.format("%s:%d-%d", relative(path), start_line + 1, end_line + 1)
-  notify("queued " .. label)
+  notify("sent " .. label .. " to pi input")
 end
---- Clear any queued refs held by the connected agent.
-function M.clear()
+
+--- Send the file(s) currently selected in the active snacks picker/explorer
+--- window as full-file refs (one per file). Honors multi-select. With no
+--- active picker, falls back to the current buffer's file.
+function M.file_ref()
   local s = server()
   if not s or not s.get_status().running then
     notify("pi-ide server not running", vim.log.levels.ERROR)
@@ -90,8 +95,30 @@ function M.clear()
     notify("No connected agent client (run /ide in the agent)", vim.log.levels.WARN)
     return
   end
-  s.broadcast("refs_cleared", {})
-  notify("refs cleared")
+
+  local ok, snacks = pcall(require, "snacks.picker")
+  local pickers = ok and snacks.get() or {}
+  local picker = pickers[#pickers]
+  if not picker then
+    -- No active picker: send the current buffer's file instead.
+    local path = current_path()
+    if not path then return end
+    s.broadcast("ref_queued", { filePath = path })
+    notify("sent " .. relative(path) .. " to pi input")
+    return
+  end
+
+  local items = picker:selected({ fallback = true })
+  local count = 0
+  for _, item in ipairs(items) do
+    local path = item.file
+    if path and path ~= "" then
+      -- Whole-file ref: filePath only, no line range (pi renders `@path`).
+      s.broadcast("ref_queued", { filePath = path })
+      count = count + 1
+    end
+  end
+  notify("sent " .. count .. " file ref(s) to pi input")
 end
 
 return M

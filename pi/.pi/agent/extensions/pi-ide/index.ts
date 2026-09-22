@@ -5,14 +5,15 @@
 //
 // pi auto-connects when nvim is open in the same cwd. While connected:
 //   * pi sees your active selection (ambient context) — hovering/browsing
-//     injects nothing; deliberate refs flow via <leader>ca/cA/cx
+//     injects nothing; deliberate refs flow via <leader>ca/cA
 //   * every pi write/edit opens as a two-pane diff — edit freely, `:w` to
 //     accept, close the window to reject
 //   * ghost-text suggestions served by the connected pi session
 //   * pi can read your LSP diagnostics and open buffers
-//   * nvim queues file:line refs for pi via <leader>ca/cA/cx (config/pi-queue.lua)
+//   * nvim sends file:line refs into pi's editor input via <leader>ca/cA
+//     (config/pi-queue.lua); refs are consumed when the message is sent
 import { appendFile, readFile } from "node:fs/promises";
-import { basename, resolve as resolvePath } from "node:path";
+import { basename, relative as relativePath, resolve as resolvePath } from "node:path";
 import type {
 	ExtensionAPI,
 	ExtensionContext,
@@ -32,7 +33,21 @@ const SUGGESTION_DEBUG_LOG_FLAG = "pi-ide-suggestion-debug-log";
 
 type Selection = { startLine: number; endLine: number; text: string };
 type EditorState = { filePath: string | null; cursorLine: number | null; selection: Selection | null };
-type Ref = { filePath: string; startLine: number; endLine: number };
+type Ref = { filePath: string; startLine?: number; endLine?: number };
+
+// A line consisting solely of one or more @path refs, each with an optional
+// :lines range, e.g. "@src/app.ts:10-20 @src/util.ts:5 @README.md".
+const REF_LINE_RE = /^(?:@\S+(?::\d+(?:-\d+)?)?)(?:\s+@\S+(?::\d+(?:-\d+)?)?)*$/;
+
+function formatRef(ref: Ref): string {
+	const cwd = sessionCtx?.cwd;
+	const p = cwd && ref.filePath.startsWith(`${cwd}/`)
+		? relativePath(cwd, ref.filePath)
+		: ref.filePath;
+	if (ref.startLine === undefined || ref.endLine === undefined) return `@${p}`;
+	const range = ref.startLine === ref.endLine ? `${ref.startLine + 1}` : `${ref.startLine + 1}-${ref.endLine + 1}`;
+	return `@${p}:${range}`;
+}
 
 const MAX_SELECTION_LINES = 100;
 const STATUS_KEY = "pi-ide";
@@ -77,11 +92,12 @@ function sameLockfile(a: Lockfile, b: Lockfile): boolean {
 let client: IdeClient | null = null;
 let state: EditorState = { filePath: null, cursorLine: null, selection: null };
 let ui: ExtensionUIContext | null = null;
+// ExtensionUIContext has no hasUI; carry it from the context at connect time.
+let uiAvailable = false;
 let sessionCtx: ExtensionContext | null = null;
 let inFlightSuggestions = 0;
 let spinnerTimer: ReturnType<typeof setInterval> | null = null;
 let spinnerFrame = 0;
-let refQueue: Ref[] = [];
 
 function disconnectFromIde(): void {
 	if (!client) return;
@@ -97,7 +113,6 @@ function disconnectFromIde(): void {
 
 function resetState(): void {
 	state = { filePath: null, cursorLine: null, selection: null };
-	refQueue = [];
 }
 
 function startSpinner(): void {
@@ -116,28 +131,6 @@ function stopSpinner(): void {
 	spinnerFrame = 0;
 }
 
-function formatRefQueue(refs: Ref[]): string {
-	const byFile = new Map<string, string[]>();
-	for (const r of refs) {
-		const range = r.startLine === r.endLine ? `${r.startLine + 1}` : `${r.startLine + 1}-${r.endLine + 1}`;
-		const ranges = byFile.get(r.filePath) ?? [];
-		ranges.push(range);
-		byFile.set(r.filePath, ranges);
-	}
-	return [...byFile.entries()].map(([file, ranges]) => `${basename(file)}: ${ranges.join(", ")}`).join("  ");
-}
-
-function renderRefsBlock(): string | null {
-	if (refQueue.length === 0) return null;
-	const lines = ["<refs>"];
-	for (const r of refQueue) {
-		const range = r.startLine === r.endLine ? `${r.startLine + 1}` : `${r.startLine + 1}-${r.endLine + 1}`;
-		lines.push(`  <ref file="${r.filePath}" lines="${range}"/>`);
-	}
-	lines.push("</refs>");
-	return lines.join("\n");
-}
-
 function renderStatus(): void {
 	if (!ui) return;
 	if (!client?.isConnected()) {
@@ -146,9 +139,7 @@ function renderStatus(): void {
 	}
 	const ideName = client.lockfile.ideName;
 	let body: string;
-	if (refQueue.length > 0) {
-		body = `${ideName} · ${refQueue.length} ref(s): ${formatRefQueue(refQueue)}`;
-	} else if (state.selection && state.filePath) {
+	if (state.selection && state.filePath) {
 		body = `${ideName} · Lines ${state.selection.startLine + 1}-${state.selection.endLine + 1} selected in ${basename(state.filePath)}`;
 	} else if (state.filePath) {
 		body = `${ideName} · In ${basename(state.filePath)}`;
@@ -161,19 +152,26 @@ function renderStatus(): void {
 	ui.setStatus(STATUS_KEY, body);
 }
 
+function logRefDebug(entry: Record<string, unknown>): void {
+	const file = process.env.PI_IDE_REF_DEBUG;
+	if (!file) return;
+	void appendFile(file, `${JSON.stringify({ timestamp: new Date().toISOString(), ...entry })}\n`, "utf8").catch(
+		() => {},
+	);
+}
+
 function onNotification(method: string, params: unknown): void {
 	if (method === "ref_queued") {
 		const p = params as { filePath?: unknown; startLine?: unknown; endLine?: unknown };
-		if (typeof p.filePath !== "string" || typeof p.startLine !== "number" || typeof p.endLine !== "number") return;
-		refQueue.push({ filePath: p.filePath, startLine: p.startLine, endLine: p.endLine });
-		renderStatus();
-		return;
-	}
-	if (method === "refs_cleared") {
-		if (refQueue.length > 0) {
-			refQueue = [];
-			renderStatus();
-		}
+		logRefDebug({ event: "ref_queued", params: p, ui: !!ui, uiAvailable });
+		if (typeof p.filePath !== "string") return;
+		const hasRange = typeof p.startLine === "number" && typeof p.endLine === "number";
+		if (!hasRange && (p.startLine !== undefined || p.endLine !== undefined)) return;
+		appendRefToEditor(
+			hasRange
+				? { filePath: p.filePath, startLine: p.startLine as number, endLine: p.endLine as number }
+				: { filePath: p.filePath },
+		);
 		return;
 	}
 	if (method !== "selection_changed" || !params || typeof params !== "object") return;
@@ -191,10 +189,34 @@ function onNotification(method: string, params: unknown): void {
 	renderStatus();
 }
 
+/**
+ * Append an @path:lines ref to the editor input, accumulating refs
+ * space-separated on a single refs-only line, like Claude Code's Neovim
+ * integration. Skipped if the identical ref already exists on that line.
+ * No-ops when there is no TUI (RPC/print modes).
+ */
+function appendRefToEditor(ref: Ref): void {
+	const current = ui?.getEditorText() ?? null;
+	logRefDebug({ event: "appendRefToEditor", ref, hasUi: !!ui, uiAvailable, current });
+	if (!ui || !uiAvailable || current === null) return;
+	const line = formatRef(ref);
+	const lines = current.split("\n");
+	if (lines.some((l) => l.trim().split(/\s+/).includes(line))) return;
+	// Accumulate refs space-separated on a single refs-only line.
+	const lastIdx = lines.length - 1;
+	if (REF_LINE_RE.test(lines[lastIdx].trim())) {
+		lines[lastIdx] = `${lines[lastIdx].trimEnd()} ${line}`;
+		ui.setEditorText(lines.join("\n"));
+		return;
+	}
+	const base = current.trimEnd();
+	ui.setEditorText(base ? `${base}\n${line}` : line);
+}
+
 function renderEditorBlock(): string | null {
 	// Only an active selection is worth sending to the model. Hover/browsing
 	// (cursor moved, nothing selected) injects nothing — deliberate context
-	// still flows via the <refs> queue (<leader>ca/cA/cx).
+	// still flows via the <refs> queue (<leader>ca/cA).
 	if (!state.filePath || !state.selection) return null;
 	const out = ["<editor>", `  <file>${state.filePath}</file>`];
 	if (state.cursorLine !== null) out.push(`  <cursor>line ${state.cursorLine + 1}</cursor>`);
@@ -410,6 +432,7 @@ async function findCandidateLockfiles(cwd: string): Promise<Lockfile[]> {
 async function connectToLockfile(lockfile: Lockfile, ctx: ExtensionContext, pi: ExtensionAPI): Promise<IdeClient | null> {
 	const next = new IdeClient(lockfile);
 	ui = ctx.ui;
+	uiAvailable = ctx.hasUI;
 	next.onNotification = onNotification;
 	next.onRequest("getSuggestions", async (params, signal) => {
 		inFlightSuggestions++;
@@ -659,8 +682,6 @@ export default function (pi: ExtensionAPI) {
 		const blocks: string[] = [];
 		const editor = renderEditorBlock();
 		if (editor) blocks.push(editor);
-		const refs = renderRefsBlock();
-		if (refs) blocks.push(refs);
 		const diagnostics = await fetchDiagnosticsBlock();
 		if (diagnostics) blocks.push(diagnostics);
 		if (blocks.length === 0) return;
@@ -696,11 +717,5 @@ export default function (pi: ExtensionAPI) {
 		renderStatus();
 		client = null;
 		resetState();
-	});
-	pi.on("turn_end", () => {
-		if (refQueue.length > 0) {
-			refQueue = [];
-			renderStatus();
-		}
 	});
 }
