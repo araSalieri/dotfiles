@@ -15,11 +15,7 @@ map("n", "<leader>W", "<cmd>noautocmd w<cr>", { desc = "Save file (no format)" }
 map("n", "<leader>uf", "<cmd>FormatToggle<cr>", { desc = "Toggle format on save (buffer)" })
 map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle format on save (global)" })
 
--- Window navigation
-map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-map("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
-map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+-- Window navigation: handled by vim-tmux-navigator (plugins/tmux-navigator.lua)
 
 -- Window splits
 map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
@@ -64,9 +60,3 @@ map("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
 -- Exit terminal mode
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
--- Navigate windows from terminal mode
-map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
-map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Move to right window" })
-map("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Move to bottom window" })
-map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Move to top window" })

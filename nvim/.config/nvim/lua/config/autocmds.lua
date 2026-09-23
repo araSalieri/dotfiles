@@ -99,3 +99,19 @@ autocmd("BufReadPost", {
     end
   end,
 })
+
+-- Re-run tmux-window-name rename after nvim launches and stops
+-- (tmux-window-name only hooks after-select-window by default)
+local uv = vim.uv
+augroup("TmuxWindowName", { clear = true })
+autocmd({ "VimEnter", "VimLeave" }, {
+  group = "TmuxWindowName",
+  callback = function()
+    local path = vim.env.TMUX_PLUGIN_MANAGER_PATH
+    if not path then return end
+    local script = path .. "/tmux-window-name/scripts/rename_session_windows.py"
+    if uv.fs_stat(script) then
+      uv.spawn(script, {})
+    end
+  end,
+})
