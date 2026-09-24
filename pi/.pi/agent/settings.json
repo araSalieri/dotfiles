@@ -14,7 +14,8 @@
     "npm:@ff-labs/pi-fff",
     "npm:@gotgenes/pi-permission-system",
     "npm:@luxusai/pi-hindsight",
-    "git:github.com/obra/superpowers"
+    "git:github.com/obra/superpowers",
+    "npm:pi-notify"
   ],
   "subagents": {
     "agentOverrides": {
