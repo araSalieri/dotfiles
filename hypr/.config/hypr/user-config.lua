@@ -19,7 +19,7 @@ hl.config({
     column_width = 0.5,
     focus_fit_method = 1,
     follow_focus = true,
-
+    explicit_column_widths = "0.5, 1.0",
   },
   decoration = {
     rounding = 15,

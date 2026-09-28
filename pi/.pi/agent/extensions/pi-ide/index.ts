@@ -8,6 +8,8 @@
 //     injects nothing; deliberate refs flow via <leader>ca/cA
 //   * every pi write/edit opens as a two-pane diff — edit freely, `:w` to
 //     accept, close the window to reject
+//   * when @gotgenes/pi-permission-system is present, a policy-denied
+//     write/edit skips the diff and is left to the permission gate
 //   * ghost-text suggestions served by the connected pi session
 //   * pi can read your LSP diagnostics and open buffers
 //   * nvim sends file:line refs into pi's editor input via <leader>ca/cA
@@ -523,6 +525,43 @@ async function autoConnect(ctx: ExtensionContext, pi: ExtensionAPI, options: { p
 // --- Diff routing (write + edit tools) ---
 
 /**
+ * Query the permission policy for a path-bearing tool call, aggregating the
+ * per-tool surface with the cross-cutting `path` and `external_directory`
+ * surfaces most-restrictive-wins (deny > ask > allow). Returns undefined when
+ * the permission system is absent or the query fails — callers then degrade
+ * to unconditional diff routing.
+ */
+async function queryPermissionState(
+	toolName: string,
+	path: string,
+	sessionId: string | undefined,
+): Promise<"allow" | "ask" | "deny" | undefined> {
+	try {
+		// The permission system publishes its per-session service into a
+		// process-global Symbol.for()-keyed map (its documented cross-extension
+		// API). A direct import is not resolvable from this extension's
+		// location, so read the shared slot instead.
+		type Svc = { checkPermission?: (surface: string, value?: string) => { state?: unknown } };
+		const map = (globalThis as Record<symbol, unknown>)[
+			Symbol.for("@gotgenes/pi-permission-system:session-services")
+		] as Map<string, Svc> | undefined;
+		const svc = sessionId ? map?.get(sessionId) : undefined;
+		if (!svc?.checkPermission) return undefined;
+		const states = [
+			svc.checkPermission(toolName, path)?.state,
+			svc.checkPermission("path", path)?.state,
+			svc.checkPermission("external_directory", path)?.state,
+		];
+		if (states.includes("deny")) return "deny";
+		if (states.includes("ask")) return "ask";
+		if (states.includes("allow")) return "allow";
+		return undefined;
+	} catch {
+		return undefined;
+	}
+}
+
+/**
  * Route a write tool call through the IDE diff view. Mutates `event.input`
  * in place with the accepted content, or returns a block result on reject.
  */
@@ -692,13 +731,26 @@ export default function (pi: ExtensionAPI) {
 
 	pi.on("tool_call", async (event, ctx) => {
 		if (!client?.isConnected()) return;
+		if (event.toolName !== "write" && event.toolName !== "edit") return;
+		// Diff is the review step for gated writes: route through the IDE
+		// only when the policy asks (diff doubles as the accept/reject UI)
+		// or the permission system is absent. Policy-allow writes skip the
+		// diff; policy-deny writes skip it too and are refused by the gate.
+		const input = event.input as { path?: unknown };
+		const rawPath = typeof input?.path === "string" ? input.path : "";
+		if (rawPath && !/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(rawPath)) {
+			const sessionId = ctx.sessionManager.getSessionId();
+			const state = await queryPermissionState(
+				event.toolName,
+				resolvePath(ctx.cwd, rawPath),
+				sessionId,
+			);
+			if (state === "allow" || state === "deny") return undefined;
+		}
 		if (event.toolName === "write") {
 			return routeWrite(event as never, ctx);
 		}
-		if (event.toolName === "edit") {
-			return routeEdit(event as never, ctx);
-		}
-		return undefined;
+		return routeEdit(event as never, ctx);
 	});
 
 	pi.on("session_shutdown", () => {

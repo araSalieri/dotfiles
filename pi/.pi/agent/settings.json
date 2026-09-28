@@ -12,18 +12,21 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-lens",
     "npm:@ff-labs/pi-fff",
-    "npm:@gotgenes/pi-permission-system",
     "npm:@luxusai/pi-hindsight",
     "git:github.com/obra/superpowers",
-    "npm:pi-notify"
+    "npm:@gotgenes/pi-permission-system"
   ],
   "subagents": {
+    "defaultModel": "z-ai/glm-5.3-flash",
+    "watchdog": {
+      "main": { "model": "z-ai/glm-5.3-flash", "thinking": "high" }
+    },
     "agentOverrides": {
       "context-builder": {
         "model": "z-ai/glm-5.3-flash"
       },
       "planner": {
-        "model": "z-ai/glm-5.3"
+        "model": "z-ai/glm-5.3-flash"
       },
       "researcher": {
         "model": "z-ai/glm-5.3-flash"

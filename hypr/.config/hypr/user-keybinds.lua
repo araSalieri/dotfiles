@@ -7,8 +7,7 @@ hl.unbind(mainMod .. " + SHIFT + S")
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
 
 -- Bind Matrix
-hl.unbind(mainMod .. " + P")
-hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(launchPrefix .. "foot unimatrix -s 90"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(launchPrefix .. "foot unimatrix -s 90"))
 
 -- Bind Terminal to T
 hl.unbind(mainMod .. " + T")
@@ -79,3 +78,6 @@ hl.bind(mainMod .. " + bracketright", hl.dsp.layout("consume_or_expel next"))
 
 hl.bind(mainMod .. " + SHIFT + comma", hl.dsp.layout("swapcol l"))
 hl.bind(mainMod .. " + SHIFT + period", hl.dsp.layout("swapcol r"))
+
+hl.unbind(mainMod .. " + P")
+hl.bind(mainMod .. " + P", hl.dsp.layout("colresize +conf"))

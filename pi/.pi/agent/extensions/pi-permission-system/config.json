@@ -13,6 +13,8 @@
       "rm -rf *": "deny",
       "sudo *": "ask"
     },
+    "write": "allow",
+    "edit": "allow",
     "external_directory": "allow"
   }
 }
