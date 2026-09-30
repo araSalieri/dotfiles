@@ -7,6 +7,7 @@ if status is-interactive
     alias vim nvim
     alias vi nvim
     alias yay paru
+    alias ls='eza -al --color=always --group-directories-first --icons=always'
 
     set -x FZF_CTRL_T_COMMAND 'fd -H . ~ -E node_modules -E target -E .git -E .venv -E dist'
     set -x FZF_CTRL_T_OPTS "
