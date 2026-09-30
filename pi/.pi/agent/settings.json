@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.1",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.3-flash",
   "defaultThinkingLevel": "high",
@@ -19,7 +19,10 @@
   "subagents": {
     "defaultModel": "z-ai/glm-5.3-flash",
     "watchdog": {
-      "main": { "model": "z-ai/glm-5.3-flash", "thinking": "high" }
+      "main": {
+        "model": "z-ai/glm-5.3-flash",
+        "thinking": "high"
+      }
     },
     "agentOverrides": {
       "context-builder": {
