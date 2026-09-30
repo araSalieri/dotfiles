@@ -28,6 +28,12 @@ if status is-interactive
     command -v starship &>/dev/null && starship init fish | source
     fzf --fish | source
     mise activate fish | source
+
+    function sesh-connect
+        sesh connect (sesh list | fzf)
+        commandline -f repaint
+    end
+    bind \co sesh-connect
 end
 
 set -gx EDITOR nvim
