@@ -3,11 +3,14 @@ source /usr/share/cachyos-fish-config/cachyos-config.fish
 function fish_greeting
 end
 
+zoxide init fish | source
 mise activate fish | source
 
 if status is-interactive
     alias vim nvim
     alias vi nvim
+    alias cd z
+    alias yay paru
 
     set -x FZF_CTRL_T_COMMAND 'fd -H . ~ -E node_modules -E target -E .git -E .venv -E dist'
     set -x FZF_CTRL_T_OPTS "
