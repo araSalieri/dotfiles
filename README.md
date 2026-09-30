@@ -92,6 +92,9 @@ dotfiles/
 | [foot](https://codeberg.org/dnkl/foot) | Terminal launched by nvim `<leader>tt` / `<leader>co` | `sudo pacman -S foot` |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `sudo pacman -S tmux` |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
+| [sesh](https://github.com/joshmedeski/sesh) | Session manager (tmux `prefix + T`) | `paru -S sesh-bin` |
+| [fd](https://github.com/sharkdp/fd) | Directory search (sesh find fallback) | `sudo pacman -S fd` |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter `cd` in fish | `sudo pacman -S zoxide` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
 | [direnv](https://direnv.net/) | Per-directory env | `sudo pacman -S direnv` |
 | [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
@@ -136,8 +139,11 @@ Ghost-text suggestions are still implemented in the extension but disabled in nv
 
 Notes:
 
-- Both `write` and `edit` tool calls route through the nvim diff (edit is collapsed into a
-  whole-file replacement of the accepted content, so hand-edits in the diff are preserved)
+- Both `write` and `edit` tool calls route through the nvim diff **unless the permission policy
+  already decided them**: policy-`allow` writes skip the diff and write directly, policy-`deny`
+  skips the diff and hits the gate, and `ask` (or no permission system) routes through the diff so
+  accepting with `:w` doubles as the approval. Edit is collapsed into a whole-file replacement of
+  the accepted content, so hand-edits in the diff are preserved
 - Suggestions stream via `ctx.modelRegistry.streamSimple()` (resolves auth internally) — only
   relevant if you re-enable them; pass `--pi-ide-suggestion-model provider/id` to override
 
@@ -153,11 +159,44 @@ Flags: `--pi-ide-suggestion-model`, `--pi-ide-suggestion-debug-log <file>`; env
   `superpowers` from git), subagent model overrides, and the `dark-noborder` theme
 - **`skills/commit/`** — local commit skill (stages and commits in one response); replaced the
   `@eamode/pi-commit` extension
-- **`extensions/pi-permission-system/`** — permission rules: `rm -rf` denied, `rm`/`sudo`/`.env`
-  writes ask, everything else allowed (audit log gitignored)
+- **`extensions/pi-permission-system/`** — permission rules: everything allowed by default,
+  `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored); also gates the pi-ide
+  diff routing described above
 - **`extensions/minimal-editor.ts`** — replaces pi's bordered input editor with a `>` prompt
 - **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
 - **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
+
+## fish
+
+`fish/.config/fish/config.fish` sources the CachyOS fish config, then adds:
+
+- zoxide init and `alias cd z`
+- `alias vim nvim` / `alias vi nvim` / `alias yay paru`
+- `FZF_CTRL_T_COMMAND` backed by `fd` (hidden files, node_modules/target/.git/.venv/dist excluded)
+
+## tmux
+
+`tmux/.tmux.conf` is managed by [tpm](https://github.com/tmux-plugins/tpm) (install with
+`git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, then `prefix + I`):
+
+| Plugin | Purpose |
+|--------|---------|
+| [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible) | Sane defaults |
+| [tmux-window-name](https://github.com/ofirgall/tmux-window-name) | Automatic window names |
+| [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) + [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) | Session save/restore (`@continuum-restore on`) |
+| [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | Vim-aware pane navigation |
+| [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat) | Search pane content |
+
+Keybinds (prefix is `C-a`):
+
+- `C-a S` / `C-a V` — main-horizontal / main-vertical layout
+- `C-a x` — kill pane; sessions survive destruction (`detach-on-destroy off`)
+- `C-a T` — sesh session picker (tmux, configs, zoxide dirs, directory find, kill session)
+- `C-a r` — reload config
+- vi copy mode: `v` to select, `y` to copy-and-cancel
+
+Status bar: `· PREFIX` indicator on `C-a`, session/host/time on the right, heavy pane borders with
+gruvbox colors.
 
 ## git
 
