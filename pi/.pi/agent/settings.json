@@ -1,7 +1,14 @@
 {
   "lastChangelogVersion": "0.99.2",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.3-flash",
+  "defaultModel": "jev-auto",
+  "jevRouter": {
+    "routerModel": "openrouter/~typesafe/jev-latest",
+    "standardModel": "openrouter/z-ai/glm-5.3-flash",
+    "complexModel": "openrouter/z-ai/glm-5.3",
+    "extremeModel": "openrouter/anthropic/claude-opus-5.5",
+    "complexityThreshold": 0.5
+  },
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "packages": [
