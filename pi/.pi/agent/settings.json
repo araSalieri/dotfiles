@@ -42,7 +42,8 @@
     "npm:@luxusai/pi-hindsight",
     "git:github.com/obra/superpowers",
     "npm:@gotgenes/pi-permission-system",
-    "npm:pi-notify"
+    "npm:pi-notify",
+    "npm:@dietrichgebert/ponytail"
   ],
   "editorPaddingX": 1,
   "quietStartup": true,
