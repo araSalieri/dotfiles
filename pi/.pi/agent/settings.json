@@ -6,19 +6,14 @@
     "routerModel": "openrouter/~typesafe/jev-latest",
     "standardModel": [
       {
-        "model": "openrouter/deepseek/deepseek-v4.1-flash",
-        "thinkingLevel": "low",
-        "when": "use for git commit"
-      },
-      {
         "model": "openrouter/z-ai/glm-5.3-flash",
         "thinkingLevel": "high",
         "when": "quick questions, small edits, routine fixes"
       },
       {
         "model": "openrouter/deepseek/deepseek-v4.1-flash",
-        "thinkingLevel": "max",
-        "when": "quick questions, small edits, routine fixes"
+        "thinkingLevel": "low",
+        "when": "writing git commit messages, one-shot trivial generation"
       }
     ],
     "complexModel": [
@@ -51,7 +46,5 @@
   "editorPaddingX": 1,
   "quietStartup": true,
   "theme": "dark-noborder",
-  "extensions": [
-    "+builtin:mcp"
-  ]
+  "extensions": ["+builtin:mcp"]
 }
