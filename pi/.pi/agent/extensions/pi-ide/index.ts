@@ -6,6 +6,8 @@
 // pi auto-connects when nvim is open in the same cwd. While connected:
 //   * pi sees your active selection (ambient context) — hovering/browsing
 //     injects nothing; deliberate refs flow via <leader>ca/cA
+//   * the selection/diagnostics snapshot is frozen at turn start, so files
+//     opened mid-task don't steer the running agent; each turn re-reads it
 //   * every pi write/edit opens as a two-pane diff — edit freely, `:w` to
 //     accept, close the window to reject
 //   * when @gotgenes/pi-permission-system is present, a policy-denied
@@ -96,6 +98,12 @@ let sessionCtx: ExtensionContext | null = null;
 let inFlightSuggestions = 0;
 let spinnerTimer: ReturnType<typeof setInterval> | null = null;
 let spinnerFrame = 0;
+// Editor/diagnostics context frozen at turn start: the `context` event fires
+// before every model call in the agent loop, and re-reading live nvim state
+// mid-loop makes the agent react to files opened while it works. A snapshot
+// taken at `before_agent_start` keeps the turn's context stable.
+let frozenEditorContext: string | null = null;
+let contextFrozen = false;
 
 function disconnectFromIde(): void {
 	if (!client) return;
@@ -204,6 +212,19 @@ function appendRefToEditor(ref: Ref): void {
 	// setEditorText doesn't schedule a repaint; push a status update to
 	// force the TUI to redraw so the ref appears immediately.
 	renderStatus();
+}
+
+/**
+ * Build the editor + diagnostics blocks from live state. Called at turn start
+ * to produce the frozen snapshot; the per-call `context` handler reuses it.
+ */
+async function buildEditorContext(): Promise<string | null> {
+	const blocks: string[] = [];
+	const editor = renderEditorBlock();
+	if (editor) blocks.push(editor);
+	const diagnostics = await fetchDiagnosticsBlock();
+	if (diagnostics) blocks.push(diagnostics);
+	return blocks.length === 0 ? null : blocks.join("\n\n");
 }
 
 function renderEditorBlock(): string | null {
@@ -708,20 +729,37 @@ export default function (pi: ExtensionAPI) {
 		},
 	});
 
+	pi.on("before_agent_start", async () => {
+		// Freeze the editor/diagnostics snapshot for the whole turn: the agent
+		// loop makes many model calls, and live re-reading would let files the
+		// user opens mid-task steer the agent off its current query.
+		frozenEditorContext = await buildEditorContext();
+		contextFrozen = true;
+	});
+
+	pi.on("agent_end", () => {
+		frozenEditorContext = null;
+		contextFrozen = false;
+	});
+
 	pi.on("context", async (event) => {
-		const blocks: string[] = [];
-		const editor = renderEditorBlock();
-		if (editor) blocks.push(editor);
-		const diagnostics = await fetchDiagnosticsBlock();
-		if (diagnostics) blocks.push(diagnostics);
-		if (blocks.length === 0) return;
+		// Mid-loop calls reuse the snapshot taken at turn start; live state is
+		// only read when no frozen snapshot exists (e.g. context handler firing
+		// outside an agent loop, such as prompt-cache warming).
+		let content: string | null;
+		if (contextFrozen) {
+			content = frozenEditorContext;
+		} else {
+			content = await buildEditorContext();
+		}
+		if (!content) return;
 		return {
 			messages: [
 				...event.messages,
 				{
 					role: "custom",
 					customType: "pi-ide.editor-context",
-					content: blocks.join("\n\n"),
+					content,
 					display: false,
 					timestamp: Date.now(),
 				},
