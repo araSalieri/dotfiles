@@ -123,6 +123,13 @@ stow pi
 stow hypr
 ```
 
+After pi is installed (`mise` + global `@earendil-works/pi-coding-agent` package), regenerate
+the machine-local extension module links once per box:
+
+```bash
+~/.pi/agent/extensions/bootstrap-node-links.sh
+```
+
 ## pi-ide bridge
 
 The pi agent connects to Neovim over the loopback WebSocket MCP server served by the
