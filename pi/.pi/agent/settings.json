@@ -13,7 +13,7 @@
       {
         "model": "openrouter/deepseek/deepseek-v4.1-flash",
         "thinkingLevel": "low",
-        "when": "writing git commit messages, one-shot trivial generation"
+        "when": "git commit work: writing commit messages and committing changes, plus other one-shot trivial generation"
       }
     ],
     "complexModel": [
