@@ -78,7 +78,7 @@ Message rules:
 - Terse and exact. Why over what — the diff already says what changed.
 - Imperative mood: "add", "fix", "remove" — not "added", "adds", "adding".
 - Subject ≤50 chars when possible, hard cap 72. Lowercase after colon unless project history says otherwise. No trailing period.
-- Body only when the why is non-obvious; wrap at 72; bullets use \`-\`. Always write a body for breaking changes, security fixes, migrations and reverts.
+- Body only when the why is non-obvious; write it as \`-\` bullets, one reason per bullet; wrap at 72. Always write a body for breaking changes, security fixes, migrations and reverts.
 - Never: "this commit does X", "I"/"we", "as requested by", emoji, or any AI attribution trailer (Co-Authored-By, Generated-with, etc.).
 - If changes span multiple concerns, pick the dominant type.
 - Follow project history when it clearly deviates (check \`git log\` first).`;
@@ -107,7 +107,7 @@ export default function (pi: ExtensionAPI) {
 	pi.registerTool({
 		name: "commit",
 		label: "Commit",
-		description: `Stage all changes (git add -A) and create a git commit in one step. Validates the message first and returns an error listing problems if it violates the rules: subject must be "<type>(<scope>): <summary>" with type one of ${TYPES.join(", ")}, subject ≤72 chars, no trailing period, no Co-Authored-By or Generated-with trailers. Fails early if the working tree is clean. Subject ≤50 chars when possible; body wraps at 72 and explains the why.`,
+		description: `Stage all changes (git add -A) and create a git commit in one step. Validates the message first and returns an error listing problems if it violates the rules: subject must be "<type>(<scope>): <summary>" with type one of ${TYPES.join(", ")}, subject ≤72 chars, no trailing period, no Co-Authored-By or Generated-with trailers. Fails early if the working tree is clean. Subject ≤50 chars when possible; body is \`-\` bullets (one reason per bullet), wrapped at 72, explaining the why.`,
 		parameters: CommitParams,
 		exposure: "model-only",
 		annotations: { destructiveHint: true },
