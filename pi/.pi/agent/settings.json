@@ -8,24 +8,24 @@
       {
         "model": "openrouter/z-ai/glm-5.3-flash",
         "thinkingLevel": "high",
-        "when": "quick questions, small edits, routine fixes"
+        "when": "default for ordinary work: direct questions and explanations, quick lookups, small single-file edits, routine fixes and tweaks with clear scope"
       },
       {
         "model": "openrouter/deepseek/deepseek-v4.1-flash",
         "thinkingLevel": "low",
-        "when": "git commit work: writing commit messages and committing changes, plus other one-shot trivial generation"
+        "when": "almost purely mechanical output the user asked for verbatim: committing changes and writing the commit message — including /commit or any commit command — or other short one-shot generation with no analysis or exploration needed"
       }
     ],
     "complexModel": [
       {
         "model": "openrouter/z-ai/glm-5.3",
         "thinkingLevel": "high",
-        "when": "multi-file features, debugging, code review"
+        "when": "real engineering work needing judgment: implementing features likely to span several files, debugging a failure or unexpected behavior, refactoring, reviewing changes for correctness and design"
       },
       {
         "model": "openrouter/anthropic/claude-opus-5.5",
         "thinkingLevel": "medium",
-        "when": "deep reasoning over large surfaces, architecture redesigns"
+        "when": "the hardest tasks in the tier: architecture design or redesign, subtle cross-cutting changes, tricky correctness or performance problems, deep analysis of a large codebase or long history"
       }
     ],
     "complexityThreshold": 0.5
