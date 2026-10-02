@@ -58,8 +58,9 @@ function M.add_ref()
   local path = current_path()
   if not path then return end
 
+  local was_visual = is_visual()
   local start_line, end_line
-  if is_visual() then
+  if was_visual then
     local a = vim.fn.getpos("v")
     local b = vim.fn.getpos(".")
     if a[2] > b[2] or (a[2] == b[2] and a[3] > b[3]) then a, b = b, a end
@@ -79,6 +80,11 @@ function M.add_ref()
     and string.format("%s:%d", relative(path), start_line + 1)
     or string.format("%s:%d-%d", relative(path), start_line + 1, end_line + 1)
   notify("sent " .. label .. " to pi input")
+
+  -- Clear the visual selection after a successful send (range was read above).
+  if was_visual then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+  end
 end
 
 --- Send the file(s) currently selected in the active snacks picker/explorer
