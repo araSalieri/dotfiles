@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.99.2",
+  "lastChangelogVersion": "1.0.0",
   "defaultProvider": "openrouter",
   "defaultModel": "jev-auto",
   "jevRouter": {
@@ -38,7 +38,6 @@
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:@juicesharp/rpiv-ask-user-question",
@@ -51,5 +50,8 @@
   ],
   "editorPaddingX": 1,
   "quietStartup": true,
-  "theme": "dark-noborder"
+  "theme": "dark-noborder",
+  "extensions": [
+    "+builtin:mcp"
+  ]
 }
