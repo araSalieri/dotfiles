@@ -41,10 +41,13 @@
     "npm:@ff-labs/pi-fff",
     "npm:@luxusai/pi-hindsight",
     "git:github.com/obra/superpowers",
-    "npm:@gotgenes/pi-permission-system"
+    "npm:@gotgenes/pi-permission-system",
+    "npm:pi-notify"
   ],
   "editorPaddingX": 1,
   "quietStartup": true,
   "theme": "dark-noborder",
-  "extensions": ["+builtin:mcp"]
+  "extensions": [
+    "+builtin:mcp"
+  ]
 }
