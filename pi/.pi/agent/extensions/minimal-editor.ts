@@ -40,7 +40,7 @@ interface EditorInternals {
 		render(width: number): string[];
 		handleMouse?(event: TuiMouseEvent): Record<string, unknown> | undefined;
 	};
-	state: { lines: string[] };
+	state: { lines: string[]; cursorLine: number };
 	layoutText(contentWidth: number): LayoutLine[];
 	segment(text: string, mode: "word" | "grapheme"): Iterable<{ segment: string; index: number }>;
 	buildVisualLineMap(width: number): VisualLine[];
@@ -223,7 +223,7 @@ class PromptEditor extends CustomEditor {
 
 export default function (pi: ExtensionAPI) {
 	pi.on("session_start", (_event, ctx) => {
-		ctx.ui.setEditorComponent((tui: never, theme: never, keybindings: never) => {
+		ctx.ui.setEditorComponent((tui, theme, keybindings) => {
 			return new PromptEditor(tui, theme, keybindings);
 		});
 	});
