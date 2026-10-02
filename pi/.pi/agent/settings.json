@@ -6,6 +6,11 @@
     "routerModel": "openrouter/~typesafe/jev-latest",
     "standardModel": [
       {
+        "model": "openrouter/deepseek/deepseek-v4.1-flash",
+        "thinkingLevel": "low",
+        "when": "use for git commit"
+      },
+      {
         "model": "openrouter/z-ai/glm-5.3-flash",
         "thinkingLevel": "high",
         "when": "quick questions, small edits, routine fixes"
