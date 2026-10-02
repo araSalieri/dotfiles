@@ -4,9 +4,30 @@
   "defaultModel": "jev-auto",
   "jevRouter": {
     "routerModel": "openrouter/~typesafe/jev-latest",
-    "standardModel": "openrouter/z-ai/glm-5.3-flash",
-    "complexModel": "openrouter/z-ai/glm-5.3",
-    "extremeModel": "openrouter/anthropic/claude-opus-5.5",
+    "standardModel": [
+      {
+        "model": "openrouter/z-ai/glm-5.3-flash",
+        "thinkingLevel": "high",
+        "when": "quick questions, small edits, routine fixes"
+      },
+      {
+        "model": "openrouter/deepseek/deepseek-v4.1-flash",
+        "thinkingLevel": "max",
+        "when": "quick questions, small edits, routine fixes"
+      }
+    ],
+    "complexModel": [
+      {
+        "model": "openrouter/z-ai/glm-5.3",
+        "thinkingLevel": "high",
+        "when": "multi-file features, debugging, code review"
+      },
+      {
+        "model": "openrouter/anthropic/claude-opus-5.5",
+        "thinkingLevel": "medium",
+        "when": "deep reasoning over large surfaces, architecture redesigns"
+      }
+    ],
     "complexityThreshold": 0.5
   },
   "defaultThinkingLevel": "high",
