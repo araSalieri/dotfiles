@@ -31,7 +31,8 @@ if status is-interactive
     mise activate fish | source
 
     function sesh-connect
-        sesh connect (sesh list | fzf)
+        set -l session (sesh list | fzf)
+        and sesh connect $session
         commandline -f repaint
     end
     bind \co sesh-connect

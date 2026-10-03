@@ -55,4 +55,5 @@ hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("fcitx5 -d")
+  hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 end)
