@@ -12,5 +12,8 @@ When following a superpowers skill:
   to plain chat only for open-ended discussion where typed options don't fit.
 - Use `todo` for skill checklists and multi-step execution phases
   (one entry per checklist item; exactly one in_progress at a time).
+- Subagents always inherit the session model (`jev-auto`): never pass a `model`
+  parameter on `subagent`/subagent calls — not even when a skill says to pick a
+  cheap or capable model per role. The jev router picks the model per turn.
 - Keep the skill's own sequence and approval gates unchanged — only
   swap plain-chat questions/trackers for the rpiv tools.
