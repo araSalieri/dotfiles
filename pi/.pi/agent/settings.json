@@ -1,5 +1,6 @@
 {
   "subagents": {
+    "defaultExtensions": ["/home/ara/.pi/agent/extensions/jev-router.ts"],
     "watchdog": {
       "enabled": true,
       "main": { "enabled": true },
