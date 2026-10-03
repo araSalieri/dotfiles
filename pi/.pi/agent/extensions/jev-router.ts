@@ -3,30 +3,23 @@
  *
  * Registers `openrouter/jev-auto`, listed next to the physical OpenRouter
  * models. On every new user message, one classify call to the Jev classifier
- * (TypeSafe System One, via OpenRouter's Decisions API) answers two questions:
+ * (TypeSafe System One, via OpenRouter's Decisions API) picks which of the
+ * configured candidate models best fits the prompt.
  *
- * 1. Complexity — standard vs complex, gated by `complexityThreshold`.
- * 2. Model pick — which of the configured candidate models best fits the prompt.
+ * Continuations, tool follow-ups, and retries stay on the model that answered
+ * last, so prompt caches and thinking signatures stay valid within a turn.
+ * Direct requests (compaction summaries, extension calls) go to the first
+ * candidate.
  *
- * The winning tier (standard or complex) must contain Jev's pick; otherwise the
- * tier's first candidate is used. Continuations, tool follow-ups, and retries
- * stay on the model that answered last, so prompt caches and thinking
- * signatures stay valid within a turn. Direct requests (compaction summaries,
- * extension calls) go to the standard tier's first candidate.
- *
- * Each tier configures a list of candidates. A candidate carries its own
- * thinking level, which overrides the level selected in pi for that turn:
+ * A candidate carries its own thinking level, which overrides the level
+ * selected in pi for that turn:
  *
  *   "jevRouter": {
  *     "routerModel": "openrouter/~typesafe/jev-latest",
- *     "standardModel": [
- *       { "model": "openrouter/z-ai/glm-5.3-flash", "thinkingLevel": "high", "when": "quick questions, small edits" }
- *     ],
- *     "complexModel": [
- *       { "model": "openrouter/z-ai/glm-5.3", "thinkingLevel": "high", "when": "multi-file features, debugging" },
- *       { "model": "openrouter/anthropic/claude-opus-5.5", "thinkingLevel": "medium", "when": "deep reasoning over large surfaces" }
- *     ],
- *     "complexityThreshold": 0.5
+ *     "models": [
+ *       { "model": "openrouter/z-ai/glm-5.3-flash", "thinkingLevel": "high", "when": "quick questions, small edits" },
+ *       { "model": "openrouter/z-ai/glm-5.3", "thinkingLevel": "high", "when": "multi-file features, debugging" }
+ *     ]
  *   }
  *
  * Entry fields: `model` (required, `provider/id`), `thinkingLevel` (optional —
@@ -35,9 +28,8 @@
  * accepted as a single candidate with no thinking-level override.
  *
  * If Jev is unavailable or the classify call fails, the turn falls back to the
- * standard tier's first candidate. The chosen model and thinking level are
- * router state on the session branch, so they survive compaction and /tree
- * navigation.
+ * first candidate. The chosen model and thinking level are router state on the
+ * session branch, so they survive compaction and /tree navigation.
  */
 
 import type {
@@ -76,16 +68,12 @@ const THINKING_LEVELS: readonly ThinkingLevel[] = [
 
 interface JevRouterConfig {
 	routerModel: string;
-	standardModel: ModelEntry[];
-	complexModel: ModelEntry[];
-	complexityThreshold: number;
+	models: ModelEntry[];
 }
 
 const DEFAULTS: JevRouterConfig = {
 	routerModel: "openrouter/~typesafe/jev-latest",
-	standardModel: [{ model: "openrouter/z-ai/glm-5.3-flash" }],
-	complexModel: [{ model: "openrouter/z-ai/glm-5.3" }],
-	complexityThreshold: 0.5,
+	models: [{ model: "openrouter/z-ai/glm-5.3-flash" }],
 };
 
 /** Router state persisted on the session branch. */
@@ -133,15 +121,11 @@ function readConfig(pi: ExtensionAPI): JevRouterConfig {
 	const raw = (pi.getSettings() as Record<string, unknown>).jevRouter;
 	if (typeof raw !== "object" || raw === null) return DEFAULTS;
 	const obj = raw as Record<string, unknown>;
-	const num = (value: unknown, fallback: number) =>
-		typeof value === "number" && value >= 0 && value <= 1 ? value : fallback;
 	const str = (value: unknown, fallback: string) =>
 		typeof value === "string" && value.includes("/") ? value : fallback;
 	return {
 		routerModel: str(obj.routerModel, DEFAULTS.routerModel),
-		standardModel: parseEntries(obj.standardModel, DEFAULTS.standardModel),
-		complexModel: parseEntries(obj.complexModel, DEFAULTS.complexModel),
-		complexityThreshold: num(obj.complexityThreshold, DEFAULTS.complexityThreshold),
+		models: parseEntries(obj.models, DEFAULTS.models),
 	};
 }
 
@@ -177,10 +161,8 @@ function lastUserText(messages: readonly MessageLike[]): string {
 }
 
 /**
- * Rate the prompt's complexity and pick a candidate model with Jev, in one
- * classify call. Returns the entry for the winning tier — Jev's pick when it
- * belongs to that tier, otherwise the tier's first candidate. Falls back to
- * the standard tier's first candidate on any failure.
+ * Pick a candidate model with Jev in one classify call. Falls back to the
+ * first candidate on any failure.
  */
 async function chooseEntryForTurn(
 	request: JevRequest,
@@ -189,22 +171,14 @@ async function chooseEntryForTurn(
 ): Promise<ModelEntry> {
 	const { provider, id } = parseModelRef(config.routerModel);
 	const jev = ctx.modelRegistry.findOfType("classifier", provider, id);
-	if (!jev) return config.standardModel[0]!;
-	const candidates = [...config.standardModel, ...config.complexModel];
+	if (!jev) return config.models[0]!;
+	const candidates = config.models;
 	try {
 		const result = await ctx.modelRegistry.classify(
 			jev,
 			{
 				state: { prompt: lastUserText(request.messages).slice(0, 16_000) },
 				questions: {
-					complexity: {
-						type: "choice",
-						instructions: "How demanding is the software engineering work requested in `prompt`?",
-						criteria: {
-							standard: "Ordinary features, fixes, reviews, or questions",
-							complex: "Subtle design, cross-cutting changes, or hard debugging",
-						},
-					},
 					model: {
 						type: "choice",
 						instructions:
@@ -218,21 +192,15 @@ async function chooseEntryForTurn(
 			},
 			{ signal: request.signal },
 		);
-		if (result.stopReason !== "stop") return config.standardModel[0]!;
-		const complexity = result.answers.complexity;
-		if (complexity?.type !== "choice") return config.standardModel[0]!;
-		const tier =
-			(complexity.probabilities.complex ?? 0) >= config.complexityThreshold
-				? config.complexModel
-				: config.standardModel;
+		if (result.stopReason !== "stop") return config.models[0]!;
 		const pick = result.answers.model;
 		if (pick?.type === "choice") {
-			const chosen = tier.find((entry) => (pick.probabilities[entry.model] ?? 0) > 0);
+			const chosen = candidates.find((entry) => (pick.probabilities[entry.model] ?? 0) > 0);
 			if (chosen) return chosen;
 		}
-		return tier[0]!;
+		return config.models[0]!;
 	} catch {
-		return config.standardModel[0]!;
+		return config.models[0]!;
 	}
 }
 
@@ -247,8 +215,8 @@ export default function (pi: ExtensionAPI) {
 		maxTokens: 128_000,
 		async route(request, ctx) {
 			const config = readConfig(pi);
-			// Compaction summaries and extension calls: standard tier's first candidate.
-			if (request.reason === "direct") return routeTo(request, ctx, config.standardModel[0]!);
+			// Compaction summaries and extension calls: first candidate.
+			if (request.reason === "direct") return routeTo(request, ctx, config.models[0]!);
 			// Tool follow-ups and retries stay on the model that handled the turn.
 			if (request.state && request.reason !== "user") {
 				return routeTo(

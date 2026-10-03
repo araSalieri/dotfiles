@@ -11,7 +11,7 @@
   "defaultModel": "jev-auto",
   "jevRouter": {
     "routerModel": "openrouter/~typesafe/jev-latest",
-    "standardModel": [
+    "models": [
       {
         "model": "openrouter/z-ai/glm-5.3-flash",
         "thinkingLevel": "high",
@@ -21,9 +21,7 @@
         "model": "openrouter/deepseek/deepseek-v4.1-flash",
         "thinkingLevel": "low",
         "when": "committing changes and writing the commit message — including /commit or any commit command — plus other short one-shot generation with a fixed format"
-      }
-    ],
-    "complexModel": [
+      },
       {
         "model": "openrouter/z-ai/glm-5.3",
         "thinkingLevel": "high",
@@ -31,11 +29,10 @@
       },
       {
         "model": "openrouter/anthropic/claude-opus-5.5",
-        "thinkingLevel": "medium",
+        "thinkingLevel": "high",
         "when": "architecture design or redesign, cross-cutting changes touching many modules, hard debugging where the cause resists obvious fixes, deep analysis of a large codebase or long history"
       }
-    ],
-    "complexityThreshold": 0.5
+    ]
   },
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
@@ -55,7 +52,5 @@
   "editorPaddingX": 1,
   "quietStartup": true,
   "theme": "dark-noborder",
-  "extensions": [
-    "+builtin:mcp"
-  ]
+  "extensions": ["+builtin:mcp"]
 }
