@@ -1,13 +1,19 @@
 {
   "subagents": {
-    "defaultExtensions": ["/home/ara/.pi/agent/extensions/jev-router.ts"],
+    "defaultExtensions": [
+      "/home/ara/.pi/agent/extensions/jev-router.ts"
+    ],
     "watchdog": {
       "enabled": true,
-      "main": { "enabled": true },
-      "children": { "enabled": true }
+      "main": {
+        "enabled": true
+      },
+      "children": {
+        "enabled": true
+      }
     }
   },
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.0.2",
   "defaultProvider": "openrouter",
   "defaultModel": "jev-auto",
   "jevRouter": {
@@ -53,5 +59,7 @@
   "editorPaddingX": 1,
   "quietStartup": true,
   "theme": "dark-noborder",
-  "extensions": ["+builtin:mcp"]
+  "extensions": [
+    "+builtin:mcp"
+  ]
 }
