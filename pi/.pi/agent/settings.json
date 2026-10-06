@@ -10,7 +10,7 @@
       }
     }
   },
-  "lastChangelogVersion": "1.0.2",
+  "lastChangelogVersion": "1.0.4",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.3-flash",
   "defaultThinkingLevel": "high",

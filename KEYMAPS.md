@@ -39,13 +39,9 @@
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
-| pi-ide | `<leader>ca` (visual) | Send selection as ref to the connected agent |
-| pi-ide | `<leader>cx` | Clear queued refs in the connected agent |
-| pi-ide | `<M-\>` (insert) | Trigger ghost-text suggestion |
-| pi-ide | `<M-]>` (insert) | Next suggestion |
-| pi-ide | `<M-[>` (insert) | Previous suggestion |
-| pi-ide | `<C-l>` (insert) | Accept suggestion |
-| pi-ide | `<C-]>` (insert) | Dismiss suggestion |
+| pi | `<leader>ca` (visual) | Queue the selection as an `@path:lines` ref in pi's editor input |
+| pi | `<leader>cf` | Queue snacks-picker file(s) or the current buffer as refs in pi's input |
+| pi | `<leader>pi` | Ping the running pi session |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
 | Git | `<leader>gd` | Diff vs previous commit |
@@ -89,5 +85,4 @@
 
 Notes:
 
-- `<leader>ca` coexists by mode: normal-mode is LSP code actions (buffer-local, LSP-attached buffers); visual-mode sends the selection to the connected agent attached to the pi-ide server.
-- `<Tab>` in insert mode belongs to nvim-cmp completion; pi-ide suggestions use the `<M-...>`/`<C-l>`/`<C-]>` keys above.
+- `<leader>ca` coexists by mode: normal-mode is LSP code actions (buffer-local, LSP-attached buffers); visual-mode queues the selection as a ref for the running pi session. Queued refs accumulate in pi's editor input and are read by the model when the message is sent; immediate sends stay on the `:PiSendSelection`/`:PiSendFile`/`:PiSendBuffer`/`:PiPrompt` commands.

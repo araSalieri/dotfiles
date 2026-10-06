@@ -1,96 +1,92 @@
--- Headless tests for config/pi-queue.lua `file_ref` (snacks picker/explorer refs).
--- Run: nvim --headless -u NONE -l nvim/.config/nvim/tests/test_pi_queue.lua
---
--- Stubs `pi-ide.server.init` and `snacks.picker` before loading the module, then
--- asserts the ref_queued broadcast payloads.
+-- Minimal self-check for config/pi-queue.lua, run headless from the repo:
+--   nvim --headless -l nvim/.config/nvim/tests/test_pi_queue.lua
+-- Spawns a fake pi socket server in /tmp/pi-nvim-sockets, then verifies
+-- discovery, ping, ref queueing, and range logic.
+local here = vim.fs.dirname(vim.fs.dirname(arg[0]))
+package.path = here .. "/lua/?/init.lua;" .. package.path
 
-local function fail(msg)
-  io.stderr:write("FAIL: " .. msg .. "\n")
-  os.exit(1)
+local q = require("config.pi-queue")
+local uv = vim.uv
+local fails = 0
+local done = false
+local function check(name, cond)
+	print(("  %-40s %s"):format(name, cond and "ok" or "FAIL"))
+	if not cond then fails = fails + 1 end
 end
 
-local broadcasts = {}
-package.loaded["pi-ide.server.init"] = {
-  get_status = function()
-    return { running = true, client_count = 1 }
-  end,
-  broadcast = function(method, params)
-    broadcasts[#broadcasts + 1] = { method = method, params = params }
-  end,
-}
-
-local picker_items = {}
-package.preload["snacks.picker"] = function()
-  return {
-    get = function()
-      if #picker_items == 0 then return {} end
-      return {
-        { selected = function(_)
-          return picker_items
-        end },
-      }
-    end,
-  }
-end
-
--- Temp file fixture (line count is irrelevant: refs are range-less).
-local tmp = os.tmpname() .. ".lua"
-local f = assert(io.open(tmp, "w"))
-f:write("one\n\ntwo\nthree\nfour\nfive\n")
+-- Fake pi server: answers ping with pong, ref/prompt with ok.
+local server = uv.new_tcp()
+-- Fake server speaks over a unix socket via pipe handle.
+local sock = uv.new_pipe(false)
+local requests = {}
+assert(sock:bind("/tmp/pi-nvim-sockets/fake-test.sock"))
+assert(sock:listen(5, function(err)
+	assert(not err, err)
+	local client = uv.new_pipe(false)
+	sock:accept(client)
+	local buf = ""
+	client:read_start(function(rd_err, data)
+		if data then
+			buf = buf .. data
+			local nl = buf:find("\n")
+			if nl then
+				local msg = vim.json.decode(buf:sub(1, nl - 1))
+				table.insert(requests, msg)
+				local resp
+				if msg.type == "ping" then
+					resp = { ok = true, type = "pong" }
+				else
+					resp = { ok = true }
+				end
+				client:write(vim.json.encode(resp) .. "\n")
+			end
+		end
+	end)
+end))
+-- Manifest so discovery finds it. cwd = this process's cwd, so it wins over
+-- any real pi session running elsewhere; test traffic never touches it.
+local f = io.open("/tmp/pi-nvim-sockets/fake-test.sock.info", "w")
+f:write(vim.json.encode({ socket = "/tmp/pi-nvim-sockets/fake-test.sock", cwd = vim.uv.cwd(), pid = 1 }))
 f:close()
 
-local module = dofile("nvim/.config/nvim/lua/config/pi-queue.lua")
+-- libuv defers socket-file creation to the loop; tick it.
+vim.wait(100)
 
--- 1. Single file: full-file ref (filePath only, no line range).
-picker_items = { { file = tmp } }
-module.file_ref()
-if #broadcasts ~= 1 then fail("expected 1 broadcast, got " .. #broadcasts) end
-local b = broadcasts[1]
-if b.method ~= "ref_queued" then fail("method was " .. tostring(b.method)) end
-if b.params.filePath ~= tmp then fail("filePath mismatch: " .. tostring(b.params.filePath)) end
-if b.params.startLine ~= nil then fail("unexpected startLine: " .. tostring(b.params.startLine)) end
-if b.params.endLine ~= nil then fail("unexpected endLine: " .. tostring(b.params.endLine)) end
+-- 1. Discovery picks the cwd-matching socket.
+local path = q.get_socket_path()
+check("discovery: cwd match wins", path == "/tmp/pi-nvim-sockets/fake-test.sock")
 
--- 2. Multi-select: one ref per selected item, in order.
-broadcasts = {}
-picker_items = { { file = tmp }, { file = tmp } }
-module.file_ref()
-if #broadcasts ~= 2 then fail("multi-select: expected 2 broadcasts, got " .. #broadcasts) end
+-- 2. Ping round-trip.
+q.send_raw({ type = "ping" }, function(err, resp)
+	check("ping round-trip", err == nil and resp and resp.type == "pong")
 
--- 3. No active picker + unnamed buffer: no broadcast (current_path warns).
-broadcasts = {}
-picker_items = {}
-module.file_ref()
-if #broadcasts ~= 0 then fail("expected no broadcast for unnamed buffer without picker") end
+	-- 3. Ref queued (payload shape).
+	q.send_raw({ type = "ref", filePath = "/tmp/x.lua", startLine = 4, endLine = 9 }, function()
+		-- 4. Prompt round-trip.
+		q.send_raw({ type = "prompt", message = "hi" }, function()
+			check("ref accepted", #requests >= 2 and requests[2].type == "ref"
+				and requests[2].startLine == 4 and requests[2].endLine == 9)
+			check("prompt accepted", #requests >= 3 and requests[3].type == "prompt"
+				and requests[3].message == "hi")
 
--- 4. No active picker + named buffer: falls back to current buffer file,
---    broadcast as range-less ref.
-broadcasts = {}
-picker_items = {}
-vim.api.nvim_buf_set_name(0, tmp)
-module.file_ref()
-if #broadcasts ~= 1 then fail("buffer fallback: expected 1 broadcast, got " .. #broadcasts) end
-local b2 = broadcasts[1]
-if b2.method ~= "ref_queued" then fail("fallback method was " .. tostring(b2.method)) end
-if b2.params.filePath ~= tmp then fail("fallback filePath mismatch: " .. tostring(b2.params.filePath)) end
-if b2.params.startLine ~= nil then fail("fallback unexpected startLine: " .. tostring(b2.params.startLine)) end
-if b2.params.endLine ~= nil then fail("fallback unexpected endLine: " .. tostring(b2.params.endLine)) end
-vim.api.nvim_buf_set_name(0, "")
+			-- 5. _range from '< /'> marks (normal mode, no visual).
+			vim.fn.setpos("'<", { 0, 3, 1, 0 })
+			vim.fn.setpos("'>", { 0, 7, 1, 0 })
+			local s, e, was_v = q._range()
+			check("range from marks", s == 2 and e == 6 and was_v == false)
 
--- 5. Item without a file field: skipped.
-broadcasts = {}
-picker_items = { { text = "no file" } }
-module.file_ref()
-if #broadcasts ~= 0 then fail("expected no broadcast for item without file") end
+			-- 6. _range nil with no marks.
+			vim.fn.setpos("'<", { 0, 0, 0, 0 })
+			vim.fn.setpos("'>", { 0, 0, 0, 0 })
+			check("range nil without marks", q._range() == nil)
 
--- 6. Server not running: no broadcast.
-package.loaded["pi-ide.server.init"].get_status = function()
-  return { running = false, client_count = 0 }
-end
-broadcasts = {}
-picker_items = { { file = tmp } }
-module.file_ref()
-if #broadcasts ~= 0 then fail("expected no broadcast when server is down") end
+			done = true
+		end)
+	end)
+end)
 
-os.remove(tmp)
-io.write("PASS: all pi-queue file_ref tests\n")
+vim.wait(10000, function() return done end)
+sock:close()
+os.remove("/tmp/pi-nvim-sockets/fake-test.sock.info")
+print(fails == 0 and "ALL PASS" or (fails .. " FAILED"))
+vim.cmd("cq " .. (fails == 0 and 0 or 1))

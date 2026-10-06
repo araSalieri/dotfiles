@@ -38,7 +38,7 @@ dotfiles/
 │               │   ├── autocmds.lua
 │               │   ├── keymaps.lua
 │               │   ├── options.lua
-│               │   └── pi-queue.lua   # queues file refs for the connected agent
+│               │   └── pi-queue.lua   # one-way pi bridge client (refs + sends)
 │               └── plugins/       # one file per concern, lazy.nvim auto-imports the dir
 │                   ├── colorscheme.lua
 │                   ├── completion.lua
@@ -51,7 +51,7 @@ dotfiles/
 │                   ├── markdown.lua
 │                   ├── neo-tree.lua
 │                   ├── neotest.lua
-│                   ├── pi-ide.lua
+│                   ├── pi-nvim.lua
 │                   ├── snacks.lua
 │                   └── treesitter.lua
 ├── pi/
@@ -67,11 +67,7 @@ dotfiles/
 │           │   └── commit/SKILL.md     # git commit workflow skill
 │           └── extensions/
 │               ├── minimal-editor.ts   # borderless `>` input editor
-│               ├── pi-ide/            # nvim bridge extension (pi side)
-│               │   ├── index.ts
-│               │   ├── client.ts
-│               │   ├── suggestion.ts
-│               │   └── package.json
+│               ├── pi-nvim.ts          # one-way nvim bridge (pi side)
 │               └── pi-permission-system/
 │                   └── config.json    # tool/permission rules (rm ask/deny, sudo ask, .env ask)
 ├── noctalia/
@@ -130,32 +126,24 @@ the machine-local extension module links once per box:
 ~/.pi/agent/extensions/bootstrap-node-links.sh
 ```
 
-## pi-ide bridge
+## pi-nvim bridge (one-way)
 
-The pi agent connects to Neovim over the loopback WebSocket MCP server served by the
-`pi-ide.nvim` plugin (extension: `pi/.pi/agent/extensions/pi-ide/`, stowed to
-`~/.pi/agent/extensions/pi-ide/`, lock dir `~/.pi/ide`). It auto-connects when nvim is open in the
-same cwd: the agent sees your cursor and selection as ambient context, and every write/edit opens as
-a two-pane diff (accept with `:w`, reject by closing). nvim
-queues `file:line` refs via `<leader>ca` / `<leader>cf`
-(selection / selected file(s) from the snacks picker or explorer, or
-the current buffer's file when no picker is open).
+A minimal dotfiles-owned replacement for the removed pi-ide/pi-nvim integrations: nvim pushes into
+pi over a unix socket (`/tmp/pi-nvim-sockets`, manifests per session); pi never touches the editor.
+Both halves live in the dotfiles — nvim client `nvim/.config/nvim/lua/config/pi-queue.lua` + plugin
+spec `plugins/pi-nvim.lua`, pi listener `pi/.pi/agent/extensions/pi-nvim.ts`.
 
-Ghost-text suggestions are still implemented in the extension but disabled in nvim
-(`suggestion = { auto_trigger = false }` in `plugins/pi-ide.lua`).
+- **Queue mode** (`<leader>ca`, `<leader>cf`) — like the old pi-ide integration: `ca` (visual)
+  queues the selection range, `cf` queues file(s) selected in the active snacks picker/explorer, or
+  the current buffer's file. Refs accumulate as `@path:lines` tokens in pi's editor input and are
+  read by the model when the message is sent. Normal-mode `<leader>ca` stays LSP code actions.
+- **Immediate sends** — `:PiPrompt`, `:PiSendSelection` (visual), `:PiSendFile`, `:PiSendBuffer`
+  bypass the queue and deliver the message as a follow-up to the running agent; `:PiPing` checks
+  connectivity.
+- Nvim buffers auto-reload (`checktime`) while a pi session is reachable, so agent edits show up
+  live.
 
-Notes:
-
-- Both `write` and `edit` tool calls route through the nvim diff **unless the permission policy
-  already decided them**: policy-`allow` writes skip the diff and write directly, policy-`deny`
-  skips the diff and hits the gate, and `ask` (or no permission system) routes through the diff so
-  accepting with `:w` doubles as the approval. Edit is collapsed into a whole-file replacement of
-  the accepted content, so hand-edits in the diff are preserved
-- Suggestions stream via `ctx.modelRegistry.streamSimple()` (resolves auth internally) — only
-  relevant if you re-enable them; pass `--pi-ide-suggestion-model provider/id` to override
-
-Flags: `--pi-ide-suggestion-model`, `--pi-ide-suggestion-debug-log <file>`; env
-`PI_IDE_AUTOCONNECT=0` disables auto-connect.
+There is no ambient context, diff routing, or ghost-text; edits happen in pi's normal tool flow.
 
 ## pi agent
 

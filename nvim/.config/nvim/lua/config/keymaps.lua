@@ -50,10 +50,11 @@ map("n", "<leader>tt", function()
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
 end, { desc = "Open foot terminal here" })
 
--- pi-ide: send selection/file refs to the connected agent session (prefix "c")
-local piq = require("config.pi-queue")
-map("v", "<leader>ca", piq.add_ref, { desc = "Send selection as ref to agent" })
-map("n", "<leader>cf", piq.file_ref, { desc = "Send selected file(s) as ref to agent" })
+-- pi-queue: queue refs into pi's editor input (immediate sends stay on
+-- the PiSendSelection/PiSendFile/PiSendBuffer/PiPrompt commands)
+map("v", "<leader>ca", "<cmd>PiQueueRef<cr>", { desc = "Queue selection ref in pi input" })
+map("n", "<leader>cf", "<cmd>PiQueueFile<cr>", { desc = "Queue picker files/buffer ref in pi input" })
+map("n", "<leader>pi", "<cmd>PiPing<cr>", { desc = "Ping pi session" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
