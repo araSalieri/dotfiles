@@ -182,10 +182,10 @@ export default function (pi: ExtensionAPI) {
 		} catch (e: any) {
 			return `setEditorText failed: ${e?.message ?? e}`;
 		}
-		// setEditorText doesn't schedule a repaint; nudge the TUI to redraw.
-		// Status is cosmetic; failure to render must not break the ref.
+		// setEditorText doesn't schedule a repaint; the (cleared) status set
+		// nudges the TUI to redraw without leaving the ref in the footer.
 		try {
-			ui.setStatus("pi-nvim", token);
+			ui.setStatus("pi-nvim", undefined);
 		} catch (e) {
 			void e;
 		}
