@@ -1,8 +1,5 @@
 {
   "subagents": {
-    "defaultExtensions": [
-      "/home/ara/.pi/agent/extensions/jev-router.ts"
-    ],
     "watchdog": {
       "enabled": true,
       "main": {
@@ -15,32 +12,7 @@
   },
   "lastChangelogVersion": "1.0.2",
   "defaultProvider": "openrouter",
-  "defaultModel": "jev-auto",
-  "jevRouter": {
-    "routerModel": "openrouter/~typesafe/jev-latest",
-    "models": [
-      {
-        "model": "openrouter/z-ai/glm-5.3-flash",
-        "thinkingLevel": "high",
-        "when": "direct questions and explanations, quick lookups, small single-file edits, routine fixes and tweaks with clear scope"
-      },
-      {
-        "model": "openrouter/deepseek/deepseek-v4.1-flash",
-        "thinkingLevel": "low",
-        "when": "committing changes and writing the commit message — including /commit or any commit command — plus other short one-shot generation with a fixed format"
-      },
-      {
-        "model": "openrouter/z-ai/glm-5.3",
-        "thinkingLevel": "high",
-        "when": "implementing features that span several files, debugging a failure or unexpected behavior, refactoring, reviewing changes for correctness and design"
-      },
-      {
-        "model": "openrouter/anthropic/claude-opus-5.5",
-        "thinkingLevel": "high",
-        "when": "architecture design or redesign, cross-cutting changes touching many modules, hard debugging where the cause resists obvious fixes, deep analysis of a large codebase or long history"
-      }
-    ]
-  },
+  "defaultModel": "z-ai/glm-5.3-flash",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "packages": [
