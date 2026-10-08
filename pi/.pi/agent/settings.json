@@ -1,20 +1,5 @@
 {
-  "subagents": {
-    "watchdog": {
-      "enabled": true,
-      "main": {
-        "enabled": true
-      },
-      "children": {
-        "enabled": true
-      }
-    }
-  },
-  "lastChangelogVersion": "1.0.4",
-  "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.3-flash",
-  "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false,
+  "lastChangelogVersion": "1.1.0",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
@@ -28,10 +13,35 @@
     "npm:pi-notify",
     "npm:@dietrichgebert/ponytail"
   ],
-  "editorPaddingX": 1,
-  "quietStartup": true,
   "theme": "dark-noborder",
-  "extensions": [
-    "+builtin:mcp"
+  "quietStartup": true,
+  "editorPaddingX": 1,
+  "hideThinkingBlock": false,
+  "extensions": ["+builtin:mcp"],
+  "defaultProvider": "openrouter",
+  "defaultModel": "z-ai/glm-5.3-flash",
+  "defaultThinkingLevel": "high",
+  "defaultTools": ["+codemode"],
+  "subagents": {
+    "defaultProvider": "openrouter",
+    "defaultModel": "z-ai/glm-5.3-flash",
+    "agentOverrides": {
+      "reviewer": {
+        "model": "z-ai/glm-5.3"
+      }
+    },
+    "watchdog": {
+      "enabled": true,
+      "main": {
+        "enabled": true
+      },
+      "children": {
+        "enabled": true
+      }
+    }
+  },
+  "enabledModels": [
+    "openrouter/z-ai/glm-5.3-flash",
+    "openrouter/anthropic/claude-opus-5.5"
   ]
 }
