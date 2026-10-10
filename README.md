@@ -37,8 +37,7 @@ dotfiles/
 │               ├── config/
 │               │   ├── autocmds.lua
 │               │   ├── keymaps.lua
-│               │   ├── options.lua
-│               │   └── pi-queue.lua   # one-way pi bridge client (refs + sends)
+│               │   └── options.lua
 │               └── plugins/       # one file per concern, lazy.nvim auto-imports the dir
 │                   ├── colorscheme.lua
 │                   ├── completion.lua
@@ -51,7 +50,6 @@ dotfiles/
 │                   ├── markdown.lua
 │                   ├── neo-tree.lua
 │                   ├── neotest.lua
-│                   ├── pi-nvim.lua
 │                   ├── snacks.lua
 │                   └── treesitter.lua
 ├── pi/
@@ -67,7 +65,6 @@ dotfiles/
 │           │   └── commit/SKILL.md     # git commit workflow skill
 │           └── extensions/
 │               ├── minimal-editor.ts   # borderless `>` input editor
-│               ├── pi-nvim.ts          # one-way nvim bridge (pi side)
 │               └── pi-permission-system/
 │                   └── config.json    # tool/permission rules (rm ask/deny, sudo ask, .env ask)
 ├── noctalia/
@@ -119,31 +116,12 @@ stow pi
 stow hypr
 ```
 
-After pi is installed (`mise` + global `@earendil-works/pi-coding-agent` package), regenerate
-the machine-local extension module links once per box:
+## File refs to the clipboard
 
-```bash
-~/.pi/agent/extensions/bootstrap-node-links.sh
-```
-
-## pi-nvim bridge (one-way)
-
-A minimal dotfiles-owned replacement for the removed pi-ide/pi-nvim integrations: nvim pushes into
-pi over a unix socket (`/tmp/pi-nvim-sockets`, manifests per session); pi never touches the editor.
-Both halves live in the dotfiles — nvim client `nvim/.config/nvim/lua/config/pi-queue.lua` + plugin
-spec `plugins/pi-nvim.lua`, pi listener `pi/.pi/agent/extensions/pi-nvim.ts`.
-
-- **Queue mode** (`<leader>ca`, `<leader>cf`) — like the old pi-ide integration: `ca` (visual)
-  queues the selection range, `cf` queues file(s) selected in the active snacks picker/explorer, or
-  the current buffer's file. Refs accumulate as `@path:lines` tokens in pi's editor input and are
-  read by the model when the message is sent. Normal-mode `<leader>ca` stays LSP code actions.
-- **Immediate sends** — `:PiPrompt`, `:PiSendSelection` (visual), `:PiSendFile`, `:PiSendBuffer`
-  bypass the queue and deliver the message as a follow-up to the running agent; `:PiPing` checks
-  connectivity.
-- Nvim buffers auto-reload (`checktime`) while a pi session is reachable, so agent edits show up
-  live.
-
-There is no ambient context, diff routing, or ghost-text; edits happen in pi's normal tool flow.
+`<leader>ca` copies an `@path:line` ref to the system clipboard — `@path:12` in normal mode,
+`@path:12-18` in visual mode. Paths are relative to the cwd when possible. No socket, no running
+agent required: paste the ref into pi, claude, or any terminal. In LSP-attached buffers, normal
+mode keeps LSP code actions; visual mode still copies the ref.
 
 ## pi agent
 
@@ -155,8 +133,7 @@ There is no ambient context, diff routing, or ghost-text; edits happen in pi's n
 - **`skills/commit/`** — local commit skill (stages and commits in one response); replaced the
   `@eamode/pi-commit` extension
 - **`extensions/pi-permission-system/`** — permission rules: everything allowed by default,
-  `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored); also gates the pi-ide
-  diff routing described above
+  `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored)
 - **`extensions/minimal-editor.ts`** — replaces pi's bordered input editor with a `>` prompt
 - **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
 - **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
@@ -225,7 +202,6 @@ gruvbox colors.
 | [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter (Python via ruff_format, SQL, JS/TS via eslint_d + prettier) |
 | [auto-session](https://github.com/rmagatti/auto-session) | Automatic session management |
 | [mini.bufremove](https://github.com/echasnovski/mini.bufremove) | Smart buffer deletion (retain splits) |
-| [pi-ide.nvim](https://github.com/ldelossa/pi-ide.nvim) | Two-way agent bridge: ambient context, interactive diffs, ghost-text suggestions |
 
 ## LSP / Treesitter
 

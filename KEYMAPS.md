@@ -32,16 +32,15 @@
 | Format | `<leader>uf` | Toggle format on save (buffer) |
 | Format | `<leader>uF` | Toggle format on save (global) |
 | Format | `<leader>fm` | Format buffer |
-| LSP | `<leader>ca` | Code actions (normal mode, LSP-attached buffers) |
+| LSP | `<leader>ca` | Code actions (LSP-attached buffers; see note below) |
 | LSP | `<leader>rn` | Rename symbol |
 | LSP | `gd` | Go to definition |
 | LSP | `gr` | Go to references |
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
-| pi | `<leader>ca` (visual) | Queue the selection as an `@path:lines` ref in pi's editor input |
-| pi | `<leader>cf` | Queue snacks-picker file(s) or the current buffer as refs in pi's input |
-| pi | `<leader>pi` | Ping the running pi session |
+| Ref | `<leader>ca` | Copy `@path:line` (normal) or `@path:start-end` (visual) to the clipboard |
+| Ref | `<leader>cp` | Copy `@path` (relative to cwd) to the clipboard |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
 | Git | `<leader>gd` | Diff vs previous commit |
@@ -85,4 +84,4 @@
 
 Notes:
 
-- `<leader>ca` coexists by mode: normal-mode is LSP code actions (buffer-local, LSP-attached buffers); visual-mode queues the selection as a ref for the running pi session. Queued refs accumulate in pi's editor input and are read by the model when the message is sent; immediate sends stay on the `:PiSendSelection`/`:PiSendFile`/`:PiSendBuffer`/`:PiPrompt` commands.
+- `<leader>ca` in LSP-attached buffers: normal mode runs LSP code actions, visual mode copies the range ref. In buffers without LSP it copies the ref in both modes.

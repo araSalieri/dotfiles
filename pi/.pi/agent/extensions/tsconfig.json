@@ -16,5 +16,5 @@
 			"@earendil-works/pi-agent-core": ["./node_modules/@earendil-works/pi-agent-core/dist/index.d.ts"]
 		}
 	},
-	"include": ["*.ts", "pi-ide/**/*"]
+	"include": ["*.ts"]
 }

@@ -50,11 +50,41 @@ map("n", "<leader>tt", function()
   vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
 end, { desc = "Open foot terminal here" })
 
--- pi-queue: queue refs into pi's editor input (immediate sends stay on
--- the PiSendSelection/PiSendFile/PiSendBuffer/PiPrompt commands)
-map("v", "<leader>ca", "<cmd>PiQueueRef<cr>", { desc = "Queue selection ref in pi input" })
-map("n", "<leader>cf", "<cmd>PiQueueFile<cr>", { desc = "Queue picker files/buffer ref in pi input" })
-map("n", "<leader>pi", "<cmd>PiPing<cr>", { desc = "Ping pi session" })
+-- Copy a file ref to the clipboard, e.g. "@src/app.ts:12" or
+-- "@src/app.ts:12-18" in visual mode (@refs work in pi and most agents).
+local function rel_path()
+  local path = vim.fn.expand("%:p")
+  if path == "" then return nil end
+  local cwd = vim.fn.getcwd()
+  if vim.startswith(path, cwd .. "/") then path = path:sub(#cwd + 2) end
+  return path
+end
+local function copy(str, what)
+  vim.fn.setreg("+", str)
+  vim.notify(str, vim.log.levels.INFO, { title = "Copied " .. what })
+end
+map("n", "<leader>ca", function()
+  local path = rel_path()
+  if not path then return end
+  local line1 = vim.fn.line("v")
+  local line2 = vim.fn.line(".")
+  if line1 > line2 then line1, line2 = line2, line1 end
+  copy(line1 == line2
+    and string.format("@%s:%d", path, line1)
+    or string.format("@%s:%d-%d", path, line1, line2), "ref")
+end, { desc = "Copy @file:line ref to clipboard" })
+map("v", "<leader>ca", function()
+  local path = rel_path()
+  if not path then return end
+  local line1 = vim.fn.line("v")
+  local line2 = vim.fn.line(".")
+  if line1 > line2 then line1, line2 = line2, line1 end
+  copy(string.format("@%s:%d-%d", path, line1, line2), "ref")
+end, { desc = "Copy @file:line range to clipboard" })
+map("n", "<leader>cp", function()
+  local path = rel_path()
+  if path then copy("@" .. path, "ref") end
+end, { desc = "Copy @file path to clipboard" })
 
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>nohlsearch<cr>")
