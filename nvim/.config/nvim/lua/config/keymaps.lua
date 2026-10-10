@@ -69,6 +69,9 @@ local function copy_append(str, what)
   vim.fn.setreg("+", (cur ~= "" and cur .. " " or "") .. str)
   vim.notify(str, vim.log.levels.INFO, { title = "Appended " .. what })
 end
+local function exit_visual()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+end
 local function current_ref()
   local path = rel_path()
   if not path then return nil end
@@ -86,6 +89,7 @@ end, { desc = "Copy @file:line ref to clipboard" })
 map("v", "<leader>ca", function()
   local ref = current_ref()
   if ref then copy(ref, "ref") end
+  exit_visual()
 end, { desc = "Copy @file:line range to clipboard" })
 map("n", "<leader>cA", function()
   local ref = current_ref()
@@ -94,12 +98,13 @@ end, { desc = "Append @file:line ref to clipboard" })
 map("v", "<leader>cA", function()
   local ref = current_ref()
   if ref then copy_append(ref, "ref") end
+  exit_visual()
 end, { desc = "Append @file:line range to clipboard" })
-map("n", "<leader>cP", function()
+map("n", "<leader>cF", function()
   local path = rel_path()
   if path then copy_append("@" .. path, "ref") end
 end, { desc = "Append @file path to clipboard" })
-map("n", "<leader>cp", function()
+map("n", "<leader>cf", function()
   local path = rel_path()
   if path then copy("@" .. path, "ref") end
 end, { desc = "Copy @file path to clipboard" })

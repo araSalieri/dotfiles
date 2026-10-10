@@ -8,15 +8,14 @@
 | File | `<leader>Q` | Quit all (force) |
 | Explorer | `<leader>e` | Toggle file explorer |
 | Explorer | `<leader>E` | Focus file explorer |
-| Explorer | `<C-x>` (in tree) | Open file in horizontal split |
+| Explorer | `<C-s>` (in tree) | Open file in horizontal split |
 | Explorer | `<C-v>` (in tree) | Open file in vertical split |
 | Fuzzy Finder | `<leader>ff` | Find files |
 | Fuzzy Finder | `<leader>fg` | Live grep |
 | Fuzzy Finder | `<leader>fb` | Buffers |
-| Fuzzy Finder | `<leader>ft` | Tabs |
 | Fuzzy Finder | `<leader>fk` | Keymaps |
 | Fuzzy Finder | `<CR>` (in picker) | Open file (or send to quickfix) |
-| Fuzzy Finder | `<C-x>` (in picker) | Open file in horizontal split |
+| Fuzzy Finder | `<C-s>` (in picker) | Open file in horizontal split |
 | Fuzzy Finder | `<C-v>` (in picker) | Open file in vertical split |
 | Fuzzy Finder | `<C-t>` (in picker) | Open file in new tab |
 | Buffer | `<leader>bn` | Next buffer |
@@ -39,10 +38,10 @@
 | LSP | `gD` | Go to declaration |
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
-| Ref | `<leader>ca` | Copy `@path:line` (normal) or `@path:start-end` (visual) to the clipboard |
-| Ref | `<leader>cA` | Append `@path:line` (normal) or `@path:start-end` (visual) to the clipboard (space-separated) |
-| Ref | `<leader>cp` | Copy `@path` (relative to cwd) to the clipboard |
-| Ref | `<leader>cP` | Append `@path` (relative to cwd) to the clipboard (space-separated) |
+| Ref | `<leader>ca` | Copy `@path:line` (normal) or `@path:start-end` (visual; exits visual mode) to the clipboard |
+| Ref | `<leader>cA` | Append `@path:line` (normal) or `@path:start-end` (visual; exits visual mode) to the clipboard (space-separated) |
+| Ref | `<leader>cf` | Copy `@path` (relative to cwd) to the clipboard |
+| Ref | `<leader>cF` | Append `@path` (relative to cwd) to the clipboard (space-separated) |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
 | Git | `<leader>gd` | Diff vs previous commit |
@@ -75,10 +74,6 @@
 | Debugger | `<leader>de` | Eval expression under cursor (normal/visual) |
 | Debugger | `<leader>dt` | Terminate debugger |
 | Debugger | `<leader>du` | Toggle DAP UI |
-| Markdown | `<leader>mp` | Markdown preview (markdown buffers) |
-| Markdown | `<leader>mr` | Markdown preview refresh (markdown buffers) |
-| Markdown | `<leader>ms` | Markdown preview stop (markdown buffers) |
-| Refresh | `<leader>rr` | Refresh file explorer |
 | Refresh | `<leader>rb` | Refresh current buffer |
 | Terminal | `<leader>tt` | Open foot terminal at file's directory |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
