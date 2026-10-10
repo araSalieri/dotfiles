@@ -63,24 +63,42 @@ local function copy(str, what)
   vim.fn.setreg("+", str)
   vim.notify(str, vim.log.levels.INFO, { title = "Copied " .. what })
 end
-map("n", "<leader>ca", function()
+local function copy_append(str, what)
+  -- External clipboard content often ends with a newline/space; trim before joining
+  local cur = vim.fn.getreg("+"):gsub("%s+$", "")
+  vim.fn.setreg("+", (cur ~= "" and cur .. " " or "") .. str)
+  vim.notify(str, vim.log.levels.INFO, { title = "Appended " .. what })
+end
+local function current_ref()
   local path = rel_path()
-  if not path then return end
+  if not path then return nil end
   local line1 = vim.fn.line("v")
   local line2 = vim.fn.line(".")
   if line1 > line2 then line1, line2 = line2, line1 end
-  copy(line1 == line2
+  return line1 == line2
     and string.format("@%s:%d", path, line1)
-    or string.format("@%s:%d-%d", path, line1, line2), "ref")
+    or string.format("@%s:%d-%d", path, line1, line2)
+end
+map("n", "<leader>ca", function()
+  local ref = current_ref()
+  if ref then copy(ref, "ref") end
 end, { desc = "Copy @file:line ref to clipboard" })
 map("v", "<leader>ca", function()
-  local path = rel_path()
-  if not path then return end
-  local line1 = vim.fn.line("v")
-  local line2 = vim.fn.line(".")
-  if line1 > line2 then line1, line2 = line2, line1 end
-  copy(string.format("@%s:%d-%d", path, line1, line2), "ref")
+  local ref = current_ref()
+  if ref then copy(ref, "ref") end
 end, { desc = "Copy @file:line range to clipboard" })
+map("n", "<leader>cA", function()
+  local ref = current_ref()
+  if ref then copy_append(ref, "ref") end
+end, { desc = "Append @file:line ref to clipboard" })
+map("v", "<leader>cA", function()
+  local ref = current_ref()
+  if ref then copy_append(ref, "ref") end
+end, { desc = "Append @file:line range to clipboard" })
+map("n", "<leader>cP", function()
+  local path = rel_path()
+  if path then copy_append("@" .. path, "ref") end
+end, { desc = "Append @file path to clipboard" })
 map("n", "<leader>cp", function()
   local path = rel_path()
   if path then copy("@" .. path, "ref") end

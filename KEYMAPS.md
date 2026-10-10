@@ -40,7 +40,9 @@
 | LSP | `gi` | Go to implementation |
 | LSP | `K` / `gh` | Hover documentation |
 | Ref | `<leader>ca` | Copy `@path:line` (normal) or `@path:start-end` (visual) to the clipboard |
+| Ref | `<leader>cA` | Append `@path:line` (normal) or `@path:start-end` (visual) to the clipboard (space-separated) |
 | Ref | `<leader>cp` | Copy `@path` (relative to cwd) to the clipboard |
+| Ref | `<leader>cP` | Append `@path` (relative to cwd) to the clipboard (space-separated) |
 | Git | `<leader>gg` | Open Lazygit |
 | Git | `<leader>gc` | Git branches |
 | Git | `<leader>gd` | Diff vs previous commit |
