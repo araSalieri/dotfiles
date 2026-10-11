@@ -135,6 +135,7 @@ mode keeps LSP code actions; visual mode still copies the ref.
 - **`extensions/pi-permission-system/`** — permission rules: everything allowed by default,
   `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored)
 - **`extensions/minimal-editor.ts`** — replaces pi's bordered input editor with a `>` prompt
+- **`extensions/learning-mode.ts`** — `/learn` toggles Socratic tutor mode: you write all the code, pi guides (edit/write tools blocked), `learning` shown in the footer; state resets each session
 - **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
 - **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
 
