@@ -44,6 +44,17 @@ return {
       { "R",     function() require("flash").treesitter_search() end, mode = { "o", "x" },      desc = "Treesitter Search" },
       { "<c-s>", function() require("flash").toggle() end,            mode = "c",               desc = "Toggle Flash Search" },
     },
+    opts = {
+      jump = {
+        autojump = true,
+      },
+      modes = {
+        char = {
+          jump_labels = true,
+          multi_line = false,
+        }
+      }
+    },
   },
 
   { "windwp/nvim-autopairs",      event = "InsertEnter", config = true },

@@ -8,7 +8,6 @@
     "npm:pi-lens",
     "npm:@ff-labs/pi-fff",
     "npm:@luxusai/pi-hindsight",
-    "git:github.com/obra/superpowers",
     "npm:@gotgenes/pi-permission-system",
     "npm:pi-notify",
     "npm:@dietrichgebert/ponytail"
@@ -27,7 +26,7 @@
     "defaultModel": "z-ai/glm-5.3-flash",
     "agentOverrides": {
       "reviewer": {
-        "model": "z-ai/glm-5.3"
+        "model": "z-ai/glm-5.3-flash"
       }
     },
     "watchdog": {
