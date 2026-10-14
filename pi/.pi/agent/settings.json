@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.1.0",
+  "lastChangelogVersion": "1.2.0",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
@@ -26,7 +26,23 @@
     "defaultModel": "z-ai/glm-5.3-flash",
     "agentOverrides": {
       "reviewer": {
-        "model": "z-ai/glm-5.3-flash"
+        "model": "openrouter/z-ai/glm-5.3-flash"
+      },
+      "worker": {
+        "model": "deepseek/deepseek-flash",
+        "thinking": "max"
+      },
+      "scout": {
+        "model": "deepseek/deepseek-flash",
+        "thinking": "max"
+      },
+      "researcher": {
+        "model": "deepseek/deepseek-flash",
+        "thinking": "max"
+      },
+      "oracle": {
+        "model": "deepseek/deepseek-flash",
+        "thinking": "max"
       }
     },
     "watchdog": {
@@ -38,9 +54,5 @@
         "enabled": true
       }
     }
-  },
-  "enabledModels": [
-    "openrouter/z-ai/glm-5.3-flash",
-    "openrouter/anthropic/claude-opus-5.5"
-  ]
+  }
 }
