@@ -1,12 +1,14 @@
 /**
  * commit — /commit command + validating commit tool.
  *
- * /commit sends a prompt to the agent; the agent gathers context, writes the
- * message, and calls the `commit` tool. The tool validates the message against
+ * /commit uses defaultCommitProvider/defaultCommitModel (falling back to Pi's
+ * defaults), then restores the previous model and thinking level. The agent
+ * gathers context, writes the message, and calls the `commit` tool, which validates
+ * the message against
  * the project's commit rules, then stages everything and commits in one step.
  */
 import { spawnSync } from "node:child_process";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
 
 const TYPES = [
@@ -91,14 +93,54 @@ const CommitParams = Type.Object({
 });
 
 export default function (pi: ExtensionAPI) {
+	let previousState: {
+		model: NonNullable<ExtensionContext["model"]>;
+		thinkingLevel: ReturnType<ExtensionAPI["getThinkingLevel"]>;
+	} | undefined;
+
+	pi.on("agent_settled", async (_event, ctx) => {
+		if (!previousState) return;
+		const state = previousState;
+		previousState = undefined;
+		if (await pi.setModel(state.model)) {
+			pi.setThinkingLevel(state.thinkingLevel);
+		} else {
+			ctx.ui.notify("Could not restore the previous model: authentication unavailable.", "error");
+		}
+	});
+
 	pi.registerCommand("commit", {
 		description:
 			"Commit current changes — agent writes the message, the commit tool validates and commits",
 		handler: async (_args, ctx) => {
-			if (!ctx.isIdle()) {
-				ctx.ui.notify("Agent is busy — run /commit again when idle.", "warning");
+			if (!ctx.isIdle() || previousState) {
+				ctx.ui.notify("Agent is busy – run /commit again when idle.", "warning");
 				return;
 			}
+
+			const settings: ReturnType<ExtensionAPI["getSettings"]> & {
+				defaultCommitProvider?: string;
+				defaultCommitModel?: string;
+			} = pi.getSettings();
+			const provider = settings.defaultCommitProvider ?? settings.defaultProvider ?? ctx.model?.provider;
+			const modelId = settings.defaultCommitModel ?? settings.defaultModel ?? ctx.model?.id;
+			if (
+				ctx.model && provider && modelId &&
+				(provider !== ctx.model.provider || modelId !== ctx.model.id)
+			) {
+				const model = ctx.modelRegistry.find(provider, modelId);
+				if (!model) {
+					ctx.ui.notify(`Commit model not found: ${provider}/${modelId}`, "error");
+					return;
+				}
+				const state = { model: ctx.model, thinkingLevel: pi.getThinkingLevel() };
+				if (!(await pi.setModel(model))) {
+					ctx.ui.notify(`No authentication for commit model: ${provider}/${modelId}`, "error");
+					return;
+				}
+				previousState = state;
+			}
+
 			pi.sendUserMessage(COMMIT_PROMPT);
 			ctx.ui.notify("Asked the agent to commit.", "info");
 		},

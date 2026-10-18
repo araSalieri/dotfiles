@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.2.0",
+  "lastChangelogVersion": "1.3.0",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
@@ -17,34 +17,15 @@
   "editorPaddingX": 1,
   "hideThinkingBlock": false,
   "extensions": ["+builtin:mcp"],
-  "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.3-flash",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6.1-sol",
+  "defaultCommitProvider": "openai",
+  "defaultCommitModel": "gpt-6-luna",
   "defaultThinkingLevel": "high",
   "defaultTools": ["+codemode"],
   "subagents": {
-    "defaultProvider": "openrouter",
-    "defaultModel": "z-ai/glm-5.3-flash",
-    "agentOverrides": {
-      "reviewer": {
-        "model": "openrouter/z-ai/glm-5.3-flash"
-      },
-      "worker": {
-        "model": "deepseek/deepseek-flash",
-        "thinking": "max"
-      },
-      "scout": {
-        "model": "deepseek/deepseek-flash",
-        "thinking": "max"
-      },
-      "researcher": {
-        "model": "deepseek/deepseek-flash",
-        "thinking": "max"
-      },
-      "oracle": {
-        "model": "deepseek/deepseek-flash",
-        "thinking": "max"
-      }
-    },
+    "defaultProvider": "openai",
+    "defaultModel": "gpt-6.1-sol",
     "watchdog": {
       "enabled": true,
       "main": {
@@ -54,5 +35,6 @@
         "enabled": true
       }
     }
-  }
+  },
+  "deviceId": "10ef086b-fc35-4205-95dc-2a590a53f00f"
 }
