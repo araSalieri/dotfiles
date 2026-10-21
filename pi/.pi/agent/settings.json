@@ -7,7 +7,6 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-lens",
     "npm:@ff-labs/pi-fff",
-    "npm:@luxusai/pi-hindsight",
     "npm:@gotgenes/pi-permission-system",
     "npm:pi-notify",
     "npm:@dietrichgebert/ponytail"
@@ -16,13 +15,18 @@
   "quietStartup": true,
   "editorPaddingX": 1,
   "hideThinkingBlock": false,
-  "extensions": ["+builtin:mcp"],
+  "extensions": [
+    "+builtin:mcp"
+  ],
   "defaultProvider": "openai",
-  "defaultModel": "gpt-6.1-sol",
+  "defaultModel": "gpt-5.6-sol",
   "defaultCommitProvider": "openai",
   "defaultCommitModel": "gpt-6-luna",
-  "defaultThinkingLevel": "high",
-  "defaultTools": ["+codemode"],
+  "defaultCommitThinkingLevel": "low",
+  "defaultThinkingLevel": "max",
+  "defaultTools": [
+    "+codemode"
+  ],
   "subagents": {
     "defaultProvider": "openai",
     "defaultModel": "gpt-6.1-sol",

@@ -83,6 +83,58 @@ for (const [name, settings] of [
 	});
 }
 
+for (const level of ["off", "minimal", "low", "medium", "high", "xhigh", "max"]) {
+	test(`/commit applies ${level} after switching models and restores the previous level`, async () => {
+		const app = setup({ settings: {
+			defaultProvider: "default", defaultModel: "commit",
+			defaultThinkingLevel: "max", defaultCommitThinkingLevel: level,
+		} });
+		await app.run();
+		assert.equal(app.ctx.model, app.commitModel);
+		assert.equal(app.thinking(), level);
+		assert.equal(app.messages.length, 1);
+		await app.settle();
+		assert.equal(app.ctx.model, app.original);
+		assert.equal(app.thinking(), "high");
+	});
+}
+
+for (const settings of [{}, { defaultProvider: "session", defaultModel: "coding" }]) {
+	test("/commit temporarily changes thinking without switching models or requiring authentication", async () => {
+		const app = setup({
+			settings: { ...settings, defaultCommitThinkingLevel: "low" },
+			authenticated: false,
+		});
+		await app.run();
+		assert.equal(app.thinking(), "low");
+		await app.run();
+		assert.equal(app.messages.length, 1);
+		assert.equal(app.notices.at(-1)[1], "warning");
+		await app.settle();
+		assert.equal(app.thinking(), "high");
+		assert.equal(app.switches.length, 0);
+		await app.run();
+		assert.equal(app.thinking(), "low");
+		await app.settle();
+		assert.equal(app.thinking(), "high");
+	});
+}
+
+test("/commit rejects invalid thinking settings before changing state or sending a prompt", async () => {
+	for (const level of ["invalid", "", null, 42, {}, []]) {
+		const app = setup({ settings: {
+			defaultProvider: "default", defaultModel: "commit", defaultCommitThinkingLevel: level,
+		} });
+		await app.run();
+		await app.settle();
+		assert.equal(app.messages.length, 0);
+		assert.equal(app.switches.length, 0);
+		assert.equal(app.thinking(), "high");
+		assert.match(app.notices[0][0], /Invalid defaultCommitThinkingLevel/);
+		assert.equal(app.notices[0][1], "error");
+	}
+});
+
 test("/commit rejects another invocation before the run settles", async () => {
 	const app = setup();
 	await app.run();
@@ -98,11 +150,14 @@ for (const [name, options] of [
 	["missing authentication", { authenticated: false }],
 ]) {
 	test(`/commit stops for ${name} without sending a prompt or changing models`, async () => {
-		const app = setup(options);
+		const app = setup({ ...options, settings: {
+			defaultProvider: "default", defaultModel: "commit", defaultCommitThinkingLevel: "low",
+		} });
 		await app.run();
 		await app.settle();
 		assert.equal(app.messages.length, 0);
 		assert.equal(app.switches.length, 0);
+		assert.equal(app.thinking(), "high");
 		assert.equal(app.notices.length, 1);
 	});
 }

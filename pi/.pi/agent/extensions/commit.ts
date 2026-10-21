@@ -2,10 +2,10 @@
  * commit — /commit command + validating commit tool.
  *
  * /commit uses defaultCommitProvider/defaultCommitModel (falling back to Pi's
- * defaults), then restores the previous model and thinking level. The agent
- * gathers context, writes the message, and calls the `commit` tool, which validates
- * the message against
- * the project's commit rules, then stages everything and commits in one step.
+ * defaults) and optional defaultCommitThinkingLevel, then restores the previous
+ * model and thinking level. The agent gathers context, writes the message, and
+ * calls the `commit` tool to validate the message against the project's rules,
+ * stage everything, and commit in one step.
  */
 import { spawnSync } from "node:child_process";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -94,7 +94,7 @@ const CommitParams = Type.Object({
 
 export default function (pi: ExtensionAPI) {
 	let previousState: {
-		model: NonNullable<ExtensionContext["model"]>;
+		model: ExtensionContext["model"];
 		thinkingLevel: ReturnType<ExtensionAPI["getThinkingLevel"]>;
 	} | undefined;
 
@@ -102,7 +102,7 @@ export default function (pi: ExtensionAPI) {
 		if (!previousState) return;
 		const state = previousState;
 		previousState = undefined;
-		if (await pi.setModel(state.model)) {
+		if (!state.model || state.model === ctx.model || await pi.setModel(state.model)) {
 			pi.setThinkingLevel(state.thinkingLevel);
 		} else {
 			ctx.ui.notify("Could not restore the previous model: authentication unavailable.", "error");
@@ -121,9 +121,19 @@ export default function (pi: ExtensionAPI) {
 			const settings: ReturnType<ExtensionAPI["getSettings"]> & {
 				defaultCommitProvider?: string;
 				defaultCommitModel?: string;
+				defaultCommitThinkingLevel?: ReturnType<ExtensionAPI["getThinkingLevel"]>;
 			} = pi.getSettings();
 			const provider = settings.defaultCommitProvider ?? settings.defaultProvider ?? ctx.model?.provider;
 			const modelId = settings.defaultCommitModel ?? settings.defaultModel ?? ctx.model?.id;
+			const thinkingLevel = settings.defaultCommitThinkingLevel;
+			if (
+				thinkingLevel !== undefined &&
+				!["off", "minimal", "low", "medium", "high", "xhigh", "max"].includes(thinkingLevel)
+			) {
+				ctx.ui.notify(`Invalid defaultCommitThinkingLevel: ${thinkingLevel}`, "error");
+				return;
+			}
+			const state = { model: ctx.model, thinkingLevel: pi.getThinkingLevel() };
 			if (
 				ctx.model && provider && modelId &&
 				(provider !== ctx.model.provider || modelId !== ctx.model.id)
@@ -133,12 +143,15 @@ export default function (pi: ExtensionAPI) {
 					ctx.ui.notify(`Commit model not found: ${provider}/${modelId}`, "error");
 					return;
 				}
-				const state = { model: ctx.model, thinkingLevel: pi.getThinkingLevel() };
 				if (!(await pi.setModel(model))) {
 					ctx.ui.notify(`No authentication for commit model: ${provider}/${modelId}`, "error");
 					return;
 				}
 				previousState = state;
+			}
+			if (thinkingLevel !== undefined) {
+				previousState ??= state;
+				pi.setThinkingLevel(thinkingLevel);
 			}
 
 			pi.sendUserMessage(COMMIT_PROMPT);
