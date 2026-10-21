@@ -15,21 +15,17 @@
   "quietStartup": true,
   "editorPaddingX": 1,
   "hideThinkingBlock": false,
-  "extensions": [
-    "+builtin:mcp"
-  ],
+  "extensions": ["+builtin:mcp"],
   "defaultProvider": "openai",
   "defaultModel": "gpt-5.6-sol",
   "defaultCommitProvider": "openai",
   "defaultCommitModel": "gpt-6-luna",
   "defaultCommitThinkingLevel": "low",
   "defaultThinkingLevel": "max",
-  "defaultTools": [
-    "+codemode"
-  ],
+  "defaultTools": ["+codemode"],
   "subagents": {
     "defaultProvider": "openai",
-    "defaultModel": "gpt-6.1-sol",
+    "defaultModel": "gpt-5.6-sol",
     "watchdog": {
       "enabled": true,
       "main": {
