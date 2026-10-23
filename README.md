@@ -7,6 +7,11 @@ Personal configuration managed with [stow](https://www.gnu.org/software/stow/).
 ```
 dotfiles/
 ├── KEYMAPS.md                # Neovim keymap reference
+├── claude/
+│   └── .claude/
+│       ├── CLAUDE.md             # global Claude Code rules
+│       └── skills/
+│           └── commit/SKILL.md   # /commit skill
 ├── fish/
 │   └── .config/
 │       └── fish/
@@ -105,6 +110,7 @@ dotfiles/
 ```bash
 git clone https://github.com/<you>/dotfiles ~/dotfiles
 cd ~/dotfiles
+stow claude
 stow fish
 stow foot
 stow git
