@@ -145,6 +145,13 @@ mode keeps LSP code actions; visual mode still copies the ref.
 - **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
 - **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
 
+## Claude Code
+
+`claude/.claude/` (stowed to `~/.claude/`) configures [Claude Code](https://claude.com/claude-code):
+
+- **`CLAUDE.md`** – global rules (ask before destructive commands and commits, write simply, en dashes, grilling skill asks via the `AskUserQuestion` picker)
+- **`skills/commit/`** – `/commit` skill with Conventional Commits rules
+
 ## fish
 
 `fish/.config/fish/config.fish` sources the CachyOS fish config, then adds:
