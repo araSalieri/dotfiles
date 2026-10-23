@@ -62,13 +62,12 @@ dotfiles/
 │       └── agent/
 │           ├── APPEND_SYSTEM.md        # extra system-prompt rules
 │           ├── hindsight.json          # pi-hindsight memory endpoint & banks
-│           ├── settings.json           # model, packages (superpowers, pi-hindsight,
-│           │                           #   pi-permission-system, pi-lens, …), subagent models
+│           ├── settings.json           # models, packages, subagent models
 │           ├── themes/
 │           │   └── dark-noborder.json  # borderless dark theme
-│           ├── skills/
-│           │   └── commit/SKILL.md     # git commit workflow skill
 │           └── extensions/
+│               ├── commit.ts           # /commit command + validating commit tool
+│               ├── learning-mode.ts    # /learn Socratic tutor mode
 │               ├── minimal-editor.ts   # borderless `>` input editor
 │               └── pi-permission-system/
 │                   └── config.json    # tool/permission rules (rm ask/deny, sudo ask, .env ask)
@@ -124,26 +123,19 @@ stow hypr
 
 ## File refs to the clipboard
 
-`<leader>ca` copies an `@path:line` ref to the system clipboard — `@path:12` in normal mode,
-`@path:12-18` in visual mode. Paths are relative to the cwd when possible. No socket, no running
-agent required: paste the ref into pi, claude, or any terminal. In LSP-attached buffers, normal
-mode keeps LSP code actions; visual mode still copies the ref.
+`<leader>ca` copies an `@path:line` ref to the system clipboard – `@path:12` in normal mode, `@path:12-18` in visual mode. Paths are relative to the cwd when possible. No socket, no running agent required: paste the ref into pi, claude, or any terminal. In LSP-attached buffers, normal mode keeps LSP code actions; visual mode still copies the ref.
 
 ## pi agent
 
 `pi/.pi/agent/` (stowed to `~/.pi/agent/`) configures the [pi coding agent](https://github.com/earendil-works/pi):
 
-- **`settings.json`** — default model/thinking level, pi packages (`pi-mcp-adapter`, `pi-web-access`,
-  `pi-subagents`, `pi-lens`, `pi-fff`, `pi-simplify`, `pi-permission-system`, `pi-hindsight`, and
-  `superpowers` from git), subagent model overrides, and the `dark-noborder` theme
-- **`skills/commit/`** — local commit skill (stages and commits in one response); replaced the
-  `@eamode/pi-commit` extension
-- **`extensions/pi-permission-system/`** — permission rules: everything allowed by default,
-  `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored)
-- **`extensions/minimal-editor.ts`** — replaces pi's bordered input editor with a `>` prompt
-- **`extensions/learning-mode.ts`** — `/learn` toggles Socratic tutor mode: you write all the code, pi guides (edit/write tools blocked), `learning` shown in the footer; state resets each session
-- **`APPEND_SYSTEM.md`** — extra system-prompt rules (confirm big changes, write simply, en dashes)
-- **`hindsight.json`** — points pi-hindsight at the memory server and the `memories` project bank
+- **`settings.json`** – default model/thinking level, commit model/thinking level, pi packages (`pi-web-access`, `pi-subagents`, `rpiv-ask-user-question`, `rpiv-todo`, `pi-lens`, `pi-fff`, `pi-permission-system`, `pi-notify`, `ponytail`), built-in MCP and `codemode`, subagent model and watchdog, and the `dark-noborder` theme
+- **`extensions/commit.ts`** – `/commit` switches to the commit model, has the agent write a Conventional Commits message, then a `commit` tool validates it, stages everything and commits; tests in `extensions/tests/`
+- **`extensions/pi-permission-system/`** – permission rules: everything allowed by default, `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored)
+- **`extensions/minimal-editor.ts`** – replaces pi's bordered input editor with a `>` prompt
+- **`extensions/learning-mode.ts`** – `/learn` toggles Socratic tutor mode: you write all the code, pi guides (edit/write tools blocked), `learning` shown in the footer; state resets each session
+- **`APPEND_SYSTEM.md`** – extra system-prompt rules (read local files first, ask before destructive commands and commits, write simply, en dashes, no line wrapping)
+- **`hindsight.json`** – points pi-hindsight at the memory server and the `memories` project bank (pi-hindsight is not in `packages` right now)
 
 ## Claude Code
 
@@ -162,8 +154,7 @@ mode keeps LSP code actions; visual mode still copies the ref.
 
 ## tmux
 
-`tmux/.tmux.conf` is managed by [tpm](https://github.com/tmux-plugins/tpm) (install with
-`git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, then `prefix + I`):
+`tmux/.tmux.conf` is managed by [tpm](https://github.com/tmux-plugins/tpm) (install with `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`, then `prefix + I`):
 
 | Plugin | Purpose |
 |--------|---------|
@@ -175,25 +166,23 @@ mode keeps LSP code actions; visual mode still copies the ref.
 
 Keybinds (prefix is `C-a`):
 
-- `C-a S` / `C-a V` — main-horizontal / main-vertical layout
-- `C-a x` — kill pane; sessions survive destruction (`detach-on-destroy off`)
-- `C-a T` — sesh session picker (tmux, configs, zoxide dirs, directory find, kill session)
-- `C-a r` — reload config
+- `C-a S` / `C-a V` – main-horizontal / main-vertical layout
+- `C-a x` – kill pane; sessions survive destruction (`detach-on-destroy off`)
+- `C-a T` – sesh session picker (tmux, configs, zoxide dirs, directory find, kill session)
+- `C-a r` – reload config
 - vi copy mode: `v` to select, `y` to copy-and-cancel
 
-Status bar: `· PREFIX` indicator on `C-a`, session/host/time on the right, heavy pane borders with
-gruvbox colors.
+Status bar: `· PREFIX` indicator on `C-a`, session/host/time on the right, heavy pane borders with gruvbox colors.
 
 ## git
 
-`git/git/ignore` is installed as the global gitignore via `core.excludesFile` and excludes
-`.pi/hindsight/*` (pi-hindsight runtime state).
+`git/git/ignore` is installed as the global gitignore via `core.excludesFile` and excludes `.pi/hindsight/*` (pi-hindsight runtime state).
 
 ## Neovim Plugins
 
 | Plugin | Purpose |
 |--------|---------|
-| [catppuccin/nvim](https://github.com/catppuccin/nvim) | Colorscheme (mocha, pure black bg — palette overrides inline in `colorscheme.lua`) |
+| [catppuccin/nvim](https://github.com/catppuccin/nvim) | Colorscheme (mocha, pure black bg – palette overrides inline in `colorscheme.lua`) |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer |
 | [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Fuzzy finder (fzf-powered) |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting & indent |
@@ -221,12 +210,12 @@ gruvbox colors.
 
 Mason auto-installs the following language servers:
 
-- `lua_ls` — Lua
-- `pyright` — Python (auto-detects `.venv`/`venv` and sets `pythonPath`)
-- `ts_ls` — TypeScript / JavaScript
-- `eslint` — JavaScript / TypeScript linting
-- `rust_analyzer` — Rust
-- `gopls` — Go
+- `lua_ls` – Lua
+- `pyright` – Python (auto-detects `.venv`/`venv` and sets `pythonPath`)
+- `ts_ls` – TypeScript / JavaScript
+- `eslint` – JavaScript / TypeScript linting
+- `rust_analyzer` – Rust
+- `gopls` – Go
 
 Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`, `sql`, `markdown`, `markdown_inline`
 
@@ -234,9 +223,9 @@ Treesitter parsers: `lua`, `python`, `typescript`, `javascript`, `rust`, `go`, `
 
 Mason auto-installs:
 
-- `codelldb` — Rust debugger
-- `delve` — Go debugger
-- `debugpy` — Python debugger
+- `codelldb` – Rust debugger
+- `delve` – Go debugger
+- `debugpy` – Python debugger
 
 ## Neovim Keymaps
 
