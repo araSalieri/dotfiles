@@ -39,3 +39,4 @@ if status is-interactive
 end
 
 set -gx EDITOR nvim
+export PATH="$HOME/.local/bin:$PATH"
