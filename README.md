@@ -142,6 +142,7 @@ stow hypr
 `claude/.claude/` (stowed to `~/.claude/`) configures [Claude Code](https://claude.com/claude-code):
 
 - **`CLAUDE.md`** – global rules (ask before destructive commands and commits, write simply, en dashes, grilling skill asks via the `AskUserQuestion` picker)
+- **`settings.json`** – model, plugins, tmux-assistant-resurrect hooks, and agent teams with teammates in tmux split panes (`teammateMode: tmux`)
 - **`skills/commit/`** – `/commit` skill with Conventional Commits rules
 
 ## fish
