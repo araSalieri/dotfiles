@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "model": "opus",
   "hooks": {
     "SessionStart": [
@@ -42,7 +45,6 @@
       "effortLevel": "medium"
     }
   },
-  "theme": "dark-ansi",
   "pluginConfigs": {
     "ponytail@ponytail": {
       "options": {
@@ -51,8 +53,7 @@
       }
     }
   },
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
-  },
-  "teammateMode": "tmux"
+  "theme": "dark-ansi",
+  "teammateMode": "tmux",
+  "tui": "fullscreen"
 }
