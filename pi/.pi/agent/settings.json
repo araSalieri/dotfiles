@@ -16,16 +16,16 @@
   "editorPaddingX": 1,
   "hideThinkingBlock": false,
   "extensions": ["+builtin:mcp"],
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultCommitProvider": "openai",
-  "defaultCommitModel": "gpt-6-luna",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-flash",
+  "defaultCommitProvider": "deepseek",
+  "defaultCommitModel": "deepseek-flash",
   "defaultCommitThinkingLevel": "low",
   "defaultThinkingLevel": "max",
   "defaultTools": ["+codemode"],
   "subagents": {
-    "defaultProvider": "openai",
-    "defaultModel": "gpt-5.6-sol",
+    "defaultProvider": "deepseek",
+    "defaultModel": "deepseek-flash",
     "watchdog": {
       "enabled": true,
       "main": {
