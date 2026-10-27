@@ -129,7 +129,7 @@ stow hypr
 
 `pi/.pi/agent/` (stowed to `~/.pi/agent/`) configures the [pi coding agent](https://github.com/earendil-works/pi):
 
-- **`settings.json`** – default model/thinking level, commit model/thinking level, pi packages (`pi-web-access`, `pi-subagents`, `rpiv-ask-user-question`, `rpiv-todo`, `pi-lens`, `pi-fff`, `pi-permission-system`, `pi-notify`, `ponytail`), built-in MCP and `codemode`, subagent model and watchdog, and the `dark-noborder` theme
+- **`settings.json`** – default, commit and subagent model (`deepseek/deepseek-flash`), default and commit thinking level, pi packages (`pi-web-access`, `pi-subagents`, `rpiv-ask-user-question`, `rpiv-todo`, `pi-lens`, `pi-fff`, `pi-permission-system`, `pi-notify`, `ponytail`), built-in MCP and `codemode`, subagent watchdog, and the `dark-noborder` theme
 - **`extensions/commit.ts`** – `/commit` switches to the commit model, has the agent write a Conventional Commits message, then a `commit` tool validates it, stages everything and commits; tests in `extensions/tests/`
 - **`extensions/pi-permission-system/`** – permission rules: everything allowed by default, `rm -rf` denied, `rm`/`sudo`/`.env` writes ask (audit log gitignored)
 - **`extensions/minimal-editor.ts`** – replaces pi's bordered input editor with a `>` prompt
