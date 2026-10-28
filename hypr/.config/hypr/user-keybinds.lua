@@ -53,6 +53,7 @@ hl.bind(mainMod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:ara" 
 
 -- Bind Gaming workspace (steam client + games open here via template rules)
 hl.bind(mainMod .. " + G", hl.dsp.focus({ workspace = "name:gaming" }))
+hl.bind(mainMod .. " + ALT + G", hl.dsp.window.move({ workspace = "name:gaming" }))
 
 -- Monitor focus/move, shifted off SHIFT+num (which is now absolute focus):
 hl.bind(mainMod .. " + CONTROL + ALT + 1", hl.dsp.focus({ monitor = MONITOR1 }))
