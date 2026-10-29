@@ -55,5 +55,5 @@
   },
   "theme": "dark-ansi",
   "teammateMode": "tmux",
-  "tui": "fullscreen"
+  "tui": "default"
 }
