@@ -1,0 +1,62 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[theme.custom]
+panel_bg = "reset"
+# inactive tabs as plain text, no box
+surface0 = "reset"
+
+[keys]
+prefix = "ctrl+a"
+settings = "prefix+comma"
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+close_pane = "prefix+x"
+
+[[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "~/.config/herdr/workspace-picker.sh"
+width = "80%"
+height = "70%"
+
+# vim-tmux-navigator style: needs `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "local.vim-navigator.left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "local.vim-navigator.down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "local.vim-navigator.up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "local.vim-navigator.right"
+
+[ui]
+accent = "#89b4fa"
+tab_bar_position = "bottom"
+tab_bar_right = [{ type = "zoom" }, { type = "hostname" }, { type = "datetime", format = "%H:%M" }]
+tab_bar_right_separator = " · "
+pane_outer_borders = false
+pane_gaps = false
+prompt_new_tab_name = false
+
+[ui.toast]
+delivery = "system"
+
+[ui.sound]
+enabled = false

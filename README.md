@@ -67,6 +67,7 @@ dotfiles/
 │           │   └── dark-noborder.json  # borderless dark theme
 │           └── extensions/
 │               ├── commit.ts           # /commit command + validating commit tool
+│               ├── herdr-agent-state.ts # installed by herdr: reports pi state to herdr
 │               ├── learning-mode.ts    # /learn Socratic tutor mode
 │               ├── minimal-editor.ts   # borderless `>` input editor
 │               └── pi-permission-system/
@@ -75,6 +76,11 @@ dotfiles/
 │   └── .config/
 │       └── noctalia/
 │           ├── config.toml      # Noctalia shell config (bar, launcher, screenshots via satty)
+├── herdr/
+│   └── .config/
+│       └── herdr/
+│           ├── config.toml          # tmux-like keys and look
+│           └── workspace-picker.sh  # prefix+t zoxide/fd workspace picker
 └── tmux/
     └── .tmux.conf
 ```
@@ -88,6 +94,7 @@ dotfiles/
 | [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo pacman -S neovim` |
 | [foot](https://codeberg.org/dnkl/foot) | Terminal launched by nvim `<leader>tt` / `<leader>co` | `sudo pacman -S foot` |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `sudo pacman -S tmux` |
+| [herdr](https://herdr.dev) | Terminal workspace manager for agents | see herdr.dev |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
 | [sesh](https://github.com/joshmedeski/sesh) | Session manager (tmux `prefix + T`) | `paru -S sesh-bin` |
 | [fd](https://github.com/sharkdp/fd) | Directory search (sesh find fallback) | `sudo pacman -S fd` |
@@ -117,6 +124,7 @@ stow nvim
 stow lazygit
 stow noctalia
 stow tmux
+stow herdr
 stow pi
 stow hypr
 ```
@@ -174,6 +182,21 @@ Keybinds (prefix is `C-a`):
 - vi copy mode: `v` to select, `y` to copy-and-cancel
 
 Status bar: `· PREFIX` indicator on `C-a`, session/host/time on the right, heavy pane borders with gruvbox colors.
+
+## herdr
+
+`herdr/.config/herdr/config.toml` mirrors the tmux setup: catppuccin on a black background, tab bar at the bottom with host and time, no outer pane frame. Hyprland starts `herdr server` at login; herdr saves and restores sessions itself. Remove `~/.config/herdr/config.toml` before the first `stow herdr`.
+
+Keybinds (prefix is `C-a`):
+
+- `C-a v` / `C-a s` – split side by side / stacked
+- `C-h/j/k/l` – move between nvim splits and herdr panes ([nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation); install the herdr side with `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`). `C-a h/j/k/l` also works.
+- `C-a x` – close pane
+- `C-a t` – pick a zoxide dir (`ctrl-f` for fd search) and open or focus its workspace
+- `C-a w` – workspace picker
+- `C-a r` – reload config; `C-a R` – resize mode
+- `C-a ,` – settings
+- `C-a e` – open scrollback in editor
 
 ## git
 
