@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Pick a dir (zoxide, or fd with ctrl+f) and focus its herdr workspace, creating it if needed.
-dir=$(zoxide query -l | fzf --no-sort --border-label ' workspace ' --prompt '📁  ' \
+# With a dir argument, skip the picker and use that dir.
+dir=${1:-}
+[ -n "$dir" ] || dir=$(zoxide query -l | fzf --no-sort --border-label ' workspace ' --prompt '📁  ' \
   --color bg:#000000,bg+:#313244,gutter:#000000 \
   --header '  ^x zoxide ^f find' \
   --bind 'tab:down,btab:up' \

@@ -159,6 +159,7 @@ stow hypr
 
 - zoxide init and `alias cd z`
 - `alias vim nvim` / `alias vi nvim` / `alias yay paru`
+- `herdr` with no args opens (or focuses) a workspace for the current dir, then attaches
 - `FZF_CTRL_T_COMMAND` backed by `fd` (hidden files, node_modules/target/.git/.venv/dist excluded)
 
 ## tmux

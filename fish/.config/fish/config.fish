@@ -36,6 +36,24 @@ if status is-interactive
         commandline -f repaint
     end
     bind \co sesh-connect
+
+    # plain `herdr` opens a workspace for the current dir, like `tmux new`
+    function herdr --wraps herdr
+        if test (count $argv) -gt 0; or set -q HERDR_ENV
+            command herdr $argv
+            return
+        end
+        if not command herdr workspace list &>/dev/null
+            command herdr server &>/dev/null &
+            disown
+            for i in (seq 20)
+                command herdr workspace list &>/dev/null; and break
+                sleep 0.1
+            end
+        end
+        ~/.config/herdr/workspace-picker.sh $PWD
+        command herdr
+    end
 end
 
 set -gx EDITOR nvim
