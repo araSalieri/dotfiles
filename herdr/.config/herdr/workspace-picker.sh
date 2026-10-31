@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pick a dir (zoxide, or fd with ctrl+f) and focus its herdr workspace, creating it if needed.
-# With a dir argument, skip the picker and use that dir.
+# With a dir argument, skip the picker and use that dir. Prints the chosen dir.
 dir=${1:-}
 [ -n "$dir" ] || dir=$(zoxide query -l | fzf --no-sort --border-label ' workspace ' --prompt '📁  ' \
   --color bg:#000000,bg+:#313244,gutter:#000000 \
@@ -17,3 +17,4 @@ if [ -n "$id" ]; then
 else
   herdr workspace create --cwd "$dir" --label "$label" --focus >/dev/null
 fi
+echo "$dir"

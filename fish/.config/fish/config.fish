@@ -30,30 +30,36 @@ if status is-interactive
     fzf --fish | source
     mise activate fish | source
 
-    function sesh-connect
-        set -l session (sesh list | fzf)
-        and sesh connect $session
-        commandline -f repaint
-    end
-    bind \co sesh-connect
-
     # plain `herdr` opens a workspace for the current dir, like `tmux new`
     function herdr --wraps herdr
         if test (count $argv) -gt 0; or set -q HERDR_ENV
             command herdr $argv
             return
         end
-        if not command herdr workspace list &>/dev/null
-            command herdr server &>/dev/null &
-            disown
-            for i in (seq 20)
-                command herdr workspace list &>/dev/null; and break
-                sleep 0.1
-            end
-        end
-        ~/.config/herdr/workspace-picker.sh $PWD
+        __herdr_up
+        ~/.config/herdr/workspace-picker.sh $PWD >/dev/null
         command herdr
     end
+
+    function __herdr_up
+        command herdr workspace list &>/dev/null; and return
+        command herdr server &>/dev/null &
+        disown
+        for i in (seq 20)
+            command herdr workspace list &>/dev/null; and break
+            sleep 0.1
+        end
+    end
+
+    # pick a workspace dir and attach
+    function herdr-connect
+        __herdr_up
+        set -l dir (~/.config/herdr/workspace-picker.sh)
+        and test -n "$dir"; and not set -q HERDR_ENV
+        and command herdr
+        commandline -f repaint
+    end
+    bind \co herdr-connect
 end
 
 set -gx EDITOR nvim
