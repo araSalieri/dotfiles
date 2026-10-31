@@ -192,6 +192,7 @@ Keybinds (prefix is `C-a`):
 - `C-a v` / `C-a s` – split side by side / stacked
 - `C-h/j/k/l` – move between nvim splits and herdr panes ([nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation); install the herdr side with `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`). `C-a h/j/k/l` also works.
 - `C-a x` – close pane
+- `C-a d` – detach
 - `C-a t` – pick a zoxide dir (`ctrl-f` for fd search) and open or focus its workspace
 - `C-a w` – workspace picker
 - `C-a r` – reload config; `C-a R` – resize mode

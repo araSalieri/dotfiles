@@ -17,6 +17,7 @@ resize_mode = "prefix+shift+r"
 split_vertical = "prefix+v"
 split_horizontal = "prefix+s"
 close_pane = "prefix+x"
+detach = "prefix+d"
 
 [[keys.command]]
 key = "prefix+t"
