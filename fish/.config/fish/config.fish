@@ -9,21 +9,31 @@ if status is-interactive
     alias yay paru
     alias ls='eza -al --color=always --group-directories-first --icons=always'
 
+    # same look as the herdr workspace picker
+    set -x FZF_DEFAULT_OPTS "
+  --layout reverse --border none --info inline-right
+  --prompt '❯ ' --pointer '▌' --marker '▌' --gutter ' '
+  --color 'bg:#000000,bg+:#313244,fg:#bac2de,fg+:#cdd6f4,hl:#89b4fa,hl+:#89b4fa,prompt:#89b4fa,pointer:#89b4fa,marker:#a6e3a1,info:#6c7086,ghost:#6c7086,header:#6c7086,footer:#6c7086,border:#45475a,separator:#45475a,scrollbar:#45475a'
+  --preview-window 'right,50%,border-left'"
+
     set -x FZF_CTRL_T_COMMAND 'fd -H . ~ -E node_modules -E target -E .git -E .venv -E dist'
     set -x FZF_CTRL_T_OPTS "
   --walker-skip .git,node_modules,target
+  --ghost 'find a file…'
   --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --footer '↑↓ move   ⏎ insert   ⇥ mark   ^/ preview   esc quit'"
 
     set -x FZF_CTRL_R_OPTS "
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'Press CTRL-Y to copy command into clipboard'"
+  --ghost 'search history…'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'
+  --footer '↑↓ move   ⏎ insert   ^y copy   ^r sort   esc quit'"
 
     set -x FZF_ALT_C_COMMAND 'fd -H -t d . ~ -E node_modules -E target -E .git -E .venv -E dist'
-
     set -x FZF_ALT_C_OPTS "
-  --preview 'tree -C {}'"
+  --ghost 'jump to a directory…'
+  --preview 'eza -1 -a --icons=always --group-directories-first --color=always {}'
+  --footer '↑↓ move   ⏎ cd   esc quit'"
 
     command -v zoxide &>/dev/null && zoxide init fish --cmd cd | source
     command -v starship &>/dev/null && starship init fish | source
