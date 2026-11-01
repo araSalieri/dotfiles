@@ -1,4 +1,5 @@
 {
   "auto_titles": false,
-  "lowercase_titles": true
+  "lowercase_titles": true,
+  "actions": true
 }
