@@ -26,6 +26,20 @@ command = "~/.config/herdr/workspace-picker.sh"
 width = "80%"
 height = "70%"
 
+# needs `herdr plugin install jeffarese/herdr-bar`
+[[keys.command]]
+key = "prefix+k"
+type = "plugin_action"
+command = "herdr-bar.open"
+description = "command bar"
+
+# needs `herdr plugin install qu8n/herdr-automatic-rename`
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "herdr-automatic-rename.reset"
+description = "hand this tab's name back to automatic naming"
+
 # vim-tmux-navigator style: needs `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`
 [[keys.command]]
 key = "ctrl+h"

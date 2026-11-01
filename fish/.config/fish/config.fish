@@ -60,6 +60,11 @@ if status is-interactive
         commandline -f repaint
     end
     bind \co herdr-connect
+
+    # rename herdr tabs as soon as a command starts (herdr-automatic-rename)
+    for _f in $HOME/.config/herdr/plugins/github-installations/herdr-automatic-rename-*/*/checkout/shell/hook.fish
+        test -r "$_f"; and source "$_f"; and break
+    end
 end
 
 set -gx EDITOR nvim

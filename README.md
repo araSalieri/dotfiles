@@ -78,9 +78,12 @@ dotfiles/
 │           ├── config.toml      # Noctalia shell config (bar, launcher, screenshots via satty)
 ├── herdr/
 │   └── .config/
-│       └── herdr/
-│           ├── config.toml          # tmux-like keys and look
-│           └── workspace-picker.sh  # prefix+t zoxide/fd workspace picker
+│       ├── herdr/
+│       │   ├── config.toml          # tmux-like keys and look
+│       │   ├── workspace-picker.sh  # prefix+t zoxide/fd workspace picker
+│       │   └── plugins/config/herdr-bar/config.json  # herdr-bar options
+│       └── herdr-automatic-rename/
+│           └── config.sh            # tab naming style
 └── tmux/
     └── .tmux.conf
 ```
@@ -160,6 +163,7 @@ stow hypr
 - zoxide init and `alias cd z`
 - `alias vim nvim` / `alias vi nvim` / `alias yay paru`
 - `herdr` with no args opens (or focuses) a workspace for the current dir, then attaches
+- sources the herdr-automatic-rename shell hook, so tabs rename as soon as a command starts
 - `FZF_CTRL_T_COMMAND` backed by `fd` (hidden files, node_modules/target/.git/.venv/dist excluded)
 
 ## tmux
@@ -186,12 +190,14 @@ Status bar: `· PREFIX` indicator on `C-a`, session/host/time on the right, heav
 
 ## herdr
 
-`herdr/.config/herdr/config.toml` mirrors the tmux setup: catppuccin on a black background, tab bar at the bottom with host and time, no outer pane frame. Hyprland starts `herdr server` at login; herdr saves and restores sessions itself. Remove `~/.config/herdr/config.toml` before the first `stow herdr`.
+`herdr/.config/herdr/config.toml` mirrors the tmux setup: catppuccin on a black background, tab bar at the bottom with host and time, no outer pane frame. Plain `herdr` in fish starts the server if needed; herdr saves and restores sessions itself. Remove `~/.config/herdr/config.toml` before the first `stow herdr`.
 
 Keybinds (prefix is `C-a`):
 
 - `C-a v` / `C-a s` – split side by side / stacked
-- `C-h/j/k/l` – move between nvim splits and herdr panes ([nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation); install the herdr side with `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`). `C-a h/j/k/l` also works.
+- `C-h/j/k/l` – move between nvim splits and herdr panes ([nvim-herdr-navigation](https://github.com/bojackduy/nvim-herdr-navigation); install the herdr side with `herdr plugin install bojackduy/nvim-herdr-navigation/herdr-vim-navigator`). `C-a h/j/l` also works.
+- `C-a k` – herdr-bar command bar: fuzzy jump to an agent, tab, pane or workspace
+- `C-a a` – hand the tab's name back to automatic naming
 - `C-a x` – close pane
 - `C-a d` – detach
 - `C-a t` – pick a zoxide dir (`ctrl-f` for fd search) and open or focus its workspace
@@ -199,6 +205,13 @@ Keybinds (prefix is `C-a`):
 - `C-a r` – reload config; `C-a R` – resize mode
 - `C-a ,` – settings
 - `C-a e` – open scrollback in editor
+
+Plugins (installed outside dotfiles, so install them on a new machine):
+
+- [herdr-bar](https://github.com/jeffarese/herdr-bar) – `herdr plugin install --yes jeffarese/herdr-bar`. Only the command bar is used; its auto titles are off so they don't fight herdr-automatic-rename.
+- [herdr-automatic-rename](https://github.com/qu8n/herdr-automatic-rename) – `herdr plugin install --yes qu8n/herdr-automatic-rename`. Names tabs like `[1] claude:login bug` or `[2] nvim`, lowercased. Tabs that already have a name are left alone until `C-a a`.
+
+Uninstalling a plugin leaves its open panes running; close them with `herdr pane close <id>`.
 
 ## git
 
