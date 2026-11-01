@@ -202,7 +202,7 @@ Keybinds (prefix is `C-a`):
 - `C-a a` – hand the tab's name back to automatic naming
 - `C-a x` – close pane
 - `C-a d` – detach
-- `C-a t` – pick a zoxide dir (`ctrl-f` for fd search, preview lists its files) and open or focus its workspace
+- `C-a t` – pick a zoxide dir (`ctrl-f` for fd search, `ctrl-o` toggles the file preview), styled like the herdr-bar command bar and open or focus its workspace
 - `C-a g` – lazygit in a split to the right; the pane closes when lazygit quits
 - `C-a w` – goto (session navigator); `C-a M-w` – built-in workspace picker
 - `C-a r` – reload config; `C-a R` – resize mode
