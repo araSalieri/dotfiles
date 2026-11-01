@@ -5,6 +5,7 @@ dir=${1:-}
 [ -n "$dir" ] || dir=$(zoxide query -l | fzf --no-sort --border-label ' workspace ' --prompt '📁  ' \
   --color bg:#000000,bg+:#313244,gutter:#000000 \
   --header '  ^x zoxide ^f find' \
+  --preview 'eza -1 -a --icons=always --group-directories-first --color=always {}' \
   --bind 'tab:down,btab:up' \
   --bind 'ctrl-x:change-prompt(📁  )+reload(zoxide query -l)' \
   --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)') || exit 0

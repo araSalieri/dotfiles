@@ -102,6 +102,8 @@ dotfiles/
 | [sesh](https://github.com/joshmedeski/sesh) | Session manager (tmux `prefix + T`) | `paru -S sesh-bin` |
 | [fd](https://github.com/sharkdp/fd) | Directory search (sesh find fallback) | `sudo pacman -S fd` |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter `cd` in fish | `sudo pacman -S zoxide` |
+| [eza](https://github.com/eza-community/eza) | herdr workspace picker preview | `sudo pacman -S eza` |
+| [jq](https://jqlang.org/) | JSON parsing in herdr scripts | `sudo pacman -S jq` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
 | [direnv](https://direnv.net/) | Per-directory env | `sudo pacman -S direnv` |
 | [starship](https://starship.rs/) | Shell prompt | `sudo pacman -S starship` |
@@ -200,8 +202,9 @@ Keybinds (prefix is `C-a`):
 - `C-a a` – hand the tab's name back to automatic naming
 - `C-a x` – close pane
 - `C-a d` – detach
-- `C-a t` – pick a zoxide dir (`ctrl-f` for fd search) and open or focus its workspace
-- `C-a w` – workspace picker
+- `C-a t` – pick a zoxide dir (`ctrl-f` for fd search, preview lists its files) and open or focus its workspace
+- `C-a g` – lazygit in a split to the right; the pane closes when lazygit quits
+- `C-a w` – goto (session navigator); `C-a M-w` – built-in workspace picker
 - `C-a r` – reload config; `C-a R` – resize mode
 - `C-a ,` – settings
 - `C-a e` – open scrollback in editor
