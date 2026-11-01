@@ -70,6 +70,10 @@ pane_outer_borders = false
 pane_gaps = false
 prompt_new_tab_name = false
 
+# default puts machine, workspace and tab on one line, which truncates
+[ui.sidebar.agents]
+rows = [["state_icon", "machine", "agent"], ["workspace"], ["tab"]]
+
 [ui.toast]
 delivery = "system"
 
