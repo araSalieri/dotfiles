@@ -210,6 +210,9 @@ Plugins (installed outside dotfiles, so install them on a new machine):
 
 - [herdr-bar](https://github.com/jeffarese/herdr-bar) – `herdr plugin install --yes jeffarese/herdr-bar`. Only the command bar is used; its auto titles are off so they don't fight herdr-automatic-rename.
 - [herdr-automatic-rename](https://github.com/qu8n/herdr-automatic-rename) – `herdr plugin install --yes qu8n/herdr-automatic-rename`. Names tabs like `[1] claude:login bug` or `[2] nvim`, lowercased. Tabs that already have a name are left alone until `C-a a`.
+- [herdr-vim-navigator](https://github.com/bojackduy/nvim-herdr-navigation) – `herdr plugin install --yes bojackduy/nvim-herdr-navigation/herdr-vim-navigator`. herdr side of `C-h/j/k/l`.
+
+On a new machine, install the plugins first, then run `stow --no-folding herdr` and `herdr server reload-config`, and open a new fish shell so the rename hook loads. Without `--no-folding`, stow links all of `~/.config/herdr` into the repo when it doesn't exist yet, so plugins, logs and sessions end up in `~/dotfiles`. Update plugins with `herdr plugin update`.
 
 Uninstalling a plugin leaves its open panes running; close them with `herdr pane close <id>`.
 
