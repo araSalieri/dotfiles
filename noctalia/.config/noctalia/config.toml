@@ -199,7 +199,7 @@ wallpaper_scheme = "m3-monochrome"
 
     [theme.templates]
     builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt" ]
-    community_ids = [ "yazi" ]
+    community_ids = [ ]
 
 [wallpaper]
 fill_mode = "center"
