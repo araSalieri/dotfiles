@@ -84,8 +84,13 @@ dotfiles/
 │       │   └── plugins/config/herdr-bar/config.json  # herdr-bar options
 │       └── herdr-automatic-rename/
 │           └── config.sh            # tab naming style
-└── tmux/
-    └── .tmux.conf
+├── tmux/
+│   └── .tmux.conf
+└── yazi/
+    └── .config/
+        └── yazi/
+            ├── theme.toml   # catppuccin on black, same as herdr and fzf
+            └── yazi.toml    # open files in nvim in the same pane
 ```
 
 ## Prerequisites
@@ -113,6 +118,7 @@ dotfiles/
 | [tree-sitter](https://github.com/tree-sitter/tree-sitter) | CLI for Treesitter parser compilation | `sudo pacman -S tree-sitter tree-sitter-cli` |
 | [cargo-nextest](https://nexte.st/) | Rust test runner (required by neotest-rust) | `sudo pacman -S cargo-nextest` |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Git TUI | `sudo pacman -S lazygit` |
+| [yazi](https://yazi-rs.github.io/) | File manager (herdr `C-a y`) | `sudo pacman -S yazi` |
 | [lazydocker](https://github.com/jesseduffield/lazydocker) | Docker TUI | `paru -S lazydocker` |
 | [unimatrix](https://github.com/will8211/unimatrix) | Matrix terminal effect | `paru -S unimatrix-git` |
 
@@ -132,6 +138,7 @@ stow tmux
 stow herdr
 stow pi
 stow hypr
+stow yazi
 ```
 
 ## File refs to the clipboard
@@ -204,6 +211,7 @@ Keybinds (prefix is `C-a`):
 - `C-a d` – detach
 - `C-a t` – pick a zoxide dir (`ctrl-f` for fd search, `ctrl-o` toggles the file preview), styled like the herdr-bar command bar and open or focus its workspace
 - `C-a g` – lazygit in a split to the right; the pane closes when lazygit quits
+- `C-a y` – yazi in a split to the right, same as lazygit
 - `C-a w` – goto (session navigator); `C-a M-w` – built-in workspace picker
 - `C-a r` – reload config; `C-a R` – resize mode
 - `C-a ,` – settings

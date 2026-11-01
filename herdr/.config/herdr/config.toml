@@ -35,6 +35,12 @@ type = "shell"
 command = '''id=$(herdr pane split "$HERDR_ACTIVE_PANE_ID" --direction right --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && herdr pane run "$id" "exec lazygit"'''
 description = "lazygit in a split"
 
+[[keys.command]]
+key = "prefix+y"
+type = "shell"
+command = '''id=$(herdr pane split "$HERDR_ACTIVE_PANE_ID" --direction right --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && herdr pane run "$id" "exec yazi"'''
+description = "yazi in a split"
+
 # needs `herdr plugin install jeffarese/herdr-bar`
 [[keys.command]]
 key = "prefix+k"
