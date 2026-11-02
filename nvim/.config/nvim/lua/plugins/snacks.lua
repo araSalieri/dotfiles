@@ -36,14 +36,29 @@ return {
               border = true,
               title = "{title} {live} {flags}",
               title_pos = "left",
-              footer = " ↑↓ move   ⏎ open   ⇥ select   M-p preview   M-h hidden   esc quit ",
-              footer_pos = "left",
               -- blank line under the input instead of a rule, like herdr
               { win = "input", height = 1, border = { "", "", "", "", "", " ", "", "" } },
               {
-                box = "horizontal",
-                { win = "list", border = "none" },
-                { win = "preview", title = "{preview}", width = 0.4, border = "left" },
+                -- hints on their own line inside the frame (bottom border of spaces)
+                box = "vertical",
+                border = { "", "", "", "", "", " ", "", "" },
+                footer = "↑↓ move   ⏎ open   ⇥ select   M-p preview   M-h hidden   esc quit",
+                footer_pos = "left",
+                {
+                  -- grey rule above the hints
+                  box = "horizontal",
+                  border = "bottom",
+                  wo = { winhighlight = "FloatBorder:SnacksPickerPreviewBorder" },
+                  { win = "list", border = "none" },
+                  {
+                    -- title over a rule, with the divider down the left
+                    win = "preview",
+                    title = "{preview}",
+                    title_pos = "left",
+                    width = 0.4,
+                    border = { "│", "─", "", "", "", "", "", "│" },
+                  },
+                },
               },
             },
           },
