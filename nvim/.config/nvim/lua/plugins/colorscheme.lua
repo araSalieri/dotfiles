@@ -46,7 +46,7 @@ return {
           native_lsp = { enabled = true },
         },
         custom_highlights = function(c)
-          local border = "#bfbfbf" -- scheme `primary`; no catppuccin equivalent
+          local border = "#585b70" -- catppuccin surface2, like herdr and tmux popups
           return {
             Normal = { bg = "NONE", fg = c.text },
             NormalNC = { bg = "NONE" },
@@ -62,7 +62,13 @@ return {
             CursorLineNr = { bg = "NONE" },
             EndOfBuffer = { bg = "NONE" },
             Pmenu = { bg = "NONE" },
-            PmenuSel = { bg = c.surface1 },
+            -- popups use herdr's colors: #313244 selection, blue prompt and matches, dim dividers
+            PmenuSel = { bg = "#313244" },
+            SnacksPickerListCursorLine = { bg = "#313244" },
+            SnacksPickerPrompt = { fg = c.blue },
+            SnacksPickerMatch = { fg = c.blue, bold = true },
+            SnacksPickerInputBorder = { fg = "#45475a" },
+            SnacksPickerPreviewBorder = { fg = "#45475a" },
             FloatBorder = { bg = "NONE", fg = border },
             SnacksLazygitNormal = { bg = "NONE" },
             SnacksLazygitBorder = { bg = "NONE", fg = border },

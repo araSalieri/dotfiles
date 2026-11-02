@@ -24,12 +24,35 @@ return {
         trash = true,         -- default; CachyOS has gio
       },
       picker = {
+        prompt = "❯ ",
+        -- herdr command bar look: prompt on top, list, preview behind a divider
+        layouts = {
+          herdr = {
+            layout = {
+              box = "vertical",
+              width = 0.8,
+              min_width = 120,
+              height = 0.8,
+              border = true,
+              title = "{title} {live} {flags}",
+              { win = "input", height = 1, border = "bottom" },
+              {
+                box = "horizontal",
+                { win = "list", border = "none" },
+                { win = "preview", title = "{preview}", width = 0.4, border = "left" },
+              },
+            },
+          },
+        },
+        layout = {
+          preset = function() return vim.o.columns >= 120 and "herdr" or "vertical" end,
+        },
         sources = {
           explorer = {
             hidden = true,   -- old neo-tree had hide_dotfiles = false
             ignored = true,  -- old neo-tree had hide_gitignored = false
             jump = { close = true }, -- float closes when a file is opened
-            layout = { preset = "default", preview = true },
+            layout = { preset = "herdr", preview = true },
           },
           files = {
             hidden = true, -- fd --hidden: dot-dirs (.config, ...) included; .git still excluded
