@@ -2,3 +2,7 @@
 edit = [
 	{ run = 'nvim "$@"', desc = "nvim", block = true },
 ]
+
+[mgr]
+ratio = [0, 1, 4]
+show_hidden = true
