@@ -16,7 +16,8 @@ dir=${1:-}
 dir=${dir%/}
 label=$(basename "$dir")
 
-id=$(herdr workspace list | jq -r --arg l "$label" '.result.workspaces[] | select(.label == $l) | .workspace_id' | head -1)
+# herdr keeps no workspace dir, so match a workspace with a pane in this dir (labels get renamed)
+id=$(herdr pane list | jq -r --arg d "$dir" 'first(.result.panes[] | select(.cwd == $d) | .workspace_id) // empty')
 if [ -n "$id" ]; then
   herdr workspace focus "$id" >/dev/null
 else
