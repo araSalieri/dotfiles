@@ -12,7 +12,7 @@ return {
           inactiveBorderColor        = { fg = "LazygitInactiveBorder" },
           searchingActiveBorderColor = { fg = "FloatBorder", bold = true },
           optionsTextColor           = { fg = "Function" },
-          selectedLineBgColor        = { bg = "Visual" },
+          selectedLineBgColor        = { bg = "SnacksPickerListCursorLine" },
           defaultFgColor             = { fg = "Normal" },
           unstagedChangesColor       = { fg = "DiagnosticError" },
           cherryPickedCommitFgColor  = { fg = "Function" },
@@ -35,7 +35,11 @@ return {
               height = 0.8,
               border = true,
               title = "{title} {live} {flags}",
-              { win = "input", height = 1, border = "bottom" },
+              title_pos = "left",
+              footer = " ↑↓ move   ⏎ open   ⇥ select   M-p preview   M-h hidden   esc quit ",
+              footer_pos = "left",
+              -- blank line under the input instead of a rule, like herdr
+              { win = "input", height = 1, border = { "", "", "", "", "", " ", "", "" } },
               {
                 box = "horizontal",
                 { win = "list", border = "none" },

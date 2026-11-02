@@ -4,20 +4,21 @@ gui:
   shrinkSidePanelsToContent: true
   expandFocusedSidePanel: true
   showCommandLog: false
+  # herdr colors: blue active border, dim inactive borders, #313244 selection
   theme:
     activeBorderColor:
-      - "#bfbfbf"
+      - "#89b4fa"
       - bold
     inactiveBorderColor:
-      - "#000000"
+      - "#45475a"
     searchingActiveBorderColor:
       - "#f9e2af"
     optionsTextColor:
       - "#89b4fa"
     selectedLineBgColor:
-      - "#1d1d1d"
+      - "#313244"
     cherryPickedCommitBgColor:
-      - "#2c2c2c"
+      - "#45475a"
     cherryPickedCommitFgColor:
       - "#89b4fa"
     unstagedChangesColor:

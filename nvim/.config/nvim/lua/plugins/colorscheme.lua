@@ -46,7 +46,7 @@ return {
           native_lsp = { enabled = true },
         },
         custom_highlights = function(c)
-          local border = "#585b70" -- catppuccin surface2, like herdr and tmux popups
+          local border = "#89b4fa" -- herdr's ui.accent, its popup border
           return {
             Normal = { bg = "NONE", fg = c.text },
             NormalNC = { bg = "NONE" },
@@ -72,7 +72,7 @@ return {
             FloatBorder = { bg = "NONE", fg = border },
             SnacksLazygitNormal = { bg = "NONE" },
             SnacksLazygitBorder = { bg = "NONE", fg = border },
-            LazygitInactiveBorder = { fg = "#000000" },
+            LazygitInactiveBorder = { fg = "#45475a" },
           }
         end,
       })
