@@ -3,5 +3,6 @@ Rules:
 - Ask me first for destructive commands before executing.
 - Write simply. Avoid AI-slop language, no flowery adjectives, unnecessary adverbs, or overly formal phrasing.
 - Use en dashes (–) not em dashes (—).
+- When committing, never add AI attribution (Co-Authored-By, Generated-with trailers, or similar).
 - Don't over-document. Write only what the reader needs.
 - When documenting, don't wrap lines at a fixed width. Keep each paragraph or list item on one line.
