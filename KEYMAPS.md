@@ -14,7 +14,7 @@
 | Fuzzy Finder | `<leader>fg` | Live grep |
 | Fuzzy Finder | `<leader>fb` | Buffers |
 | Fuzzy Finder | `<leader>fk` | Keymaps |
-| Fuzzy Finder | `<CR>` (in picker) | Open file (or send to quickfix) |
+| Fuzzy Finder | `<CR>` (in files/grep/buffers/explorer) | Open file in new tab (or jump to its tab) |
 | Fuzzy Finder | `<C-s>` (in picker) | Open file in horizontal split |
 | Fuzzy Finder | `<C-v>` (in picker) | Open file in vertical split |
 | Fuzzy Finder | `<C-t>` (in picker) | Open file in new tab |
@@ -24,6 +24,9 @@
 | Window | `Ctrl+hjkl` | Navigate windows |
 | Window | `<leader>sv` | Split vertical |
 | Window | `<leader>sh` | Split horizontal |
+| Window | `<leader>tm` | Merge window into previous tab as a vsplit |
+| Window | `<leader>tb` | Break window out to a new tab |
+| Window | `<leader>tc` | Close other tabs |
 | Editing | `<` (visual) | Indent left (keep selection) |
 | Editing | `>` (visual) | Indent right (keep selection) |
 | Editing | `J` (visual) | Move line down |

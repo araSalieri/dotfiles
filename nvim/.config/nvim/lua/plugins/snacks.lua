@@ -1,3 +1,9 @@
+-- <cr> opens the picked file in a tab (reusing one already showing it)
+local tab_win = {
+  input = { keys = { ["<cr>"] = { "tabdrop", mode = { "n", "i" } } } },
+  list = { keys = { ["<cr>"] = "tabdrop" } },
+}
+
 return {
   {
     "folke/snacks.nvim",
@@ -73,14 +79,18 @@ return {
             jump = { close = true }, -- float closes when a file is opened
             layout = { preset = "herdr", preview = true },
             -- explorer maps <c-t> to a terminal; use it for "open in tab" like the other pickers
-            win = { list = { keys = { ["<c-t>"] = "tab" } } },
+            -- <cr> opens files in a tab (reusing one already showing the file); dirs still toggle
+            win = { list = { keys = { ["<c-t>"] = "tab", ["<cr>"] = "tabdrop" } } },
           },
           files = {
             hidden = true, -- fd --hidden: dot-dirs (.config, ...) included; .git still excluded
+            win = tab_win,
           },
           grep = {
             hidden = true, -- rg --hidden: dot-dirs searched; .git still excluded via --glob=!.git
+            win = tab_win,
           },
+          buffers = { win = tab_win },
         },
       },
     },

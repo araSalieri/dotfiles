@@ -21,6 +21,17 @@ map("n", "<leader>uF", "<cmd>FormatToggle!<cr>", { desc = "Toggle format on save
 map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertical" })
 map("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split horizontal" })
 
+-- Move the current window into the previous tab as a vsplit
+map("n", "<leader>tm", function()
+  if #vim.api.nvim_list_tabpages() < 2 then return vim.notify("Only one tab") end
+  local win, buf = vim.api.nvim_get_current_win(), vim.api.nvim_get_current_buf()
+  vim.cmd("tabprevious")
+  vim.cmd("vert sbuffer " .. buf)
+  vim.api.nvim_win_close(win, false) -- closes the old tab too if this was its last window
+end, { desc = "Merge window into previous tab" })
+map("n", "<leader>tb", "<C-w>T", { desc = "Break window out to new tab" })
+map("n", "<leader>tc", "<cmd>tabonly<cr>", { desc = "Close other tabs" })
+
 -- Buffer navigation
 map('n', '<leader>bn', ':bnext<CR>', { desc = "Next buffer" })
 map('n', '<leader>bp', ':bprevious<CR>', { desc = "Prev buffer" })
