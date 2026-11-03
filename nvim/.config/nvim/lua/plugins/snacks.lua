@@ -3,23 +3,6 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     priority = 900,
-    init = function()
-      -- called by lazygit's edit command; waits for the lazygit float to close, then splits
-      -- shortcut: paths containing " or \ break the vim string, fix if that ever bites
-      function _G.lazygit_edit(file, line)
-        local tries = 0
-        local function open()
-          tries = tries + 1
-          if vim.api.nvim_win_get_config(0).relative ~= "" and tries < 100 then
-            return vim.defer_fn(open, 20)
-          end
-          vim.cmd.vsplit(vim.fn.fnameescape(file))
-          if line then pcall(vim.api.nvim_win_set_cursor, 0, { line, 0 }) end
-        end
-        open()
-        return ""
-      end
-    end,
     opts = {
       lazygit = {
         enabled = true,
@@ -34,14 +17,6 @@ return {
           unstagedChangesColor       = { fg = "DiagnosticError" },
           cherryPickedCommitFgColor  = { fg = "Function" },
           cherryPickedCommitBgColor  = { fg = "Identifier" },
-        },
-        -- open files in a vsplit instead of the preset's new tab (q closes lazygit first)
-        -- sh -c because lazygit runs these with $SHELL (fish)
-        config = {
-          os = {
-            edit = [[sh -c 'nvim --server "$NVIM" --remote-send q && nvim --server "$NVIM" --remote-expr "v:lua.lazygit_edit(\"$1\")"' _ {{filename}}]],
-            editAtLine = [[sh -c 'nvim --server "$NVIM" --remote-send q && nvim --server "$NVIM" --remote-expr "v:lua.lazygit_edit(\"$1\", $2)"' _ {{filename}} {{line}}]],
-          },
         },
       },
       explorer = {
