@@ -84,6 +84,7 @@ tab_bar_right_separator = " · "
 pane_outer_borders = false
 pane_gaps = false
 prompt_new_tab_name = false
+pane_scrollbars = false
 
 # default puts machine, workspace and tab on one line, which truncates
 [ui.sidebar.agents]
