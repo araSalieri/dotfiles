@@ -169,7 +169,23 @@ return {
       }
 
 
+      config.tabline = {
+        lualine_a = {
+          {
+            'tabs',
+            mode = 2, -- tab number + filename
+            max_length = function() return vim.o.columns end,
+            symbols = { modified = ' ●' },
+            tabs_color = {
+              active   = { fg = colors.blue, bg = colors.bg, gui = 'bold' },
+              inactive = { fg = '#565656', bg = colors.bg },
+            },
+          },
+        },
+      }
+
       lualine.setup(config)
+      vim.o.showtabline = 1 -- lualine forces 2; only show with 2+ tabs
     end,
   },
 }

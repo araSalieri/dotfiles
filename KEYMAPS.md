@@ -75,7 +75,6 @@
 | Debugger | `<leader>dt` | Terminate debugger |
 | Debugger | `<leader>du` | Toggle DAP UI |
 | Refresh | `<leader>rb` | Refresh current buffer |
-| Terminal | `<leader>tt` | Open foot terminal at file's directory |
 | Terminal | `Esc` (terminal mode) | Exit terminal mode |
 | Terminal | `Ctrl+hjkl` (terminal mode) | Navigate windows from terminal |
 

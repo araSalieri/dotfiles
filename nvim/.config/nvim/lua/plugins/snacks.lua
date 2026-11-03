@@ -72,6 +72,8 @@ return {
             ignored = true,  -- old neo-tree had hide_gitignored = false
             jump = { close = true }, -- float closes when a file is opened
             layout = { preset = "herdr", preview = true },
+            -- explorer maps <c-t> to a terminal; use it for "open in tab" like the other pickers
+            win = { list = { keys = { ["<c-t>"] = "tab" } } },
           },
           files = {
             hidden = true, -- fd --hidden: dot-dirs (.config, ...) included; .git still excluded

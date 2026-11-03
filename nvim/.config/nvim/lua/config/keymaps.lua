@@ -43,13 +43,6 @@ map("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
 
 map("n", "<leader>rb", "<cmd>edit!<cr>", { desc = "Refresh buffer" })
 
--- Open external foot terminal at current file's directory
-map("n", "<leader>tt", function()
-  local dir = vim.fn.expand("%:p:h")
-  if dir == "" then dir = vim.fn.getcwd() end
-  vim.fn.jobstart({ "foot", "-D", dir }, { detach = true })
-end, { desc = "Open foot terminal here" })
-
 -- Copy a file ref to the clipboard, e.g. "@src/app.ts:12" or
 -- "@src/app.ts:12-18" in visual mode (@refs work in pi and most agents).
 local function rel_path()
