@@ -1,3 +1,5 @@
+promptToReturnFromSubprocess: false # skip "Press enter to return" after quitting nvim
+
 gui:
   nerdFontsVersion: "3"
   showRandomTip: false
