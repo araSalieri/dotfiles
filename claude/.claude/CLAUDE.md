@@ -7,3 +7,4 @@ Rules:
 - When running the grilling skill, ask each round with the AskUserQuestion tool (recommended answer as the first option) instead of the markdown format.
 - Stop named background agents with TaskStop once their work is merged or no longer needed. They go idle instead of exiting.
 - When running implement-spec, create each implementer's worktree myself from the integration branch (`git worktree add -b ticket/N .claude/worktrees/ticket-N <integration-branch>`) and pass the path in the prompt. Don't use the Agent tool's `isolation: "worktree"`: it always bases on the default branch.
+- When running implement-spec, merge a ticket branch into the integration branch myself (`git merge --no-ff`, then run the checks) when it merges cleanly. Spawn a merger subagent only on conflict.
