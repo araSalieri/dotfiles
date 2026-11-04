@@ -1,7 +1,7 @@
 Rules:
 - Read relevant local files first when the answer is available in the codebase. If not, research online via pi-web-access.
 - Write simply. Avoid AI-slop language, no flowery adjectives, unnecessary adverbs, or overly formal phrasing.
-- Use en dashes (–) not em dashes (—).
+- Use commas, not em dashes (—) or en dashes (–).
 - When committing or writing a PR description, never add AI attribution (Co-Authored-By, "Generated with Claude Code" lines, or similar).
 - Don't over-document. Write only what the reader needs.
 - When documenting, don't wrap lines at a fixed width. Keep each paragraph or list item on one line.
