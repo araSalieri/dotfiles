@@ -19,6 +19,9 @@ split_horizontal = "prefix+s"
 close_pane = "prefix+x"
 detach = "prefix+d"
 goto = "prefix+w"
+switch_workspace = "prefix+shift+1..9"
+next_workspace = "prefix+alt+n"
+previous_workspace = "prefix+alt+p"
 workspace_picker = "prefix+alt+w"
 
 [[keys.command]]
