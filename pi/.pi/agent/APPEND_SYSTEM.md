@@ -6,7 +6,8 @@ Rules:
 - Don't over-document. Write only what the reader needs.
 - When documenting, don't wrap lines at a fixed width. Keep each paragraph or list item on one line.
 - When running the grilling skill, ask each round with the ask_user_question tool (recommended answer as the first option) instead of the markdown format.
-- When running implement-spec, create each implementer's worktree myself from the integration branch (`git worktree add -b ticket/N .claude/worktrees/ticket-N <integration-branch>`) and pass the path in the prompt.
+- Stop named background agents with TaskStop once their work is merged or no longer needed. They go idle instead of exiting.
+- When running implement-spec, create each implementer's worktree myself from the integration branch (`git worktree add -b ticket/N .claude/worktrees/ticket-N <integration-branch>`), symlink `node_modules` from the main checkout when the repo has one, and pass the path in the prompt. Don't use the Agent tool's `isolation: "worktree"`: it always bases on the default branch.
 - When running implement-spec, merge a ticket branch into the integration branch myself (`git merge --no-ff`, then run the checks) when it merges cleanly. Spawn a merger subagent only on conflict.
 - When running implement-spec, pass each implementer's report to the spec reviewer, so it can see acceptance checks done by hand.
-- When running implement-spec, after removing the worktrees, delete the merged ticket and review-fix branches with `git branch -d` without asking. Leave the integration branch alone.
+- When running implement-spec, after removing the worktrees, delete the merged ticket and review-fix branches with `git branch -d` without asking. Run it from a checkout of the integration branch, since `-d` checks against HEAD. Leave the integration branch alone.
