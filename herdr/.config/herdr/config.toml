@@ -82,7 +82,6 @@ tab_bar_position = "bottom"
 tab_bar_right = [{ type = "zoom" }, { type = "hostname" }, { type = "datetime", format = "%H:%M" }]
 tab_bar_right_separator = " · "
 sidebar_collapsed_mode = "hidden"  # default is "compact"
-hide_tab_bar_when_single_tab = true
 pane_outer_borders = false
 pane_gaps = false
 prompt_new_tab_name = false
