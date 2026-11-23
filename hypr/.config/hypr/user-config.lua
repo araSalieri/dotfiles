@@ -23,6 +23,9 @@ hl.config({
   },
   decoration = {
     rounding = 15,
+    active_opacity = 0.9,
+    inactive_opacity = 0.9,
+    fullscreen_opacity = 1,
   },
   cursor = {
     inactive_timeout = 3,
