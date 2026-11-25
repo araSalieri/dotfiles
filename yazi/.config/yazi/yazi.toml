@@ -4,5 +4,5 @@ edit = [
 ]
 
 [mgr]
-ratio = [0, 1, 4]
+ratio = [1, 1, 4]
 show_hidden = true
