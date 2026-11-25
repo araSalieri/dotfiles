@@ -20,6 +20,10 @@ dotfiles/
 │   └── .config/
 │       └── foot/
 │           └── foot.ini
+├── kitty/
+│   └── .config/
+│       └── kitty/
+│           └── kitty.conf      # default terminal; renders herdr pane images (yazi previews)
 ├── git/
 │   └── git/
 │       └── ignore                 # global gitignore (`.pi/hindsight/*`)
@@ -100,7 +104,8 @@ dotfiles/
 | [fish](https://fishshell.com/) | Shell | `sudo pacman -S fish` |
 | [stow](https://www.gnu.org/software/stow/) | Symlink manager | `sudo pacman -S stow` |
 | [neovim](https://neovim.io/) >= 0.10 | Editor | `sudo pacman -S neovim` |
-| [foot](https://codeberg.org/dnkl/foot) | Terminal launched by nvim `<leader>tt` / `<leader>co` | `sudo pacman -S foot` |
+| [kitty](https://sw.kovidgoyal.net/kitty/) | Terminal (Kitty graphics, so herdr can show images) | `sudo pacman -S kitty` |
+| [foot](https://codeberg.org/dnkl/foot) | Previous terminal, config kept | `sudo pacman -S foot` |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer | `sudo pacman -S tmux` |
 | [herdr](https://herdr.dev) | Terminal workspace manager for agents | see herdr.dev |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | `sudo pacman -S fzf` |
@@ -131,6 +136,7 @@ stow claude
 stow fish
 stow foot
 stow git
+stow kitty
 stow nvim
 stow lazygit
 stow noctalia

@@ -7,7 +7,7 @@ hl.unbind(mainMod .. " + SHIFT + S")
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
 
 -- Bind Matrix
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(launchPrefix .. "foot unimatrix -s 90"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " unimatrix -s 90"))
 
 -- Bind Terminal to T
 hl.unbind(mainMod .. " + T")
