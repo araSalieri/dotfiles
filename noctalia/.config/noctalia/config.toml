@@ -11,14 +11,14 @@ border = "on_primary"
 border_width = 0.0
 capsule = true
 capsule_padding = 15.0
-capsule_thickness = 0.74999998696148396
+capsule_thickness = 0.749999986961484
 center = [ "group:g1" ]
 concave_edge_corners = true
 end = []
 font_family = "JetBrainsMono Nerd Font Mono"
 layer = "overlay"
-margin_edge = 7
-margin_ends = 0
+margin_edge = 0
+margin_ends = 30
 padding = 0
 panel_overlap = 0
 radius = 0
@@ -36,15 +36,46 @@ thickness = 25
     [[bar.default.capsule_group]]
     accordion = false
     accordion_direction = "end"
+    border = "surface"
+    border_width = 1.0
     enabled = true
-    fill = "surface_variant"
+    fill = "surface"
     id = "g1"
-    members = [ "workspaces", "spacer_1", "clock", "spacer_1", "notifications", "volume", "tray" ]
+    members = [
+        "workspaces",
+        "spacer_1",
+        "media",
+        "audio_visualizer",
+        "spacer_1",
+        "cat_2",
+        "notifications",
+        "volume",
+        "tray",
+        "clock"
+    ]
     opacity = 1.0
-    padding = 30.0
+    padding = 15.0
 
 [control_center]
 width = 600
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "power_profile"
+
+    [[control_center.shortcuts]]
+    type = "detluck/performance-plus:shortcut"
+
+    [[control_center.shortcuts]]
+    type = "notification"
 
 [desktop_widgets]
 schema_version = 2
@@ -79,7 +110,7 @@ widget_order = [ "lockscreen-login-box@FALLBACK", "lockscreen-login-box@DP-2" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -106,7 +137,7 @@ widget_order = [ "lockscreen-login-box@FALLBACK", "lockscreen-login-box@DP-2" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@FALLBACK".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -122,16 +153,34 @@ widget_order = [ "lockscreen-login-box@FALLBACK", "lockscreen-login-box@DP-2" ]
         show_weather = true
 
 [osd.kinds]
+bluetooth = false
+brightness = false
+caffeine = false
+dnd = false
+keyboard_backlight = false
 keyboard_layout = false
+lock_keys = false
+media = false
+nightlight = false
+power_profile = false
+privacy = false
+volume = false
+volume_input = false
+wifi = false
+
+[plugin_settings."detluck/performance-plus"]
+disable_blur = false
+disable_wallpaper = false
 
 [plugins]
-enabled = [ "noctalia/timer" ]
+enabled = []
 
 [shell]
 clipboard_image_action_command = "satty -f -"
 launch_apps_as_systemd_services = true
 polkit_agent = true
 settings_show_advanced = true
+settings_window_translucent = true
 
     [shell.animation]
     enabled = false
@@ -190,39 +239,48 @@ settings_show_advanced = true
 gpu_poll_seconds = 2
 
 [theme]
-builtin = "Ayu"
+builtin = "Dracula"
+community_palette = "Garnet"
 custom_palette = "theme-oled"
 mode = "dark"
 pure_black_dark = true
-source = "builtin"
+source = "community"
 wallpaper_scheme = "m3-monochrome"
 
     [theme.templates]
     builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "kcolorscheme", "kitty", "qt" ]
-    community_ids = [ ]
+    community_ids = []
 
 [wallpaper]
 fill_mode = "center"
 transition_on_startup = false
 
     [wallpaper.default]
-    path = "/home/ara/pictures/pure_black.jpg"
+    path = "/home/ara/pictures/aegis_alt.png"
 
     [wallpaper.last]
-    path = "/home/ara/pictures/pure_black.jpg"
+    path = "/home/ara/pictures/aegis_alt.png"
 
     [wallpaper.monitors.DP-2]
-    path = "/home/ara/pictures/pure_black.jpg"
+    path = "/home/ara/pictures/aegis_alt.png"
 
 [widget.audio_visualizer]
 capsule = true
+color_2 = "secondary"
+font_scale = 0.99
 interactive = false
-show_when_idle = true
+show_when_idle = false
 
 [widget.cat]
 cat_color = "primary"
 cat_color_mode = "custom"
 cat_size = 35
+type = "dotnetrob/cat:cat"
+
+[widget.cat_2]
+cat_color_mode = "custom"
+cat_size = 30
+interactive = false
 type = "dotnetrob/cat:cat"
 
 [widget.clock]
@@ -236,7 +294,7 @@ color = "secondary"
 
 [widget.media]
 hide_when_no_media = false
-interactive = false
+interactive = true
 max_length = 200
 title_scroll = "on_hover"
 
@@ -280,6 +338,7 @@ drawer_columns = 4
 
 [widget.volume]
 color = "primary"
+font_scale = 0.99
 show_label = false
 
 [widget.workspaces]
@@ -290,5 +349,5 @@ capsule_fill = "shadow"
 hide_when_empty = false
 inactive_pill_size = 1.0
 labels_only_when_occupied = true
-pill_scale = 0.80000000000000004
+pill_scale = 0.8
 show_labels = false
