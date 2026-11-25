@@ -58,8 +58,8 @@ description = "lazygit in a split"
 [[keys.command]]
 key = "prefix+y"
 type = "shell"
-command = '''id=$(herdr pane split "$HERDR_ACTIVE_PANE_ID" --direction right --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && herdr pane run "$id" "exec yazi"'''
-description = "yazi in a split"
+command = '''id=$(herdr tab create --cwd "$HERDR_ACTIVE_PANE_CWD" --label yazi --focus | jq -r .result.root_pane.pane_id) && herdr pane run "$id" "exec yazi"'''
+description = "yazi in a new tab"
 
 # needs `herdr plugin install jeffarese/herdr-bar`
 [[keys.command]]
