@@ -23,8 +23,8 @@ hl.config({
   },
   decoration = {
     rounding = 15,
-    active_opacity = 0.9,
-    inactive_opacity = 0.9,
+    active_opacity = 0.93,
+    inactive_opacity = 0.93,
     fullscreen_opacity = 1,
   },
   cursor = {
