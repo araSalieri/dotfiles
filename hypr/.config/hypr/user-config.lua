@@ -6,7 +6,7 @@ hl.config({
     border_size = 2,
     col = {
       active_border = {
-        colors = { "rgba(255,255,255,.1)" },
+        colors = { "rgba(153,0,0,1)" }, -- noctalia garnet primary #990000
       },
       inactive_border = "rgba(0,0,0,1)",
     },

@@ -6,24 +6,24 @@ gui:
   shrinkSidePanelsToContent: true
   expandFocusedSidePanel: true
   showCommandLog: false
-  # herdr colors: blue active border, dim inactive borders, #313244 selection
+  # noctalia garnet, same as herdr: primary active border, dim inactive borders, #2a2424 selection
   theme:
     activeBorderColor:
-      - "#89b4fa"
+      - "#990000"
       - bold
     inactiveBorderColor:
-      - "#45475a"
+      - "#3a3a3a"
     searchingActiveBorderColor:
-      - "#f9e2af"
+      - "#e6c14d"
     optionsTextColor:
-      - "#89b4fa"
+      - "#990000"
     selectedLineBgColor:
-      - "#313244"
+      - "#2a2424"
     cherryPickedCommitBgColor:
-      - "#45475a"
+      - "#3a3a3a"
     cherryPickedCommitFgColor:
-      - "#89b4fa"
+      - "#990000"
     unstagedChangesColor:
-      - "#f38ba8"
+      - "#d64545"
     defaultFgColor:
-      - "#e3e3e3"
+      - "#e8e0e0"

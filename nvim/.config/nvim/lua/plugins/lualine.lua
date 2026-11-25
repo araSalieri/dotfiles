@@ -6,19 +6,19 @@ return {
       local lualine = require('lualine')
 
       -- stylua: ignore
-      -- Palette: catppuccin mocha on pure black base (matches nvim colorscheme.lua overrides)
+      -- Palette: noctalia garnet on pure black (matches nvim colorscheme.lua overrides)
       local colors = {
         bg       = 'NONE',
-        fg       = '#a9a9a9',
-        yellow   = '#f9e2af',
-        cyan     = '#94e2d5',
-        darkblue = '#74c7ec',
-        green    = '#a6e3a1',
-        orange   = '#fab387',
-        violet   = '#b4befe',
-        magenta  = '#cba6f7',
-        blue     = '#89b4fa',
-        red      = '#f38ba8',
+        fg       = '#c4bcbc',
+        yellow   = '#e6c14d',
+        cyan     = '#6fcaca',
+        darkblue = '#4aa3a3',
+        green    = '#7fc77f',
+        orange   = '#c8962a',
+        violet   = '#c4bcbc',
+        magenta  = '#c97fa0',
+        blue     = '#990000',
+        red      = '#d64545',
       }
 
       local conditions = {

@@ -13,7 +13,7 @@ if status is-interactive
     set -x FZF_DEFAULT_OPTS "
   --layout reverse --border none --info inline-right
   --prompt '❯ ' --pointer '▌' --marker '▌' --gutter ' '
-  --color 'bg:#000000,bg+:#313244,fg:#bac2de,fg+:#cdd6f4,hl:#89b4fa,hl+:#89b4fa,prompt:#89b4fa,pointer:#89b4fa,marker:#a6e3a1,info:#6c7086,ghost:#6c7086,header:#6c7086,footer:#6c7086,border:#45475a,separator:#45475a,scrollbar:#45475a'
+  --color 'bg:#000000,bg+:#2a2424,fg:#c4bcbc,fg+:#e8e0e0,hl:#d64545,hl+:#d64545,prompt:#990000,pointer:#990000,marker:#7fc77f,info:#7a7070,ghost:#7a7070,header:#7a7070,footer:#7a7070,border:#3a3a3a,separator:#3a3a3a,scrollbar:#3a3a3a'
   --preview-window 'right,50%,border-left'"
 
     set -x FZF_CTRL_T_COMMAND 'fd -H . ~ -E node_modules -E target -E .git -E .venv -E dist'

@@ -8,6 +8,23 @@ auto_switch = false
 panel_bg = "reset"
 # inactive tabs as plain text, no box
 surface0 = "reset"
+# noctalia garnet palette
+accent = "#990000"
+active_row_bg = "#2a2424"
+selection_bg = "#2a2424"
+surface1 = "#3a3a3a"
+surface_dim = "#121212"
+overlay0 = "#7a7070"
+overlay1 = "#c4bcbc"
+text = "#e8e0e0"
+subtext0 = "#c4bcbc"
+mauve = "#c97fa0"
+green = "#7fc77f"
+yellow = "#e6c14d"
+red = "#d64545"
+blue = "#6fa3d4"
+teal = "#6fcaca"
+peach = "#c8962a"
 
 [keys]
 prefix = "ctrl+a"
@@ -80,7 +97,7 @@ type = "plugin_action"
 command = "local.vim-navigator.right"
 
 [ui]
-accent = "#89b4fa"
+accent = "#990000"
 tab_bar_position = "bottom"
 tab_bar_right = [{ type = "zoom" }, { type = "hostname" }, { type = "datetime", format = "%H:%M" }]
 tab_bar_right_separator = " · "

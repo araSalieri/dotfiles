@@ -5,7 +5,7 @@ dir=${1:-}
 # styled after the herdr-bar command bar
 [ -n "$dir" ] || dir=$(zoxide query -l | fzf --no-sort --layout reverse --border none \
   --prompt '❯ ' --ghost 'jump to a workspace…' --pointer '▌' --marker ' ' --gutter ' ' --info inline-right \
-  --color 'bg:#000000,bg+:#313244,fg:#bac2de,fg+:#cdd6f4,hl:#89b4fa,hl+:#89b4fa,prompt:#89b4fa,pointer:#89b4fa,info:#6c7086,ghost:#6c7086,header:#6c7086,footer:#6c7086,border:#45475a,separator:#45475a,scrollbar:#45475a' \
+  --color 'bg:#000000,bg+:#2a2424,fg:#c4bcbc,fg+:#e8e0e0,hl:#d64545,hl+:#d64545,prompt:#990000,pointer:#990000,info:#7a7070,ghost:#7a7070,header:#7a7070,footer:#7a7070,border:#3a3a3a,separator:#3a3a3a,scrollbar:#3a3a3a' \
   --header '^x zoxide   ^f find' --header-first \
   --footer '↑↓ move   ⏎ open   ^x zoxide   ^f find   ^o preview   esc quit' \
   --preview 'eza -1 -a --icons=always --group-directories-first --color=always {}' \
