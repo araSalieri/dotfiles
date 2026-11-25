@@ -20,7 +20,7 @@ if status is-interactive
     set -x FZF_CTRL_T_OPTS "
   --walker-skip .git,node_modules,target
   --ghost 'find a file…'
-  --preview 'bat -n --color=always {}'
+  --preview 'fzf-preview {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'
   --footer '↑↓ move   ⏎ insert   ⇥ mark   ^/ preview   esc quit'"
 

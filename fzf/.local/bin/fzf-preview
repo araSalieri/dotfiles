@@ -1,0 +1,15 @@
+#!/bin/sh
+# fzf preview: folders via eza, PDFs as their first page, the rest via fzf's bundled script (images, bat, or `file`)
+
+# herdr speaks the kitty graphics protocol but hides KITTY_WINDOW_ID, so fzf-preview.sh would fall back to blocky chafa
+[ "$TERM_PROGRAM" = herdr ] && export KITTY_WINDOW_ID=herdr
+
+if [ -d "$1" ]; then
+	exec eza -1 -a --icons=always --group-directories-first --color=always "$1"
+elif [ "$(file -b --mime-type "$1")" = application/pdf ]; then
+	p=$(mktemp -u)
+	pdftoppm -png -singlefile -scale-to 1000 "$1" "$p" && /usr/share/fzf/fzf-preview.sh "$p.png"
+	rm -f "$p.png"
+else
+	exec /usr/share/fzf/fzf-preview.sh "$1"
+fi

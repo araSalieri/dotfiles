@@ -16,6 +16,10 @@ dotfiles/
 │   └── .config/
 │       └── fish/
 │           └── config.fish
+├── fzf/
+│   └── .local/
+│       └── bin/
+│           └── fzf-preview  # preview for Ctrl+T and yazi `z`: images, PDFs, text, folders
 ├── foot/
 │   └── .config/
 │       └── foot/
@@ -90,11 +94,19 @@ dotfiles/
 │           └── config.sh            # tab naming style
 ├── tmux/
 │   └── .tmux.conf
+├── xdg/
+│   └── .config/
+│       └── mimeapps.list    # default apps: zen for web and PDF, yazi for folders
 └── yazi/
-    └── .config/
-        └── yazi/
-            ├── theme.toml   # catppuccin on black, same as herdr and fzf
-            └── yazi.toml    # open files in nvim in the same pane
+    ├── .config/
+    │   └── yazi/
+    │       ├── keymap.toml  # `z` runs the fzf-preview plugin
+    │       ├── plugins/
+    │       │   └── fzf-preview.yazi/main.lua  # built-in fzf plugin plus a preview
+    │       ├── theme.toml   # catppuccin on black, same as herdr and fzf
+    │       └── yazi.toml    # open files in nvim in the same pane
+    └── .local/share/applications/
+        └── yazi.desktop     # opens yazi in kitty, so it can be the folder handler
 ```
 
 ## Prerequisites
@@ -113,6 +125,7 @@ dotfiles/
 | [fd](https://github.com/sharkdp/fd) | Directory search (sesh find fallback) | `sudo pacman -S fd` |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter `cd` in fish | `sudo pacman -S zoxide` |
 | [eza](https://github.com/eza-community/eza) | herdr workspace picker preview | `sudo pacman -S eza` |
+| [poppler](https://poppler.freedesktop.org/) | PDF page previews in fzf (`pdftoppm`) | `sudo pacman -S poppler` |
 | [jq](https://jqlang.org/) | JSON parsing in herdr scripts | `sudo pacman -S jq` |
 | [tree](http://mama.indstate.edu/users/ice/tree/) | fzf directory preview | `sudo pacman -S tree` |
 | [direnv](https://direnv.net/) | Per-directory env | `sudo pacman -S direnv` |
@@ -135,6 +148,7 @@ cd ~/dotfiles
 stow claude
 stow fish
 stow foot
+stow fzf
 stow git
 stow kitty
 stow nvim
@@ -144,8 +158,11 @@ stow tmux
 stow herdr
 stow pi
 stow hypr
+stow xdg
 stow yazi
 ```
+
+Tools that change default apps (`xdg-mime`, a browser's "make default") replace the `mimeapps.list` symlink with a plain file. Run `stow --adopt xdg` to pull the change into the repo and restore the link.
 
 ## File refs to the clipboard
 
@@ -179,7 +196,7 @@ stow yazi
 - `alias vim nvim` / `alias vi nvim` / `alias yay paru`
 - `herdr` with no args opens (or focuses) a workspace for the current dir, then attaches
 - sources the herdr-automatic-rename shell hook, so tabs rename as soon as a command starts
-- `FZF_CTRL_T_COMMAND` backed by `fd` (hidden files, node_modules/target/.git/.venv/dist excluded)
+- `FZF_CTRL_T_COMMAND` backed by `fd` (hidden files, node_modules/target/.git/.venv/dist excluded), previewed with `fzf-preview`
 
 ## tmux
 
