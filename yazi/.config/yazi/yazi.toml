@@ -1,6 +1,10 @@
 [opener]
 edit = [
-	{ run = 'nvim "$@"', desc = "nvim", block = true },
+	{ run = 'nvim %s', desc = "nvim", block = true },
+]
+# default xdg-open only takes the first file; vlc queues them all
+play = [
+	{ run = 'vlc %s', orphan = true, desc = "vlc" },
 ]
 
 [mgr]
